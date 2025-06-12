@@ -1,0 +1,164 @@
+section.simlar_poets {
+  margin-top: 60px;
+  .sec_title {
+    margin-bottom: 24px;
+    h3 {
+      font-style: 16px !important;
+    }
+  }
+
+  .slider_container {
+    .swiper_container {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -50px;
+        width: 50px;
+        height: 100%;
+        pointer-events: none;
+      }
+      .box {
+        width: 398.25px;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #e5e6f2;
+        box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.05);
+        background: #ffffff;
+        margin-bottom: 10px;
+
+        @media screen and (max-width: 450px) {
+          width: 336px;
+        }
+
+        @media screen and (max-width: 400px) {
+          width: auto !important;
+          padding: 13px !important;
+        }
+
+        .poet_tag {
+          margin-top: 5px;
+          p {
+          }
+        }
+        .poet_tag,
+        .tag {
+          width: fit-content;
+          border-radius: 14.15px;
+          background-color: #9ec7df73;
+          padding: 3px;
+          padding-right: 8px;
+          padding-left: 8px;
+          p {
+            color: #22345b;
+            font-family: var(--effra-font);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            text-align: center;
+          }
+        }
+
+        .desc {
+          margin-top: 22px;
+          margin-bottom: 12.5px;
+          @media screen and (max-width: 450px) {
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+
+          p,
+          span {
+            font-family: var(--effra-font);
+            font-size: 14px;
+            line-height: 19px;
+            letter-spacing: 0px;
+            text-align: right;
+          }
+
+          span {
+            font-weight: 700;
+          }
+        }
+        .link_container {
+          display: flex;
+          align-items: center;
+          color: #e6ddc6;
+
+          p {
+            font-family: var(--effra-font);
+            font-size: 14px;
+            font-weight: 400;
+            text-align: right;
+          }
+          .icon_container {
+            margin-right: 13px;
+            svg {
+              font-size: 16px;
+            }
+          }
+        }
+        hr {
+          margin-top: 12.5px;
+        }
+        .poet_info {
+          display: flex;
+          align-items: center;
+          margin-top: 18px;
+          @media screen and (max-width: 450px) {
+            margin-top: 10px;
+          }
+
+          .img_container {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            position: relative;
+            background-color: rgba(229, 230, 242, 1);
+            box-shadow: 0px 7.232143878936768px 5.303572177886963px 0px
+              rgba(0, 0, 0, 0.05);
+            @media screen and (max-width: 450px) {
+              width: 44px;
+              height: 44px;
+            }
+
+            &::after {
+              box-shadow: 0px 7.232143878936768px 5.303572177886963px 0px
+                rgba(0, 0, 0, 0.05);
+              content: "";
+              position: absolute;
+              top: -8px;
+              left: -8px;
+              width: calc(100% + 16px);
+              height: calc(100% + 16px);
+              border: 8px solid #ffffff;
+              border-radius: 50%;
+              box-sizing: border-box;
+            }
+            img {
+              margin: auto;
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
+
+          .text_container {
+            margin-right: 11px;
+            .name {
+              p {
+                font-family: var(--effra-font);
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

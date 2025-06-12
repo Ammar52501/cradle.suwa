@@ -1,0 +1,246 @@
+.simlar_poets {
+  margin-top: 16px;
+  .slider_container {
+    .swiper_container {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -50px;
+        width: 50px;
+        height: 100%;
+        pointer-events: none;
+      }
+      .box {
+        width: 354px;
+        height: auto;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #e5e6f2;
+        box-shadow: 0px 6px 8px 0px rgba(0, 0, 0, 0.05);
+        background: #ffffff;
+
+        @media screen and (max-width: 450px) {
+          padding: 14px;
+          width: auto;
+        }
+
+        .poet_tag {
+          background: rgba(187, 113, 101, 0.1) !important;
+          margin-top: 5px;
+          p {
+            color: rgba(187, 113, 101, 1) !important;
+          }
+        }
+        .poet_tag,
+        .tag {
+          background-color: #9ec7df73;
+          width: fit-content;
+          padding: 2.21px 7.07px 5.31px 7.07px;
+          border-radius: 14.15px;
+          padding-bottom: 0;
+          p {
+            color: #22345b;
+
+            font-family: var(--effra-font);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            text-align: center;
+          }
+        }
+
+        .desc {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          font-family: var(--effra-font) !important;
+          p:first-child {
+            margin-left: 24px;
+          }
+          p:last-child {
+            margin-right: 24px;
+          }
+          p,
+          span {
+            font-family: var(--effra-font) !important;
+            font-size: 18px;
+            line-height: 19px;
+            letter-spacing: 0px;
+            text-align: right;
+          }
+
+          span {
+            font-weight: 700;
+          }
+        }
+        .link_container {
+          display: flex;
+          align-items: center;
+          color: #afa895;
+
+          p {
+            font-family: var(--effra-font);
+            font-size: 14px;
+            font-weight: 400;
+            text-align: right;
+            color: #afa895;
+          }
+          .icon_container {
+            margin-right: 13px;
+            svg {
+              font-size: 16px;
+              color: #afa895;
+            }
+          }
+        }
+        hr {
+          margin-top: 10px;
+        }
+        .poet_info {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+          .img_container {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            position: relative;
+
+            background-color: #ffffff;
+
+            box-shadow: 0px 4px 6px #00000070;
+            border: 3px solid var(--main-beige-color);
+            overflow: hidden;
+
+            // &::after {
+            //   box-shadow: 0px 7.232143878936768px 5.303572177886963px 0px
+            //     rgba(0, 0, 0, 0.05);
+            //   content: "";
+            //   position: absolute;
+            //   top: -8px;
+            //   left: -8px;
+            //   width: calc(100% + 16px);
+            //   height: calc(100% + 16px);
+            //   border: 8px solid #ffffff;
+            //   border-radius: 50%;
+            //   box-sizing: border-box;
+            // }
+            img {
+              margin: auto;
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
+
+          .text_container {
+            margin-right: 11px;
+            .name {
+              p {
+                font-family: var(--effra-font);
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// EN Styles
+
+.simlar_poets[dir="ltr"] {
+  .slider_container {
+    .swiper_container {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -50px;
+        width: 50px;
+        height: 100%;
+        pointer-events: none;
+      }
+      .box {
+        .poet_tag,
+        .tag {
+          p {
+            font-family: var(--effra-font);
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            text-align: center;
+          }
+        }
+
+        .desc {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          font-family: var(--effra-font) !important;
+          p:first-child {
+            margin-left: 0px;
+            margin-right: 24px;
+            text-align: left;
+          }
+          p:last-child {
+            margin-right: 0px;
+            margin-left: 24px;
+          }
+          p,
+          span {
+            font-family: var(--effra-font) !important;
+            font-size: 18px;
+            line-height: 19px;
+            letter-spacing: 0px;
+            text-align: left;
+          }
+
+          span {
+            font-weight: 700;
+          }
+        }
+        .link_container {
+          .icon_container {
+            margin-right: 0px;
+            margin-left: 13px;
+          }
+        }
+
+        .poet_info {
+          display: flex;
+          align-items: center;
+          margin-top: 10px;
+          .img_container {
+            margin-right: 10px;
+          }
+
+          .text_container {
+            margin-right: 11px;
+            .name {
+              p {
+                font-family: var(--effra-font);
+                font-size: 14px;
+                font-weight: 700;
+                letter-spacing: 0em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
