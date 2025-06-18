@@ -1,5 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import LandingPage from "@/components/LandingPage";
+import { REVALIDATE } from "@/lib/constant";
 
 export async function getStaticProps({ locale }) {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
@@ -14,15 +15,14 @@ export async function getStaticProps({ locale }) {
     props: {
       translations,
     },
+    revalidate: REVALIDATE,
   };
 }
 
 export default function Home({ translations }) {
   return (
-    <>
-      <div className={`${styles.main}`} dir="rtl">
-        <LandingPage translations={translations} />
-      </div>
-    </>
+    <div className={styles.main}>
+      <LandingPage translations={translations} />
+    </div>
   );
 }

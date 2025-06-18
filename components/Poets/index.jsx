@@ -14,7 +14,6 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import PoetsSlider from "../PoetsSlider";
 import { ErasPlacesSlider } from "../ErasComponents";
-import { MdLocationPin } from "react-icons/md";
 import { CloseIcon, LeftArrow } from "@/assets/svgsComponents";
 import { RotatingLines } from "react-loader-spinner";
 import { FaCheck } from "react-icons/fa6";
@@ -22,6 +21,7 @@ import { useRouter } from "next/router";
 import DataContext from "@/context/DataContext";
 import More from "../icons/more";
 import DrawerPoets from "./drawer";
+import LocationPin from "../LocationPin";
 
 const lineHeight = 24,
   clamp = 3,
@@ -384,9 +384,7 @@ const Poets = ({
                       </div>
 
                       {router.locale === "ar" && (
-                        <PoetsSlider
-                          poetriesData={poetriesData}
-                        /> /* 🔴🔴🔴🔴🔴🔴🔴🔴 */
+                        <PoetsSlider poetriesData={poetriesData} />
                       )}
                       <div className={styles.close_btn} onClick={onClose}>
                         <CloseIcon />
@@ -427,41 +425,48 @@ const Poets = ({
                     </g>
                   ))}
                   {activeIndex !== null &&
-                    places?.map((place, index) => (
-                      <foreignObject
-                        x={place.svgX}
-                        y={place.svgY}
-                        key={place.id}
-                      >
-                        <div
-                          className="city-container"
-                          xmlns="http://www.w3.org/1999/xhtml"
+                    places
+                      ?.sort((a, b) => {
+                        if (a.id === activeCity) return 1;
+                        if (b.id === activeCity) return -1;
+                        return 0;
+                      })
+                      .map((place) => (
+                        <foreignObject
+                          x={place.svgX}
+                          y={place.svgY}
+                          key={place.id}
+                          className={`${
+                            activeCity === place.id ? "pointer-events-none" : ""
+                          }`}
                         >
                           <div
-                            className={`city-name ${
-                              activeCity === place.id ? "active" : ""
-                            }`}
-                            id="p1"
+                            className="city-container"
+                            xmlns="http://www.w3.org/1999/xhtml"
                           >
-                            <div className={styles.wrapper}>
-                              {activeCity === place.id && (
-                                <div className={styles.icon_container}>
-                                  <MdLocationPin />
-                                </div>
-                              )}
-                              <div
-                                onClick={() => handlePlaceActive(place.id)}
-                                className={`${styles.city_point} ${
-                                  activeCity === place.id
-                                    ? `${styles.active} 'active' `
-                                    : ""
-                                }`}
-                              ></div>
+                            <div
+                              className={`city-name ${
+                                activeCity === place.id ? "active" : ""
+                              }`}
+                              id="p1"
+                            >
+                              <div className={styles.wrapper}>
+                                {activeCity === place.id && (
+                                  <div className={styles.icon_container}>
+                                    <LocationPin />
+                                  </div>
+                                )}
+                                <div
+                                  onClick={() => handlePlaceActive(place.id)}
+                                  className={`${styles.city_point} ${
+                                    activeCity === place.id ? styles.active : ""
+                                  }`}
+                                ></div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </foreignObject>
-                    ))}
+                        </foreignObject>
+                      ))}
                 </svg>
               </div>
 

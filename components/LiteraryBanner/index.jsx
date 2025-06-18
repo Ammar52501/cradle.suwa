@@ -54,10 +54,14 @@ const LiteraryBanner = (props) => {
             dir={`${router.locale === 'ar' ? 'rtl' : 'ltr'}`}
             breakpoints={{
               1: {
-                slidesPerView: 1.3,
-                spaceBetween: 24,
+                slidesPerView: 1.5,
+                spaceBetween: 15,
               },
               400: {
+                slidesPerView: 1.8,
+                spaceBetween: 24,
+              },
+              430: {
                 slidesPerView: 2.3,
                 spaceBetween: 24,
               },

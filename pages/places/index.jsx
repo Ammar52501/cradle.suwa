@@ -6,16 +6,16 @@ import "swiper/css";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import Link from "next/link";
 import { PageHeader } from "@/components/PlacesComponents";
-import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { CloseIcon, LeftArrow } from "@/assets/svgsComponents";
 import PoetsSlider from "@/components/PoetsSlider";
 import { ErasPlacesSlider } from "@/components/ErasComponents";
-import { MdLocationPin } from "react-icons/md";
 import Image from "next/image";
 import { RotatingLines } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import DrawerPoets from "@/components/Poets/drawer";
+import LocationPin from "@/components/LocationPin";
+import { REVALIDATE } from "@/lib/constant";
 
 const Places = ({
   dataAllCitiesMap,
@@ -31,7 +31,7 @@ const Places = ({
   const [isPointsActive, seIsPointsActive] = useState(false);
   const [cityNames, setCityNames] = useState([]);
   const router = useRouter();
-
+  
   useEffect(() => {
     if (activeIndex !== null) {
       setPlaces(dataAllCitiesMap[activeIndex]?.places);
@@ -91,6 +91,7 @@ const Places = ({
     }
     setActiveIndex(landIndex);
     seIsPointsActive(false);
+    setActiveCity(null);
   };
 
   const [cityData, setCityData] = useState(null);
@@ -98,6 +99,7 @@ const Places = ({
   const [isSafari, setIsSafari] = useState(false);
   const [activeCity, setActiveCity] = useState(null);
   const [isDesckTop, setIsDesckTop] = useState(true);
+
   useEffect(() => {
     const handleResize = () => {
       setIsDesckTop(window.innerWidth > 768);
@@ -187,26 +189,12 @@ const Places = ({
     }
   }, []);
 
+
+  // TODO: add it to the head
+  const description = "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
+
   return (
     <>
-      <Head>
-        <title>مناطق المملكة العربية السعودية</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <meta
-          name="description"
-          content="استكشف الشعراء
-عبر العصور"
-        />
-        <meta
-          name="description"
-          content="شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <PageHeader
         dataAllCitiesMap={dataAllCitiesMap[activeIndex]}
         translations={translations}
@@ -300,7 +288,7 @@ const Places = ({
             </div>
 
             <div className={styles.map_container}>
-              <div className={styles.map} dir="ltr">
+              <div className={styles.map}>
                 <TransformWrapper
                   ref={transformComponentRef}
                   wheel={{ wheelDisabled: true }}
@@ -357,7 +345,7 @@ const Places = ({
                                         xmlns="http://www.w3.org/1999/xhtml"
                                         onClick={() => handleZoomToLand(index)}
                                       >
-                                        <div className={`city-name `} id="p1">
+                                        <div className={`city-name`} id="p1">
                                           <div id="name">
                                             <p>{land.name}</p>
                                           </div>
@@ -380,7 +368,10 @@ const Places = ({
                                       xmlns="http://www.w3.org/1999/xhtml"
                                       onClick={() => handleZoomToLand(index)}
                                     >
-                                      <div className={`city-name `} id="p1">
+                                      <div
+                                        className={`city-name place-name`}
+                                        id="p1"
+                                      >
                                         <div id="name">
                                           <p>{land.name}</p>
                                         </div>
@@ -391,45 +382,59 @@ const Places = ({
                               ))}
 
                             {activeIndex !== null &&
-                              places?.map((place, index) => (
-                                <foreignObject
-                                  x={place.svgX}
-                                  y={place.svgY}
-                                  key={place.id}
-                                >
-                                  <div
-                                    className="city-container"
-                                    xmlns="http://www.w3.org/1999/xhtml"
+                              places
+                                ?.sort((a, b) => {
+                                  // Move active place to the end of the array
+                                  if (a.id === activeCity) return 1;
+                                  if (b.id === activeCity) return -1;
+                                  return 0;
+                                })
+                                .map((place, index) => (
+                                  <foreignObject
+                                    x={place.svgX}
+                                    y={place.svgY}
+                                    key={place.id}
+                                    className={`${
+                                      activeCity === place.id
+                                        ? "pointer-events-none"
+                                        : ""
+                                    }`}
                                   >
                                     <div
-                                      className={`city-name ${
-                                        activeCity === place.id ? "active" : ""
-                                      }`}
-                                      id="p1"
+                                      className="city-container"
+                                      xmlns="http://www.w3.org/1999/xhtml"
                                     >
-                                      <div className={styles.wrapper}>
-                                        {activeCity === place.id && (
+                                      <div
+                                        className={`city-name ${
+                                          activeCity === place.id
+                                            ? "active"
+                                            : ""
+                                        }`}
+                                        id="p1"
+                                      >
+                                        <div className={styles.wrapper}>
+                                          {activeCity === place.id && (
+                                            <div
+                                              className={styles.icon_container}
+                                            >
+                                              <LocationPin />
+                                            </div>
+                                          )}
                                           <div
-                                            className={styles.icon_container}
-                                          >
-                                            <MdLocationPin />
-                                          </div>
-                                        )}
-                                        <div
-                                          onClick={() =>
-                                            handlePlaceActive(place.id)
-                                          }
-                                          className={`${styles.city_point} ${
-                                            activeCity === place.id
-                                              ? `${styles.active} 'active' `
-                                              : ""
-                                          }`}
-                                        ></div>
+                                            onClick={() =>
+                                              handlePlaceActive(place.id)
+                                            }
+                                            className={`${styles.city_point} ${
+                                              activeCity === place.id
+                                                ? `${styles.active} 'active' `
+                                                : ""
+                                            }`}
+                                          ></div>
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                </foreignObject>
-                              ))}
+                                  </foreignObject>
+                                ))}
                           </svg>
                         </TransformComponent>
                       </>
@@ -474,7 +479,7 @@ const Places = ({
                         </div>
 
                         {router.locale === "ar" && (
-                          <PoetsSlider poetriesData={poetriesData} />
+                          <PoetsSlider poetriesData={poetriesData} key={activeCity}/>
                         )}
 
                         <div
@@ -502,6 +507,7 @@ const Places = ({
                       setActiveCity={setActiveCity}
                       activeCity={activeCity}
                       onPlaceClick={handlePlaceWindow}
+                      activePoet={activeIndex}
                     />
                   </motion.div>
                 </AnimatePresence>
@@ -572,7 +578,6 @@ export async function getStaticProps({ locale }) {
         dataAllPoetries: [],
         dataAllCitiesMap: [],
         translations: [],
-
         error: error.message,
       },
       revalidate: 10,
@@ -586,7 +591,8 @@ export async function getStaticProps({ locale }) {
       dataAllPoetries,
       dataAllCitiesMap,
       translations,
+      title: "مناطق المملكة العربية السعودية",
     },
-    revalidate: 10,
+    revalidate: REVALIDATE,
   };
 }

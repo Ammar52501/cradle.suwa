@@ -3,6 +3,7 @@ import React from 'react'
 const LeftArrow = ({ stroke = "#83A4B8", className = "" }) => {
   return (
     <svg
+      aria-hidden="true"
       width="10"
       height="16"
       viewBox="0 0 10 16"

@@ -71,6 +71,14 @@ export default function SliderVerses({ dataPoetry, isAR }) {
     breakpoints.lg.slides * breakpoints.lg.rows
   );
   const [filledData, setFilledData] = useState(dataPoetry);
+
+  const handleSlideChange = () => {
+    const tabContentContainer = document.querySelector('[class*="tabContent_container"]');
+    if (tabContentContainer) {
+      tabContentContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   useLayoutEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < breakpoints.md.screenWidth) {
@@ -86,7 +94,10 @@ export default function SliderVerses({ dataPoetry, isAR }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   useLayoutEffect(() => {
-    if (dataPoetry.length < postPerPage || window.innerWidth < breakpoints.md.screenWidth) {
+    if (
+      dataPoetry.length < postPerPage ||
+      window.innerWidth < breakpoints.md.screenWidth
+    ) {
       setFilledData(dataPoetry);
 
       return;
@@ -107,6 +118,7 @@ export default function SliderVerses({ dataPoetry, isAR }) {
         className={styles.swiper_container}
         id="swiperContainer"
         dir={`${isAR ? "rtl" : "ltr"}`}
+        onSlideChange={handleSlideChange}
       >
         {filledData.map((poetry, index) => (
           <SwiperSlide key={index}>

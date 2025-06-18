@@ -410,10 +410,7 @@ section.Poets {
 
   .city_point {
     &.active {
-      background-color: #f8a340;
       display: none;
-      width: 25px !important;
-      height: 25px !important;
     }
   }
 
@@ -425,8 +422,8 @@ section.Poets {
 
     svg {
       color: #713540;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 28px;
     }
   }
 

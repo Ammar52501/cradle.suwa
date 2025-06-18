@@ -45,44 +45,6 @@ const PoetsSlider = ({ poetriesData }) => {
               dir={router.locale === "ar" ? "rtl" : "ltr"}
               className={styles.swiper_container}
             >
-              {/* {filteredPoetriesData?.map((poetry) => {
-                const [beforeDots, afterDots] = poetry.poetryParts.split("...");
-                return (
-                  <SwiperSlide key={poetry.id}>
-                    <div className={styles.box}>
-                      <div className={styles.tag}>
-                        <Typography>{poetry.placeName}</Typography>
-                      </div>
-
-                      <div className={styles.desc}>
-                        <Typography>{beforeDots}</Typography>
-                        <br />
-                        <Typography>{afterDots}</Typography>
-                      </div>
-
-                      <hr />
-
-                      <div className={styles.poet_info}>
-                        <div className={styles.img_container}>
-                          <img src={poetry.poetIcon} alt={poetry.poetName} />
-                        </div>
-
-                        <div className={styles.text_container}>
-                          <Link
-                            href={`/poet/${poetry.poetId}`}
-                            className={styles.name}
-                          >
-                            <Typography>{poetry.poetName}</Typography>
-                          </Link>
-                          <div className={styles.poet_tag}>
-                            <Typography>{poetry.zamanName}</Typography>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })} */}
               {poetriesData?.map((poetry) => {
                 const [beforeDots, afterDots] = poetry.poetryParts.split("...");
                 return (

@@ -1,13 +1,14 @@
-import React from 'react';
-import { Container } from '@mui/material';
-import Image from 'next/image';
-import styles from './index.module.scss';
-import { motion } from 'framer-motion';
-import AboutSection from '@/components/YearOfArabicPoetry/AboutSection/index.jsx';
-import MinisterSpeech from '@/components/YearOfArabicPoetry/MinisterSpeech';
-import Head from "next/head";
-import { useRouter } from 'next/router';
-import Navbar from '@/components/YearOfArabicPoetry/Navbar';
+import React from "react";
+import { Container } from "@mui/material";
+import Image from "next/image";
+import styles from "./index.module.scss";
+import { motion } from "framer-motion";
+import AboutSection from "@/components/YearOfArabicPoetry/AboutSection/index.jsx";
+import MinisterSpeech from "@/components/YearOfArabicPoetry/MinisterSpeech";
+import Navbar from "@/components/YearOfArabicPoetry/Navbar";
+import { REVALIDATE } from "@/lib/constant";
+
+// TODO: add meta tags
 
 const desc = `نؤمن في منظومة الثقافة بالمكانة الحضارية المهمة للجزيرة العربية، ودورها المؤثر في نشأة الشعر العربي ونهضته الكبرى التي جعلت من هذا الفن البديع ديواناً للعرب، ومجنى لثمر العقول، ببحوره وفنونه وأساليبه وقصائده، التي وثقت المعاني الجليلة، ونقلت مآثر العرب، وصاغت مشاعرهم وأفكارهم وتطلعاتهم نحو الخير والحياة والجمال.
 
@@ -18,65 +19,46 @@ const desc = `نؤمن في منظومة الثقافة بالمكانة الح�
 بدر بن عبدالله بن فرحان آل سعود
 وزير الثقافة`;
 
-const YearOfArabicPoetry = ({ translations }) => {
-  const router = useRouter();
-  const appDomain = process.env.NEXT_PUBLIC_APP_DOMAIN;
-
-
+const YearOfArabicPoetry = () => {
   return (
     <>
-      <Head>
-        <title>{translations.yearOfArabicPoetry}</title>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={desc} />
-        <link rel="icon" href="/favicon.ico" />
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={'عام العشر العربي'}
-        />
-        <meta property="og:description" content={desc} />
-        <meta property="og:url" content={`${appDomain}/`} />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content={'/assets/imgs/dark_logo.webp'}
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta
-          property="og:image"
-          content={'/assets/imgs/dark_logo.webp'}
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={'عام العشر العربي'} />
-        <meta name="twitter:description" content={desc} />
-        <meta
-          name="twitter:image"
-          content={'/assets/imgs/dark_logo.webp'}
-        />
-        <link rel="alternate" href={`https://islam-web.vercel.app/${router.query.topic}`} hreflang={router.locale} />
-        <link rel="alternate" href={`https://islam-web.vercel.app/${router.locale}/${router.query.topic}`} hreflang={router.locale} />
-
-      </Head>
       <Navbar />
-
-      <header id='year-of-arabic-poetry' className={styles.year_of_arabic_poetry}>
+      <header
+        id="year-of-arabic-poetry"
+        className={styles.year_of_arabic_poetry}
+      >
         <Container maxWidth={false}>
           <div className={styles.sec_container}>
-
-            <motion.div initial={{ opacity: 0, y: -50 }}
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, type: "tween" }}
-              className={styles.logo}>
-              <Image width={500} height={200} src="/assets/imgs/dark_logo.webp" alt="Year of Arabic poetry" />
+              className={styles.logo}
+            >
+              <Image
+                loading="lazy"
+                aria-hidden="true"
+                width={500}
+                height={200}
+                src="/assets/imgs/dark_logo.webp"
+                alt="Year of Arabic poetry"
+              />
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 50 }}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.5, type: "tween" }} className={styles.docs}>
-
-              <Image width={500} height={200} src="/assets/imgs/docs_2.webp" alt="Year of Arabic poetry" />
+              transition={{ duration: 1.5, type: "tween" }}
+              className={styles.docs}
+            >
+              <Image
+                loading="lazy"
+                aria-hidden="true"
+                width={500}
+                height={200}
+                src="/assets/imgs/docs_2.webp"
+                alt="Year of Arabic poetry"
+              />
             </motion.div>
           </div>
         </Container>
@@ -86,7 +68,7 @@ const YearOfArabicPoetry = ({ translations }) => {
       <MinisterSpeech />
     </>
   );
-}
+};
 
 export default YearOfArabicPoetry;
 
@@ -102,8 +84,8 @@ export async function getStaticProps({ locale }) {
 
   return {
     props: {
-      translations
+      translations,
     },
-    revalidate: 10,
+    revalidate: REVALIDATE,
   };
 }

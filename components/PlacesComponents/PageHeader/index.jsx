@@ -12,7 +12,7 @@ const PageHeader = ({ dataAllCitiesMap, translations }) => {
 
   // Group the words into two parts
   const firstPart = words.slice(0, 2).join(" ");
-  const secondPart = words.slice(1).join(" ");
+  const secondPart = words.slice(2).join(" ");
 
   return (
     <div

@@ -2,7 +2,7 @@ import styles from "./index.module.scss";
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import More from "@/components/icons/more";
-import { memo, useLayoutEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 const Poetry = memo(
   ({
@@ -20,11 +20,11 @@ const Poetry = memo(
   }) => {
     const [beforeDots, afterDots] = poetry.poetryParts.split("...");
     const [expanded, setExpanded] = useState(false);
-    const textRef = useRef<HTMLDivElement>(null);
     const [showButton, setShowButton] = useState(false);
+    const textRef = useRef<HTMLDivElement>(null);
     const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
     const [contentHeight, setContentHeight] = useState<number>(0);
-    useLayoutEffect(() => {
+    useEffect(() => {
       setExpanded(false);
       setShowButton(false);
       const calculateHeight = () => {
@@ -67,7 +67,7 @@ const Poetry = memo(
           <div
             onClick={toggleExpanded}
             ref={textRef}
-            className={`relative tracking-[0] text-card-foreground font-main mt-4 text-[16px] font-normal transition-all duration-300 ease-in-out overflow-hidden ${
+            className={`relative text-card-foreground font-main mt-4 text-base sm:text-lg font-normal transition-all duration-300 ease-in-out overflow-hidden ${
               !expanded && showButton ? "cursor-pointer" : "cursor-text"
             }`}
             style={{

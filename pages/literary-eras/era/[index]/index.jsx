@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import LiteraryBanner from "@/components/LiteraryBanner";
 import Poets from "@/components/Poets";
-import Head from "next/head";
 import { motion } from "framer-motion";
 import styles from "../../index.module.scss";
+import { REVALIDATE } from "@/lib/constant";
 
 const Era = ({
   dataAllEras,
@@ -14,51 +14,34 @@ const Era = ({
   dataAllPlaces,
   dataAllPoetries,
   allStaticWords,
-  translations,
+  index
 }) => {
   const [isLayerActive, setIsLayerActive] = useState(false);
-
-
+  // TODO: add it to the head
+  const description =
+    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
   return (
-    <>
-      <Head>
-        <title>{eraDetails?.name}</title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="description"
-          content="استكشف الشعراء
-عبر العصور"
-        />
-        <meta
-          name="description"
-          content="شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+      className={styles.layer_wrap}
+    >
+      {isLayerActive && <div className={styles.layer} />}
 
-      <motion.div
-        animate={{ opacity: 1 }}
-        initial={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-        className={styles.layer_wrap}
-      >
-        {isLayerActive && <div className={styles.layer} />}
-
-        <LiteraryBanner eraDetails={eraDetails} dataAllEras={dataAllEras} />
-        <Poets
-          isLayerActive={isLayerActive}
-          allStaticWords={allStaticWords}
-          dataAllPlaces={dataAllPlaces}
-          dataAllPoetries={dataAllPoetries}
-          setIsLayerActive={setIsLayerActive}
-          dataPoetsByEra={dataPoetsByEra}
-          dataAllCitiesMap={dataAllCitiesMap}
-          poetsData={poetsData}
-        />
-      </motion.div>
-    </>
+      <LiteraryBanner eraDetails={eraDetails} dataAllEras={dataAllEras} />
+      <Poets
+        key={index}
+        isLayerActive={isLayerActive}
+        allStaticWords={allStaticWords}
+        dataAllPlaces={dataAllPlaces}
+        dataAllPoetries={dataAllPoetries}
+        setIsLayerActive={setIsLayerActive}
+        dataPoetsByEra={dataPoetsByEra}
+        dataAllCitiesMap={dataAllCitiesMap}
+        poetsData={poetsData}
+      />
+    </motion.div>
   );
 };
 
@@ -148,8 +131,10 @@ export async function getStaticProps({ params, locale }) {
       poetsData,
       translations,
       allStaticWords,
+      index,
+      title: eraDetails?.name || "",
     },
-    revalidate: 10,
+    revalidate: REVALIDATE,
   };
 }
 

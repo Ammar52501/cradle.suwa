@@ -374,13 +374,12 @@ import Image from "next/image";
 
 import DataContext from "@/context/DataContext";
 
-const MotionAppBar = motion(MuiAppBar);
+const MotionAppBar = motion.create(MuiAppBar);
 
-const Navbar = (props) => {
+const Navbar = () => {
   const translationsFromContext = useContext(DataContext);
   const router = useRouter();
   const [navMenu, setNavMenu] = useState(false);
-  const [langMenu, setLangMenu] = useState(false);
   const navMenuRef = useRef(null);
 
   const variants = {
@@ -599,13 +598,14 @@ const Navbar = (props) => {
               {router.locales.map((language) => {
                 if (router.locale !== language) {
                   return (
-                    <a
-                      href={`/${language}${router.asPath}`}
+                    <Link
+                      href={router.asPath}
                       key={language}
-                      className={`${styles.lang}`}
+                      locale={language}
+                      className={styles.lang}
                     >
                       {language?.toUpperCase()}
-                    </a>
+                    </Link>
                   );
                 }
               })}

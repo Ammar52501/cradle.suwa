@@ -54,7 +54,7 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                   <Typography>{dataPoet.nickname}</Typography>
                 </div>
               </div>
-              <div className={styles.desc} dir="rtl">
+              <div className={styles.desc}>
                 <Typography>
                   {dataPoet &&
                     dataPoet?.description

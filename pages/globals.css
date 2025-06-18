@@ -1,7 +1,6 @@
 @tailwind base;
 a,
-button,
-input {
+button {
   background: transparent;
 }
 a,
@@ -22,7 +21,7 @@ video {
   --background: 49 59% 95%;
   --foreground: 0 0% 0%; 
   --card: 34 54% 97%;
-  --card-foreground: 189 11% 34%;
+  --card-foreground: 240 8% 40%;
   --popover: 0 0% 100%;
   --popover-foreground: 240 10% 3.9%;
   --primary: 25 92% 62%;
@@ -48,43 +47,27 @@ video {
   }
 }
 @supports (selector(::-webkit-scrollbar)) {
-  ::-webkit-scrollbar,
-  .scroll::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 0.75rem;
     height: 0.75rem;
   }
-  ::-webkit-scrollbar-button,
-  .scroll::-webkit-scrollbar-button {
+  ::-webkit-scrollbar-button {
     display: none;
   }
-  ::-webkit-scrollbar-track,
-  .scroll::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track {
     background: hsl(var(--background));
   }
 
-  ::-webkit-scrollbar-thumb,
-  .scroll::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
     border-radius: 10px;
   }
-  ::-webkit-scrollbar-thumb:hover,
-  .scroll::-webkit-scrollbar-thumb:hover {
+  ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--foreground) / 0.5);
   }
 }
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  scrollbar-color: transparent transparent;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* no changes */
 html,
 body {
-  overscroll-behavior: none;
   scroll-behavior: smooth;
   position: relative;
   @apply !bg-background text-foreground;
@@ -114,17 +97,6 @@ input::-webkit-inner-spin-button {
   appearance: none;
   margin: 0;
 }
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  visibility: hidden;
-  pointer-events: none;
-  display: none;
-}
-input[type="number"] {
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-  appearance: textfield;
-}
 html[dir="rtl"] input::placeholder {
   text-align: right;
 }
@@ -136,7 +108,6 @@ html[dir="rtl"] input[dir="ltr"]::placeholder {
 a,
 button,
 img,
-label,
 svg {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;

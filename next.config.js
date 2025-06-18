@@ -5,9 +5,9 @@ const CSP = `
   script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};  
   style-src 'self' 'unsafe-inline';
   font-src 'self';
-  connect-src 'self' https://api4z.suwa.io https://cradle.suwa.com.sa;
+  connect-src 'self' https://zadmin.suwa.io https://api4z.suwa.io https://cradle.suwa.com.sa;
   frame-src 'self';
-  img-src 'self' https://cradle.suwa.com.sa https://zamakan.suwa.io https://zamakanweb1.suwa.io https://dl.dropboxusercontent.com https://www.dropbox.com http://www.w3.org/2000/svg data:;
+  img-src 'self' https://zadmin.suwa.io https://cradle.suwa.com.sa https://zamakan.suwa.io https://zamakanweb1.suwa.io https://dl.dropboxusercontent.com https://www.dropbox.com http://www.w3.org/2000/svg data:;
   object-src 'none';
   form-action 'none';
   frame-ancestors 'none';
@@ -53,11 +53,7 @@ const headers = isDev
           },
           {
             key: "Access-Control-Allow-Origin",
-            value: "cradle.suwa.com.sa",
-          },
-          {
-            key: "Cache-Control",
-            value: "private, max-age=0, must-revalidate",
+            value: process.env.NEXT_PUBLIC_APP_DOMAIN,
           },
           {
             key: "Permissions-Policy",
@@ -96,7 +92,7 @@ const headers = isDev
         headers: [
           {
             key: "Cache-Control",
-            value: "private, max-age=21536000, immutable", // 249 days
+            value: "private, max-age=2153600, immutable",
           },
         ],
       },
@@ -123,6 +119,7 @@ const nextConfig = {
     locales: ["ar", "en"],
     localeDetection: false,
   },
+  devIndicators: false,
 };
 
 module.exports = nextConfig;

@@ -156,7 +156,11 @@
   .paginationContainer {
     display: flex;
     align-items: flex-start;
-
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     button,
     .arrow_btn {
       background: rgba(55, 45, 64, 1);
@@ -169,8 +173,6 @@
       font-family: var(--effra-font);
       cursor: pointer;
       border: none;
-      padding-top: 4px;
-
       &:not(:last-child) {
         margin-right: 10px;
       }
@@ -199,7 +201,19 @@
     }
   }
 }
-
+html[dir="rtl"] {
+  .paginationBox {
+    direction: rtl;
+  }
+}
+html[dir="ltr"] {
+  .paginationBox {
+    direction: ltr;
+  }
+  .paginationBox .arrow_btn {
+    transform: rotate(180deg);
+  }
+}
 // En Styles
 .sliderContainer[dir="ltr"] {
   .box {

@@ -58,9 +58,6 @@
           justify-content: center;
           flex-direction: column;
           font-family: var(--effra-font) !important;
-          p:first-child {
-            margin-left: 24px;
-          }
           p:last-child {
             margin-right: 24px;
           }
@@ -193,7 +190,6 @@
           font-family: var(--effra-font) !important;
           p:first-child {
             margin-left: 0px;
-            margin-right: 24px;
             text-align: left;
           }
           p:last-child {

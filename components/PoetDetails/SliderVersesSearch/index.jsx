@@ -1,20 +1,25 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi2";
-import styles from './index.module.scss';
-import { Typography } from '@mui/material';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import styles from "./index.module.scss";
+import { Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ITEMS_PER_PAGE = 10;
-const SliderVersesSearch = ({ filtredPoets, onPoetsDataChange, currentPage, setCurrentPage }) => {
+const SliderVersesSearch = ({
+  filtredPoets,
+  onPoetsDataChange,
+  currentPage,
+  setCurrentPage,
+}) => {
   const totalPages = Math.ceil(filtredPoets?.length / ITEMS_PER_PAGE);
   const router = useRouter();
 
   const handlePageChange = (newPage) => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setCurrentPage(newPage);
   };
-
 
   const poetsToShow = filtredPoets?.slice(
     currentPage * ITEMS_PER_PAGE,
@@ -24,25 +29,30 @@ const SliderVersesSearch = ({ filtredPoets, onPoetsDataChange, currentPage, setC
   const previousPoetsToShow = useRef();
 
   useEffect(() => {
-    if (JSON.stringify(poetsToShow) !== JSON.stringify(previousPoetsToShow.current)) {
+    if (
+      JSON.stringify(poetsToShow) !==
+      JSON.stringify(previousPoetsToShow.current)
+    ) {
       onPoetsDataChange(poetsToShow);
       previousPoetsToShow.current = poetsToShow;
     }
   }, [poetsToShow]);
 
-
   return (
     <>
-      <div className={styles.sliderContainer} dir={`${router.locale === 'ar' ? 'rtl' : 'ltr'}`}>
+      <div
+        className={styles.sliderContainer}
+        dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
+      >
         {poetsToShow?.map((poet) => (
           <motion.div
             key={poet.id}
             animate={{ opacity: 1 }}
             initial={{ opacity: 0 }}
-            transition={{ duration: 1, }}
-            className={styles.box}>
+            transition={{ duration: 1 }}
+            className={styles.box}
+          >
             <Link href={`/poet/${poet.id}`}>
-
               <div className={styles.poet_info}>
                 <div className={styles.img_container}>
                   <img src={poet.icon} alt={poet.name} />
@@ -53,29 +63,21 @@ const SliderVersesSearch = ({ filtredPoets, onPoetsDataChange, currentPage, setC
                     <Typography>{poet.name}</Typography>
                   </div>
                   <div className={styles.tag}>
-                    <Typography>
-                      {poet.zamanName}
-                    </Typography>
-
+                    <Typography>{poet.zamanName}</Typography>
                   </div>
                 </div>
               </div>
               <hr />
 
               <div className={styles.desc}>
-                <Typography>
-                  {poet.descShort}
-                </Typography>
+                <Typography>{poet.descShort}</Typography>
               </div>
-
             </Link>
-
           </motion.div>
         ))}
       </div>
 
-      {filtredPoets?.length > 1
-        &&
+      {filtredPoets?.length > 1 && (
         <div className={styles.paginationBox}>
           <div className={styles.paginationContainer}>
             <button
@@ -88,10 +90,10 @@ const SliderVersesSearch = ({ filtredPoets, onPoetsDataChange, currentPage, setC
             {Array.from({ length: totalPages }, (_, index) => (
               <button
                 key={index}
-                className={index === currentPage ? styles.active : ''}
+                className={index === currentPage ? styles.active : ""}
                 onClick={() => handlePageChange(index)}
               >
-                {index + 1}
+                <span className="h-fit w-fit pt-[4px]">{index + 1}</span>
               </button>
             ))}
             <button
@@ -100,17 +102,12 @@ const SliderVersesSearch = ({ filtredPoets, onPoetsDataChange, currentPage, setC
               className={styles.arrow_btn}
             >
               <HiArrowLeft />
-
             </button>
           </div>
         </div>
-      }
-
-
-
+      )}
     </>
   );
-}
+};
 
-
-export default SliderVersesSearch
+export default SliderVersesSearch;

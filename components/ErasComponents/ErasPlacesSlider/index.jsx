@@ -23,7 +23,7 @@ const ErasPlacesSlider = ({
   const swiperVerticalRef = useRef(null);
   const filteredPlaces = places
     ?.filter((place) => place.svgX !== null && place.svgY !== null)
-    ?.sort((a, b) => a.name.localeCompare(b.name, router.locale));
+    ?.sort((a, b) => a.name.localeCompare(b.name, router.locale)) || [];
 
   const [imageLoadingStates, setImageLoadingStates] = useState(
     filteredPlaces?.reduce((acc, city) => {
@@ -59,7 +59,7 @@ const ErasPlacesSlider = ({
       const swiper = swiperRef.current.swiper;
       const newIndex = swiper.realIndex;
 
-      const newActiveCity = filteredPlaces[newIndex].id;
+      const newActiveCity = filteredPlaces[newIndex]?.id;
       setActiveCity(newActiveCity);
     }
   };
@@ -93,13 +93,13 @@ const ErasPlacesSlider = ({
 
   useEffect(() => {
     if (activeCity === null) {
-      setActiveCity(filteredPlaces[0].id);
+      setActiveCity(filteredPlaces[0]?.id);
     }
   }, [activeCity, activePoet]);
   return (
     <>
       {isMobileView === true && (
-        <div className={styles.swiper_container} dir="rtl" id="test-test">
+        <div className={styles.swiper_container}>
           <Swiper
             ref={swiperRef}
             centeredSlides={true}
@@ -107,10 +107,9 @@ const ErasPlacesSlider = ({
             direction="horizontal"
             slidesPerView={2.5}
             spaceBetween={16}
-            dir={"rtl"}
             className="places-swiper"
           >
-            {filteredPlaces?.map((city, index) => (
+            {filteredPlaces?.map((city) => (
               <SwiperSlide className={styles.places_container} key={city.id}>
                 <div
                   className={`${styles.places} ${
@@ -151,7 +150,7 @@ const ErasPlacesSlider = ({
       )}
 
       {isMobileView === false && (
-        <div className={styles.swiper_container} dir="rtl" id="test-test">
+        <div className={styles.swiper_container}>
           <Swiper
             mousewheel={true}
             ref={swiperRef}
@@ -196,11 +195,11 @@ const ErasPlacesSlider = ({
             centeredSlides={true}
             className={styles.vertical_swiper}
           >
-            {filteredPlaces?.map((city, index) => (
+            {filteredPlaces?.map((city) => (
               <SwiperSlide
                 data-lenis-prevent
                 className={styles.places_container}
-                key={city.id + 1}
+                key={city.id}
               >
                 <div
                   className={`${styles.places} ${

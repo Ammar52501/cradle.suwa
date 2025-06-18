@@ -105,11 +105,6 @@ header {
     margin: 10px !important;
   }
 
-  @media (max-width: 600px) {
-    .swiper-slide {
-      // margin-right: 20px !important;
-    }
-  }
 }
 
 .places_slider_container__VxylD {
@@ -240,18 +235,23 @@ header {
 }
 
 .city-name {
+  --translate-y: -50%;
+  --translate-x: 50%;
   -webkit-transition: -webkit-transform 0.3s ease-in-out !important;
   transition: -webkit-transform 0.3s ease-in-out !important;
   -o-transition: transform 0.3s ease-in-out !important;
   transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out !important;
   transition: transform 0.3s ease-in-out !important;
-  -webkit-transform: translateY(0px) !important;
-  -ms-transform: translateY(0px) !important;
-  transform: translateY(0px) !important;
+  -webkit-transform: translate(var(--translate-x), var(--translate-y)) !important;
+  -ms-transform: translate(var(--translate-x), var(--translate-y)) !important;
+  transform: translate(var(--translate-x), var(--translate-y)) !important;
 
   z-index: auto;
   cursor: pointer;
   opacity: 1;
+}
+html[dir="ltr"] .city-name {
+  --translate-x: -50%;
 }
 .city-name > #name {
   display: flex;
@@ -259,13 +259,12 @@ header {
   justify-content: center;
   align-items: center;
   width: 150px;
-  margin-left: -69px;
-  margin-top: -39px;
 }
 .city-name:hover {
-  -webkit-transform: translateY(-5px) !important;
-  -ms-transform: translateY(-5px) !important;
-  transform: translateY(-5px) !important;
+  --translate-y: -60%;
+}
+.city-name.active:hover {
+  --translate-y: -100%;
 }
 
 .land {
@@ -291,8 +290,6 @@ header {
 }
 
 .hiddenPoints {
-  path {
-  }
   .city-name {
     opacity: 0 !important;
     display: none !important;
@@ -494,6 +491,7 @@ foreignObject {
   position: unset !important;
   --webkit-transform-style: unset !important;
   -webkit-backface-visibility: unset !important;
+  backface-visibility: unset !important;
   transition: unset !important;
   transform: unset !important;
 }
@@ -502,6 +500,7 @@ foreignObject {
   position: unset !important;
   --webkit-transform-style: unset !important;
   -webkit-backface-visibility: unset !important;
+  backface-visibility: unset !important;
   transition: unset !important;
   transform: unset !important;
 }
@@ -509,7 +508,7 @@ foreignObject {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  height: 26px;
+  height: fit-content;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -537,14 +536,11 @@ foreignObject {
   }
 }
 .city-name.active {
+  --translate-y: -90%;
   p {
     background: rgba(187, 113, 101, 1);
     color: rgba(255, 255, 255, 1);
   }
-}
-.city-name svg {
-  top: 25px;
-  width: 40px;
 }
 
 svg.saudi-map.safari .city-name {
