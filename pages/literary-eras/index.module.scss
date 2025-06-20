@@ -40,7 +40,6 @@ section.LiteraryEras {
         font-size: 80px;
         // font-weight: 700;
         line-height: 60px;
-        letter-spacing: 1px;
 
         text-align: right;
         color: var(--main-blue-color);
@@ -229,7 +228,6 @@ section.LiteraryEras {
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
-        letter-spacing: 0px;
         color: rgba(255, 255, 255, 1);
       }
     }
@@ -241,7 +239,6 @@ section.LiteraryEras {
         font-size: 38px;
         font-weight: 700;
         line-height: 46px;
-        letter-spacing: 0px;
         text-align: right;
         color: rgba(255, 255, 255, 1);
       }
@@ -255,7 +252,6 @@ section.LiteraryEras {
         font-size: 16px;
         font-weight: 400;
         line-height: 17px;
-        letter-spacing: 0px;
         text-align: justify;
         color: rgba(255, 255, 255, 1);
       }
@@ -293,7 +289,6 @@ section.LiteraryEras[dir="ltr"] {
         font-family: var(--req3a-font);
         font-size: 80px;
         line-height: 1em;
-        letter-spacing: 1px;
         text-align: left;
         color: var(--main-blue-color);
         font-weight: bold;
@@ -413,7 +408,6 @@ section.LiteraryEras[dir="ltr"] {
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
-        letter-spacing: 0px;
       }
     }
     .title {
@@ -424,7 +418,6 @@ section.LiteraryEras[dir="ltr"] {
         font-size: 38px;
         font-weight: 700;
         line-height: 46px;
-        letter-spacing: 0px;
         text-align: left;
       }
     }
@@ -439,16 +432,9 @@ section.LiteraryEras[dir="ltr"] {
         font-size: 16px;
         font-weight: 400;
         line-height: 17px;
-        letter-spacing: 0px;
         text-align: justify;
         color: rgba(255, 255, 255, 1);
       }
     }
-  }
-}
-// Ar Custom styles
-.swiper_container[dir="rtl"] {
-  .leftSide {
-    // padding-left: 0 !important;
   }
 }

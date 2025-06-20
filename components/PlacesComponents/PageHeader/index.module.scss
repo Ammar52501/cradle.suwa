@@ -46,7 +46,6 @@
     font-family: var(--req3a-font);
     font-size: 110px;
     line-height: 80px;
-    letter-spacing: 1px;
     text-align: right;
     color: rgba(238, 228, 184, 1);
 
@@ -58,18 +57,11 @@
 }
 
 .page_header[dir="ltr"] {
-  .img_container {
-    img {
-      // transform: scaleX(-1);
-    }
-  }
-
   h3 {
     margin: 0 !important;
     font-family: var(--req3a-font);
     font-size: 110px;
     line-height: 80px;
-    letter-spacing: 1px;
     text-align: left;
     color: rgba(238, 228, 184, 1);
 

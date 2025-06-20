@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi2";
 import styles from "./index.module.scss";
 import { Typography } from "@mui/material";
@@ -16,10 +16,15 @@ const SliderVersesSearch = ({
   const totalPages = Math.ceil(filtredPoets?.length / ITEMS_PER_PAGE);
   const router = useRouter();
 
-  const handlePageChange = (newPage) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setCurrentPage(newPage);
-  };
+  const handlePageChange = useCallback(
+    (newPage) => {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
+      setCurrentPage(newPage);
+    },
+    [setCurrentPage]
+  );
 
   const poetsToShow = filtredPoets?.slice(
     currentPage * ITEMS_PER_PAGE,

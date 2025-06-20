@@ -55,21 +55,8 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                 </div>
               </div>
               <div className={styles.desc}>
-                <Typography>
-                  {dataPoet &&
-                    dataPoet?.description
-                      ?.split(".")
-                      .map((sentence, index, array) => (
-                        <span key={index}>
-                          {sentence.trim()}
-                          {index < array?.length - 1 && (
-                            <>
-                              &nbsp;.&nbsp;
-                              <br />
-                            </>
-                          )}
-                        </span>
-                      ))}
+                <Typography className="whitespace-pre-line">
+                  {dataPoet?.description}
                 </Typography>
               </div>
             </Grid>

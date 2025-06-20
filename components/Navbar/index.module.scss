@@ -108,7 +108,6 @@
           font-family: var(--effra-font);
           font-size: 18px;
           font-weight: 500;
-          letter-spacing: 0em;
           text-align: center;
 
           @media screen and (min-width: 450px) {
@@ -220,12 +219,12 @@
     cursor: pointer;
     margin-right: auto !important;
     margin-left: auto;
+    padding-left: 10px;
+    padding-right: 10px;
 
     img {
       width: auto;
       height: 40px;
-      padding-left: 10px;
-      padding-right: 10px;
       object-fit: contain;
 
       @media screen and (min-width: 450px) {
@@ -236,8 +235,21 @@
         height: 80px;
       }
     }
-  }
 
+
+    svg {
+      width: auto;
+      height: 40px;
+
+      @media screen and (min-width: 450px) {
+        height: 60px;
+      }
+
+      @media screen and (min-width: 750px) {
+        height: 70px;
+      }
+    }
+  }
   .logos_container {
     display: flex;
     align-items: center;

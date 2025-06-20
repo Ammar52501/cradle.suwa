@@ -70,9 +70,11 @@ export default function SliderVerses({ dataPoetry, isAR }) {
   const [postPerPage, setPostPerPage] = useState(
     breakpoints.lg.slides * breakpoints.lg.rows
   );
+  const [activeIndex, setActiveIndex] = useState(0);
   const [filledData, setFilledData] = useState(dataPoetry);
 
-  const handleSlideChange = () => {
+  const handleSlideChange = (e) => {
+    setActiveIndex(e.activeIndex);
     const tabContentContainer = document.querySelector('[class*="tabContent_container"]');
     if (tabContentContainer) {
       tabContentContainer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -123,7 +125,7 @@ export default function SliderVerses({ dataPoetry, isAR }) {
         {filledData.map((poetry, index) => (
           <SwiperSlide key={index}>
             {poetry ? (
-              <Poetry poetry={poetry} isAR={isAR} />
+              <Poetry poetry={poetry} isAR={isAR} activeIndex={activeIndex} />
             ) : (
               <div style={{ visibility: "hidden" }}></div>
             )}

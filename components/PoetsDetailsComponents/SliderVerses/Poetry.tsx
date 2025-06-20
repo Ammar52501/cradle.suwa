@@ -11,12 +11,14 @@ const Poetry = memo(
     clamp = 3,
     unit = "px",
     isAR,
+    activeIndex,
   }: {
     poetry: any;
     lineHeight?: number;
     clamp?: number;
     unit?: string;
     isAR?: boolean;
+    activeIndex?: number;
   }) => {
     const [beforeDots, afterDots] = poetry.poetryParts.split("...");
     const [expanded, setExpanded] = useState(false);
@@ -43,6 +45,11 @@ const Poetry = memo(
       if (!showButton) return;
       setExpanded((prev) => !prev);
     };
+
+    useEffect(() => {
+      setExpanded(false);
+    }, [activeIndex]);
+
     return (
       <div className={styles.box}>
         <div className={styles.box_container}>

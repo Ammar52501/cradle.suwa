@@ -1,58 +1,94 @@
 import { Search } from "@/assets/svgsComponents";
 import { Container, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styles from "./index.module.scss";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { RotatingLines } from "react-loader-spinner";
-import Image from "next/image";
 import { REVALIDATE } from "@/lib/constant";
+import Logo from "@/components/logo";
+import Fuse from "fuse.js";
+
+const removeDiacritics = (text) => {
+  return (text || "").replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED]/g, "");
+};
+
+const prepareDataForSearch = (data, nameKeys) => {
+  return data.map((item) => ({
+    ...item,
+    searchableText: nameKeys
+      .map((key) => {
+        const value = item[key];
+        return Array.isArray(value)
+          ? value.map((v) => removeDiacritics(v)).join(" ")
+          : removeDiacritics(value);
+      })
+      .join(" "),
+  }));
+};
 
 const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
   const [query, setQuery] = useState("");
   const [poetsData, setPoetsData] = useState([]);
   const [placesData, setPlacesData] = useState([]);
   const [isDataLoading, setIsdataLoading] = useState(false);
+  const preparedPoetsData = useMemo(
+    () => prepareDataForSearch(initialPoetsData, ["name", "nickname"]),
+    [initialPoetsData]
+  );
 
-  const removeDiacritics = (text) => {
-    const diacritics = "ًٌٍَُِّْ";
-    ``;
-    for (let i = 0; i < diacritics.length; i++) {
-      text = text.replace(new RegExp(diacritics[i], "g"), "");
-    }
-    return text;
-  };
+  const preparedPlacesData = useMemo(
+    () => prepareDataForSearch(initialPlacesData, ["name", "otherNames"]),
+    [initialPlacesData]
+  );
+  
+  const poetFuse = useMemo(() => {
+    return new Fuse(preparedPoetsData, {
+      keys: ["searchableText"],
+      threshold: 0.3,
+      // location: 0,
+      // distance: 100,
+      minMatchCharLength: 2,
+      shouldSort: true,
+      ignoreLocation: true,
+    });
+  }, [preparedPoetsData]);
 
-  const handleSearch = (e) => {
-    setIsdataLoading(true);
+  const placeFuse = useMemo(() => {
+    return new Fuse(preparedPlacesData, {
+      keys: ["searchableText"],
+      threshold: 0.3,
+      // location: 0,
+      // distance: 100,
+      minMatchCharLength: 2,
+      shouldSort: true,
+      ignoreLocation: true,
+    });
+  }, [preparedPlacesData]);
 
-    const searchText = e.target.value;
-    setQuery(searchText);
+  const handleSearch = useCallback(
+    (e) => {
+      setIsdataLoading(true);
 
-    if (searchText.length > 0) {
-      const normalizedSearchText = removeDiacritics(searchText.toLowerCase());
+      const searchText = removeDiacritics(e.target.value);
+      setQuery(e.target.value || "");
 
-      const filteredPlaces = initialPlacesData?.filter((place) =>
-        removeDiacritics(place?.name?.toLowerCase()).includes(
-          normalizedSearchText
-        )
-      );
-      setPlacesData(filteredPlaces);
+      if (searchText.length > 0) {
+        const poetResults = poetFuse.search(searchText);
+        const placeResults = placeFuse.search(searchText);
 
-      const filteredPoets = initialPoetsData?.filter((poet) =>
-        removeDiacritics(poet?.name?.toLowerCase()).includes(
-          normalizedSearchText
-        )
-      );
-      setPoetsData(filteredPoets);
-      setIsdataLoading(false);
-    } else {
-      setPlacesData([]);
-      setPoetsData([]);
-      setIsdataLoading(false);
-    }
-  };
+        setPoetsData(poetResults);
+        setPlacesData(placeResults);
 
+        setIsdataLoading(false);
+      } else {
+        setPlacesData([]);
+        setPoetsData([]);
+        setIsdataLoading(false);
+      }
+    },
+    [poetFuse, placeFuse]
+  );
   return (
     <>
       <nav id="search" className={styles.search} dir="rtl">
@@ -60,13 +96,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
           <Container maxWidth={false}>
             <div className={styles.nav_container}>
               <Link className={styles.logo} href={"/"}>
-                <Image
-                  width={185}
-                  priority
-                  height={85}
-                  src={"/assets/imgs/logo.webp"}
-                  alt=""
-                />
+                <Logo />
               </Link>
 
               <div className={styles.input_container}>
@@ -74,6 +104,8 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
                   <Search />
                 </div>
                 <input
+                autoFocus
+                  dir="auto"
                   type="text"
                   placeholder={translations.searchforPoetsPlaces}
                   value={query}
@@ -110,7 +142,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
                 </div>
 
                 <div className={styles.places_container}>
-                  {placesData?.map((place) => (
+                  {placesData?.map(({ item: place }) => (
                     <Link href={`/city/${place.id}`} key={place.id}>
                       <motion.div
                         animate={{ opacity: 1 }}
@@ -121,7 +153,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
                         <div className={styles.title}>
                           <Typography variant="h4">{place.name}</Typography>
                           <div className={styles.img_container}>
-                            <img src={place.images} alt="" />
+                            <img src={place.icon} alt="" />
                           </div>
                         </div>
                         <div className={styles.desc}>
@@ -140,7 +172,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
             )}
             <div className={styles.poets_container}>
               {poetsData &&
-                poetsData.map((poet) => (
+                poetsData.map(({ item: poet }) => (
                   <motion.div
                     animate={{ opacity: 1 }}
                     initial={{ opacity: 0 }}
@@ -174,7 +206,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
             </div>
             {placesData?.length === 0 &&
               poetsData?.length === 0 &&
-              query !== "" && (
+              query?.length > 1 && (
                 <div className={styles.notfound}>
                   <Typography variant="h4">
                     {translations.thereNoResultFor}:<span>{query}</span>
@@ -197,12 +229,12 @@ export async function getStaticProps({ locale }) {
   const langId = process.env[langIdEnvKey];
 
   const resPlaces = await fetch(
-    `${apiDomain}/api/Makan/GetAllPlaces?type=6&lang=${langId}&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Makan/GetAllPlaces?lang=${langId}&pagenum=1&pagesize=200`
   );
   const placesData = await resPlaces.json();
 
   const resPoets = await fetch(
-    `${apiDomain}/api/Poets/GetAllPoets?lang=${langId}&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Poets/GetAllPoets?lang=${langId}&pagenum=1&pagesize=200`
   );
   const poetsData = await resPoets.json();
 

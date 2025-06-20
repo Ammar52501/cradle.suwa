@@ -55,17 +55,6 @@ const Footer = () => {
               </div>
             </div>
           </Box>
-          {/* <Box className={styles.logo_mobile_footer_container}>
-            <div className={styles.logo_mobile_footer}>
-              <Image
-                priority
-                width={263}
-                height={245}
-                src={"/logo_footer.png"}
-                alt=""
-              />
-            </div>
-          </Box> */}
         </Box>
 
         <Typography>
