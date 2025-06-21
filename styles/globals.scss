@@ -11,9 +11,21 @@
   --main-red-color: #bb7165;
   --main-blue-color: #11292f;
   --clr: #ffffff;
+  --header-height: 68px;
 }
 
-/* globals.scss */
+@media screen and (min-width: 450px) {
+  :root {
+    --header-height: 88px;
+  }
+}
+
+
+@media screen and (min-width: 750px) {
+  :root {
+    --header-height: 108px;
+  }
+}
 
 /* Effra Font */
 @font-face {
@@ -542,19 +554,19 @@ foreignObject {
   }
 }
 
-svg.saudi-map.safari .city-name {
-  -webkit-transform: unset !important;
-  transform: unset !important;
-  opacity: unset !important;
-  position: unset !important;
-}
-svg.saudi-map.safari .city-name > div {
-  transition: 0.3s all ease-in;
-}
+// svg.saudi-map.safari .city-name {
+//   -webkit-transform: unset !important;
+//   transform: unset !important;
+//   opacity: unset !important;
+//   position: unset !important;
+// }
+// svg.saudi-map.safari .city-name > div {
+//   transition: 0.3s all ease-in;
+// }
 
-svg.saudi-map.safari .city-name > div:hover {
-  margin-bottom: 10px;
-}
+// svg.saudi-map.safari .city-name > div:hover {
+//   margin-bottom: 10px;
+// }
 
 .MuiTabs-indicator {
   display: none;

@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/grid";
 import styles from "./index.module.scss";
 import Poetry from "./Poetry";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const breakpoints = {
   sm: {
@@ -95,7 +95,21 @@ export default function SliderVerses({ dataPoetry, isAR }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  useLayoutEffect(() => {
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < breakpoints.md.screenWidth) {
+        setPostPerPage(breakpoints.sm.slides * breakpoints.sm.rows);
+      } else if (window.innerWidth < breakpoints.lg.screenWidth) {
+        setPostPerPage(breakpoints.md.slides * breakpoints.md.rows);
+      } else {
+        setPostPerPage(breakpoints.lg.slides * breakpoints.lg.rows);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useEffect(() => {
     if (
       dataPoetry.length < postPerPage ||
       window.innerWidth < breakpoints.md.screenWidth

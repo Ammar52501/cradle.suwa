@@ -265,7 +265,7 @@ const Navbar = () => {
         </Container>
       </MotionAppBar>
 
-      <div className="h-12 lg:h-16" />
+      <div className="h-header-height" />
     </>
   );
 };

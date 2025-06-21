@@ -54,33 +54,51 @@ const Poets = ({
   const [showButton, setShowButton] = useState(false);
   const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
   const [contentHeight, setContentHeight] = useState(0);
+
+  const calculateHeight = useCallback(() => {
+    const windowWidth = window.innerWidth;
+    if (textRef.current && windowWidth < 450) {
+      setContentHeight(textRef.current.scrollHeight);
+      const height = lineHeight * clamp;
+      setMaxHeight(height + unit);
+      const isShowButton = textRef.current.scrollHeight > height;
+      setShowButton((pre) => {
+        if (isShowButton && !pre) {
+          setTimeout(() => {
+            calculateHeight();
+          }, 50);
+        }
+        return isShowButton;
+      });
+    } else if (windowWidth > 450 && textRef.current) {
+      setContentHeight("max-content");
+      setMaxHeight("max-content");
+      setShowButton(false);
+      setExpanded(false);
+    }
+  }, [activePoet, lineHeight, clamp, unit]);
+
   useLayoutEffect(() => {
     setExpanded(false);
     setShowButton(false);
-    const calculateHeight = () => {
-      const windowWidth = window.innerWidth;
-      if (textRef.current && windowWidth < 450) {
-        setContentHeight(textRef.current.scrollHeight);
-        const height = lineHeight * clamp;
-        setMaxHeight(height + unit);
-        setShowButton(textRef.current.scrollHeight > height);
-      } else if (windowWidth > 450 && textRef.current) {
-        setContentHeight("max-content");
-        setMaxHeight("max-content");
-        setShowButton(false);
-        setExpanded(false);
-      }
-    };
     calculateHeight();
     window.addEventListener("resize", calculateHeight);
     return () => window.removeEventListener("resize", calculateHeight);
-  }, [activePoet, lineHeight, clamp, unit]);
+  }, [calculateHeight]);
+  // useEffect(() => {
+  //   setExpanded(false);
+  //   setShowButton(false);
+  //   calculateHeight();
+  //   window.addEventListener("resize", calculateHeight);
+  //   return () => window.removeEventListener("resize", calculateHeight);
+  // }, [calculateHeight]);
+
   const toggleExpanded = () => {
     if (!showButton) return;
     setExpanded((prev) => !prev);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       setIsDesckTop(window.innerWidth > 768);
     };

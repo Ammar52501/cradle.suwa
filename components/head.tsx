@@ -39,7 +39,7 @@ const HeadComponent = memo(
   }) => {
     const fullTitle =
       title && title.default
-        ? title.default + (title?.template ? ` - ${title.template}` : "")
+        ? (title?.template ? `${title.template} - ` : "") + title.default
         : "";
     pathname = pathname === "/" ? "" : pathname;
     const fullUrl = `${process.env.NEXT_PUBLIC_APP_DOMAIN}${

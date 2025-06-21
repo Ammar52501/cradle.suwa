@@ -62,11 +62,11 @@ nav.search {
         svg {
           width: auto;
           height: 40px;
-    
+
           @media screen and (min-width: 450px) {
             height: 60px;
           }
-    
+
           @media screen and (min-width: 750px) {
             height: 70px;
           }
@@ -164,7 +164,6 @@ section.results {
       }
     }
   }
-
   .poets_container {
     display: flex;
     flex-wrap: wrap;
@@ -199,6 +198,7 @@ section.results {
 
         .img_container {
           margin-left: 10px;
+          margin-right: 10px;
           width: 130px;
           height: 130px;
           display: flex;
@@ -249,7 +249,7 @@ section.results {
           background-color: transparent !important ;
           border: none !important;
           padding: 0 !important;
-
+          max-width: calc(100% - 100px);
           .name {
             display: flex;
 
@@ -258,7 +258,6 @@ section.results {
               font-size: 18px;
               font-weight: 700;
               line-height: 27px;
-              text-align: center;
               color: var(--main-blue-color);
             }
             .date {
@@ -325,6 +324,19 @@ section.results {
 
       span {
         color: #3d553f;
+      }
+    }
+  }
+}
+
+html[dir="ltr"] section.results {
+  .poets_container {
+    .box {
+      .poet_info {
+        .img_container {
+          left: auto;
+          right: 0;
+        }
       }
     }
   }

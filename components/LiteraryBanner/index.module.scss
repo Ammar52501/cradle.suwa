@@ -1,5 +1,4 @@
 section.LiteraryBanner {
-  margin-top: 20px;
   background-image: url("/assets/imgs/Grain_Texture.webp");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -14,7 +13,6 @@ section.LiteraryBanner {
   }
   position: relative;
   z-index: 1;
-  top: 14px;
 
   .sec_container {
     .sec_title {

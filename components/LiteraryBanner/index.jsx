@@ -1,30 +1,41 @@
-import React, { useContext } from 'react'
-import styles from './index.module.scss'
-import { Container, Typography } from '@mui/material'
-import { Mountains } from '@/assets/svgsComponents'
-import { useRouter } from 'next/router'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import Link from 'next/link'
-import Image from 'next/image'
-import DataContext from '@/context/DataContext'
-
-
+import React, { useContext, useEffect, useRef } from "react";
+import styles from "./index.module.scss";
+import { Container, Typography } from "@mui/material";
+import { Mountains } from "@/assets/svgsComponents";
+import { useRouter } from "next/router";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import Link from "next/link";
+import Image from "next/image";
+import DataContext from "@/context/DataContext";
 
 const LiteraryBanner = (props) => {
   const translationsFromContext = useContext(DataContext);
   const { query } = useRouter();
   const eraIndex = query.index ? Number(query.index) : 0;
   const router = useRouter();
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    if (swiperRef.current && eraIndex) {
+      const slideIndex = props?.dataAllEras?.findIndex((era) => era.id === eraIndex);
+      if (slideIndex !== -1) {
+        swiperRef.current.slideTo(slideIndex);
+      }
+    }
+  }, [eraIndex, props?.dataAllEras]);
+
   return (
-
     <>
-      <section id='LiteraryBanner' className={styles.LiteraryBanner} dir={`${router.locale === 'ar' ? 'rtl' : 'ltr'}`}>
+      <section
+        id="LiteraryBanner"
+        className={styles.LiteraryBanner}
+        dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
+      >
         <div className={styles.sec_container}>
-
           <Container maxWidth={false} className={styles.leftSide}>
             <div className={styles.sec_title}>
-              <Typography variant='h1'>
+              <Typography variant="h1">
                 {translationsFromContext.poetsOfTheEra}
               </Typography>
             </div>
@@ -35,23 +46,26 @@ const LiteraryBanner = (props) => {
             </div>
             <div className={styles.left_branch}>
               <img src={"/assets/imgs/left_branch.webp"} alt="" />
-
             </div>
             <div className={styles.horse}>
               <img src={"/assets/imgs/horse.webp"} alt="" />
-
             </div>
             <div className={styles.mountains}>
               <Mountains />
             </div>
           </div>
         </div>
-
-      </section >
+      </section>
       <Container maxWidth={false} className={styles.leftSide}>
-        <div className={styles.swiper_container} dir={`${router.locale === 'ar' ? 'rtl' : 'ltr'}`}>
+        <div
+          className={styles.swiper_container}
+          dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
+        >
           <Swiper
-            dir={`${router.locale === 'ar' ? 'rtl' : 'ltr'}`}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+            }}
+            dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
             breakpoints={{
               1: {
                 slidesPerView: 1.5,
@@ -81,44 +95,48 @@ const LiteraryBanner = (props) => {
               1200: {
                 slidesPerView: 3.5,
                 spaceBetween: 24,
-
               },
               1300: {
                 slidesPerView: 4.5,
                 spaceBetween: 24,
-
               },
             }}
             slidesPerView={4.5}
             spaceBetween={24}
-            pagination={true} className={"swiper"}>
+            pagination={true}
+            className={"swiper"}
+          >
             {props?.dataAllEras?.map((era) => (
               <SwiperSlide key={era.id} className={styles.swiper_slide_box}>
                 <Link
+                  replace
                   scroll={false}
-                  href={`/literary-eras/era/${era.id}`} className={`${styles.box} ${eraIndex === era.id ? styles.active : ''}`}>
+                  href={`/literary-eras/era/${era.id}`}
+                  className={`${styles.box} ${
+                    eraIndex === era.id ? styles.active : ""
+                  }`}
+                >
                   <div className={styles.img_container}>
-                    <Image width={277} height={115} quality={100} src={era.icon} alt={era.name} />
+                    <Image
+                      width={277}
+                      height={115}
+                      quality={100}
+                      src={era.icon}
+                      alt={era.name}
+                    />
                   </div>
-
-
 
                   <div className={styles.title}>
-                    <Typography variant='h4'>
-                      {era.name}
-                    </Typography>
+                    <Typography variant="h4">{era.name}</Typography>
                   </div>
-
                 </Link>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </Container>
-
     </>
+  );
+};
 
-  )
-}
-
-export default LiteraryBanner
+export default LiteraryBanner;
