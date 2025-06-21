@@ -37,6 +37,7 @@ next-env.d.ts
 
 ..git
 .git-job
+.git-work
 .git-main
 
 /fixes

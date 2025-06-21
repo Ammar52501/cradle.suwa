@@ -384,6 +384,7 @@ const Places = ({
                             {activeIndex !== null &&
                               places
                                 ?.sort((a, b) => {
+                                  // Move active place to the end of the array
                                   if (a.id === activeCity) return 1;
                                   if (b.id === activeCity) return -1;
                                   return 0;
@@ -393,44 +394,40 @@ const Places = ({
                                     x={place.svgX}
                                     y={place.svgY}
                                     key={place.id}
-                                    width="1"
-                                    height="1"
                                     className={`${
-                                      activeCity === place.id ? "pointer-events-none" : ""
+                                      activeCity === place.id
+                                        ? "pointer-events-none"
+                                        : ""
                                     }`}
-                                    style={{
-                                      overflow: 'visible',
-                                      transform: isSafari ? 'translateZ(0)' : 'none'
-                                    }}
                                   >
                                     <div
                                       className="city-container"
                                       xmlns="http://www.w3.org/1999/xhtml"
-                                      style={{
-                                        transform: isSafari ? 'translateZ(0)' : 'none',
-                                        WebkitTransform: isSafari ? 'translateZ(0)' : 'none'
-                                      }}
                                     >
                                       <div
                                         className={`city-name ${
-                                          activeCity === place.id ? "active" : ""
+                                          activeCity === place.id
+                                            ? "active"
+                                            : ""
                                         }`}
                                         id="p1"
-                                        style={{
-                                          transform: isSafari ? 'translateZ(0)' : 'none',
-                                          WebkitTransform: isSafari ? 'translateZ(0)' : 'none'
-                                        }}
                                       >
                                         <div className={styles.wrapper}>
                                           {activeCity === place.id && (
-                                            <div className={styles.icon_container}>
+                                            <div
+                                              className={styles.icon_container}
+                                            >
                                               <LocationPin />
                                             </div>
                                           )}
                                           <div
-                                            onClick={() => handlePlaceActive(place.id)}
+                                            onClick={() =>
+                                              handlePlaceActive(place.id)
+                                            }
                                             className={`${styles.city_point} ${
-                                              activeCity === place.id ? styles.active : ""
+                                              activeCity === place.id
+                                                ? `${styles.active} 'active' `
+                                                : ""
                                             }`}
                                           ></div>
                                         </div>
