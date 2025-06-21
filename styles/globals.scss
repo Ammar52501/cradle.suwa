@@ -261,6 +261,25 @@ header {
   opacity: 1;
   position: relative;
 }
+
+@supports (-webkit-hyphens:none) {
+  .safari {
+    .city-name {
+      transform-origin: center center;
+      transform: translate3d(var(--translate-x), var(--translate-y), 0) !important;
+      -webkit-transform: translate3d(var(--translate-x), var(--translate-y), 0) !important;
+    }
+    
+    .city-container {
+      transform-origin: center center;
+    }
+    
+    foreignObject {
+      transform-origin: center center;
+    }
+  }
+}
+
 html[dir="ltr"] .city-name {
   --translate-x: -50%;
 }
