@@ -288,7 +288,7 @@ const Places = ({
             </div>
 
             <div className={styles.map_container}>
-              <div className={styles.map}>
+              <div className={styles.map} dir="ltr"> {/* TODO: remove dir="ltr" */}
                 <TransformWrapper
                   ref={transformComponentRef}
                   wheel={{ wheelDisabled: true }}
