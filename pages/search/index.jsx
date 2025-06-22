@@ -5,9 +5,9 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { RotatingLines } from "react-loader-spinner";
-import { REVALIDATE } from "@/lib/constant";
 import Logo from "@/components/logo";
 import Fuse from "fuse.js";
+import { REVALIDATE } from "@/lib/constant";
 const removeDiacritics = (text) => {
   return (text || "").replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED]/g, "");
 };
@@ -249,6 +249,6 @@ export async function getStaticProps({ locale }) {
       translations,
       title: translations?.search,
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }

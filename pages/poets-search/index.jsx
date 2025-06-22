@@ -95,12 +95,6 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
     const eraParam = params.get("era");
     const searchParam = params.get("search");
     const pageParam = params.get("page");
-    console.log({
-      eraParam,
-      searchParam,
-      pageParam,
-    });
-
     if (eraParam) {
       setAge(eraParam == "0" ? 0 : eraParam);
       if (eraParam == "0") {
@@ -380,7 +374,7 @@ export async function getStaticProps({ locale }) {
         translations,
         title: translations.explorePoets,
       },
-      revalidate: REVALIDATE,
+      revalidate: +process.env.REVALIDATE || REVALIDATE,
     };
   } catch (error) {
     console.error(error);

@@ -189,10 +189,6 @@ const Places = ({
     }
   }, []);
 
-  // TODO: add it to the head
-  const description =
-    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
-
   return (
     <>
       <PageHeader
@@ -289,7 +285,6 @@ const Places = ({
 
             <div className={styles.map_container}>
               <div className={styles.map} dir="ltr">
-                {/* TODO: remove dir="ltr" */}
                 <TransformWrapper
                   ref={transformComponentRef}
                   wheel={{ wheelDisabled: true }}
@@ -585,6 +580,6 @@ export async function getStaticProps({ locale }) {
       translations,
       title: "مناطق المملكة العربية السعودية",
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }

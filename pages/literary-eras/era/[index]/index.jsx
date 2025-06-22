@@ -86,7 +86,7 @@ export async function getStaticProps({ params, locale }) {
   const dataAllPlaces = await resAllPlaces.json();
 
   const resAllPoetries = await fetch(
-    `${apiDomain}/api/Poetries/GetAllPoetries?lang=${langId}&pagenum=1&pagesize=900` /* TODO */
+    `${apiDomain}/api/Poetries/GetAllPoetries?lang=${langId}&pagenum=1&pagesize=200`
   );
   const dataAllPoetries = await resAllPoetries.json();
 
@@ -133,7 +133,7 @@ export async function getStaticProps({ params, locale }) {
       title: eraDetails?.name || "",
       description: eraDetails?.desc || "",
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }
 

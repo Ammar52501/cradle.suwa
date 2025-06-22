@@ -33,7 +33,7 @@ export async function getStaticProps({ params, locale }) {
       title: dataPoet?.name || "",
       description: dataPoet?.description || "",
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }
 

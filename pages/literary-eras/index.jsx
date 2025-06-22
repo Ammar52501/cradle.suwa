@@ -13,15 +13,9 @@ import { REVALIDATE } from "@/lib/constant";
 const LiteraryEras = ({ erasAllEras, translations }) => {
   const router = useRouter();
   const fullText = translations.explorepoetsthroughtheages;
-
-  // Split the text into words
   const words = fullText.split(" ");
-
-  // Group the words into two parts
   const firstPart = words.slice(0, 2).join(" ");
   const secondPart = words.slice(2).join(" ");
-  // TODO: add it to the head
-  const description = "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة"
   return (
     <>
       <section
@@ -174,7 +168,7 @@ export async function getStaticProps({ locale }) {
         translations,
         title: translations.historicalLiteraryEras,
       },
-      revalidate: REVALIDATE,
+      revalidate: +process.env.REVALIDATE || REVALIDATE,
     };
   } catch (error) {
     console.error("Failed to fetch API:", error);

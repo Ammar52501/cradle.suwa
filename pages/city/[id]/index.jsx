@@ -3,11 +3,6 @@ import Verses from "@/components/Cities/Verses";
 import { REVALIDATE } from "@/lib/constant";
 
 const Cities = ({ dataCityData, dataCityPoetry, translations }) => {
-  // TODO: add it to the head
-  const description =
-    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
-  console.log({ dataCityPoetry, dataCityData });
-  
   return (
     <>
       <PageHeader
@@ -73,7 +68,6 @@ export async function getStaticProps({ params, locale }) {
       title: dataCityData?.name || "",
       description: dataCityData?.descriptionShort || "",
     },
-
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }

@@ -123,8 +123,8 @@ export async function getStaticProps({ locale }) {
     props: {
       AllMainTopics,
       translations,
-      title: translations?.poetryarchive
+      title: translations?.poetryarchive,
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }

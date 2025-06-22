@@ -15,9 +15,6 @@ import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
 import { REVALIDATE } from "@/lib/constant";
 
-//  TODO
-const description = "استكشف الشعراء عبر العصور التاريخية الأدبية";
-
 const Treasury = ({ sectionData }) => {
   const router = useRouter();
   const sectionPageData = sectionData[0];
@@ -260,8 +257,8 @@ export async function getStaticProps({ params, locale }) {
     props: {
       sectionData,
       translations,
-      title: sectionData[0].name || ""
+      title: sectionData[0].name || "",
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }

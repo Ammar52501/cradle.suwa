@@ -15,7 +15,7 @@ export async function getStaticProps({ locale }) {
     props: {
       translations,
     },
-    revalidate: REVALIDATE,
+    revalidate: +process.env.REVALIDATE || REVALIDATE,
   };
 }
 
