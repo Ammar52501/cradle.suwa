@@ -14,12 +14,10 @@ const Era = ({
   dataAllPlaces,
   dataAllPoetries,
   allStaticWords,
-  index
+  index,
 }) => {
   const [isLayerActive, setIsLayerActive] = useState(false);
-  // TODO: add it to the head
-  const description =
-    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
+
   return (
     <motion.div
       animate={{ opacity: 1 }}
@@ -133,6 +131,7 @@ export async function getStaticProps({ params, locale }) {
       allStaticWords,
       index,
       title: eraDetails?.name || "",
+      description: eraDetails?.desc || "",
     },
     revalidate: REVALIDATE,
   };

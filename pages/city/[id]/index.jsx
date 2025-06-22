@@ -6,6 +6,8 @@ const Cities = ({ dataCityData, dataCityPoetry, translations }) => {
   // TODO: add it to the head
   const description =
     "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
+  console.log({ dataCityPoetry, dataCityData });
+  
   return (
     <>
       <PageHeader
@@ -69,6 +71,7 @@ export async function getStaticProps({ params, locale }) {
       dataCityPoetry,
       translations,
       title: dataCityData?.name || "",
+      description: dataCityData?.descriptionShort || "",
     },
 
     revalidate: REVALIDATE,

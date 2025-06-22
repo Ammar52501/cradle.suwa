@@ -395,8 +395,8 @@ section.Poets {
   }
 
   .city_point {
-    width: 20px !important;
-    height: 20px !important;
+    width: var(--point-size) !important;
+    height: var(--point-size) !important;
     border-radius: 50%;
     background-color: #bfb59c;
     cursor: pointer;

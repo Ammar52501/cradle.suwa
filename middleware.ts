@@ -37,9 +37,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
 
   const pathLocale = req.nextUrl.locale;
-  const localeCookie = req.cookies.get(LOCALE_COOKIE)?.value;
-
-  let userLang = returnValidLocale(localeCookie);
+  const localeCookie = returnValidLocale(req.cookies.get(LOCALE_COOKIE)?.value);
+  const defaultLocale = req.nextUrl.defaultLocale as string;
+  let userLang = localeCookie;
 
   if (!userLang) {
     const acceptLanguages =
@@ -52,18 +52,20 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  userLang = userLang || (req.nextUrl.defaultLocale as string);
+  userLang = userLang || defaultLocale;
 
   if (pathLocale === userLang)
     return setLanguageCookie(NextResponse.next(), userLang);
 
+  const pathname = req.nextUrl.pathname;
+
   return setLanguageCookie(
     NextResponse.redirect(
       new URL(
-        `${req.nextUrl.defaultLocale === userLang ? "" : `/${userLang}`}${
-          req.nextUrl.pathname === "/" ? "" : req.nextUrl.pathname
+        `${defaultLocale === userLang ? "" : `/${userLang}`}${
+          pathname === "/" ? "" : pathname
         }${req.nextUrl.search}`,
-        req.url
+        req.nextUrl.origin
       )
     ),
     userLang

@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps, router }) {
           default: translations.yearOfArabicPoetry,
           template: pageProps.title,
         }}
-        description={description}
+        description={pageProps.description || description}
         defaultLocale={router.defaultLocale}
       />
       <Head>

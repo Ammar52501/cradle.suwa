@@ -412,7 +412,7 @@ const Poets = ({
                 )}
               </AnimatePresence>
 
-              <div id="map-boxes" className={styles.map_box}>
+              <div id="map-boxes" dir="ltr" className={styles.map_box}>
                 {isMapLoading && (
                   <div className={styles.svg_layer}>
                     <RotatingLines
@@ -431,10 +431,14 @@ const Poets = ({
                   width="858"
                   height="724"
                   fill="none"
+                  dir="ltr"
                   xmlns="http://www.w3.org/2000/svg"
                   className={`${styles.zaman_map} ${
                     isSafari ? "saudi-map safari" : "saudi-map"
                   }`}
+                  style={{
+                    "--point-size": "20px",
+                  }}
                   viewBox="90 90 758 624"
                 >
                   {dataAllCitiesMap?.map((land, index) => (
@@ -458,29 +462,19 @@ const Poets = ({
                             activeCity === place.id ? "pointer-events-none" : ""
                           }`}
                         >
-                          <div
-                            className="city-container"
-                            xmlns="http://www.w3.org/1999/xhtml"
-                          >
-                            <div
-                              className={`city-name ${
-                                activeCity === place.id ? "active" : ""
-                              }`}
-                              id="p1"
-                            >
-                              <div className={styles.wrapper}>
-                                {activeCity === place.id && (
-                                  <div className={styles.icon_container}>
-                                    <LocationPin />
-                                  </div>
-                                )}
-                                <div
-                                  onClick={() => handlePlaceActive(place.id)}
-                                  className={`${styles.city_point} ${
-                                    activeCity === place.id ? styles.active : ""
-                                  }`}
-                                ></div>
-                              </div>
+                          <div className="city-container">
+                            <div className={`city-name`}>
+                              {activeCity === place.id && (
+                                <div className={`${styles.icon_container} pin`}>
+                                  <LocationPin />
+                                </div>
+                              )}
+                              <div
+                                onClick={() => handlePlaceActive(place.id)}
+                                className={`${styles.city_point} ${
+                                  activeCity === place.id ? styles.active : ""
+                                } point`}
+                              />
                             </div>
                           </div>
                         </foreignObject>

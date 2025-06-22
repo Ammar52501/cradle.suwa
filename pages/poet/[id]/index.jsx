@@ -2,8 +2,6 @@ import PoetDetails from "@/components/PoetDetails";
 import { REVALIDATE } from "@/lib/constant";
 
 export default function Poet({ dataPoet, dataPoetry }) {
-  // TODO: add it to the head
-  const description = dataPoet?.description;
   return <PoetDetails dataPoet={dataPoet} dataPoetry={dataPoetry} />;
 }
 
@@ -33,6 +31,7 @@ export async function getStaticProps({ params, locale }) {
       dataPoetry,
       translations,
       title: dataPoet?.name || "",
+      description: dataPoet?.description || "",
     },
     revalidate: REVALIDATE,
   };

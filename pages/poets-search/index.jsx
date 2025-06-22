@@ -6,7 +6,12 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import styles from "./index.module.scss";
 import { styled } from "@mui/system";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -26,8 +31,14 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const router = useRouter();
   const handleChange = (event) => {
-    const selectedValue = event.target.value; // This is the selected era ID from the dropdown
-    setAge(selectedValue); // Update the selected era state
+    const params = new URLSearchParams(window.location.search);
+    params.set("era", event.target.value);
+    params.set("page", 0);
+    params.set("search", "");
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+    const selectedValue = event.target.value
+    setAge(selectedValue); 
 
     let filteredData = [];
 
@@ -43,9 +54,10 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
       filteredData = dataDefault;
     }
 
-    // Update the filtered poets state
+    
     setFiltredPoets(filteredData);
     setCurrentPage(0);
+    setSearchString("");
   };
 
   const handleSearch = useCallback(() => {
@@ -62,6 +74,12 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
         )
       );
 
+      
+      const params = new URLSearchParams(window.location.search);
+      params.set("search", searchString);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState(null, "", newUrl);
+
       setFiltredPoets(filteredData);
       setIsLoading(false);
       setCurrentPage(0);
@@ -70,6 +88,47 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
       setIsLoading(false);
     }
   }, [searchString, dataDefault]);
+
+  
+  useLayoutEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const eraParam = params.get("era");
+    const searchParam = params.get("search");
+    const pageParam = params.get("page");
+    console.log({
+      eraParam,
+      searchParam,
+      pageParam,
+    });
+
+    if (eraParam) {
+      setAge(eraParam == "0" ? 0 : eraParam);
+      if (eraParam == "0") {
+        setFiltredPoets(dataDefault);
+      } else if (eraParam == "bornInSaudi") {
+        setFiltredPoets(
+          dataDefault.filter((poet) => poet.bornInSaudi === true)
+        );
+      } else {
+        setFiltredPoets(
+          dataDefault.filter((poet) => poet.zamanId == eraParam)
+        );
+      }
+    }
+
+    if (searchParam) {
+      setSearchString(searchParam);
+      const normalizedSearchString = removeDiacritics(searchParam.toLowerCase());
+      const filteredData = dataDefault.filter((poet) =>
+        removeDiacritics(poet.name.toLowerCase()).includes(normalizedSearchString)
+      );
+      setFiltredPoets(filteredData);
+    }
+
+    if (pageParam) {
+      setCurrentPage(parseInt(pageParam));
+    }
+  }, [dataDefault]);
 
   const removeDiacritics = (text) => {
     const diacritics = "ًٌٍَُِّْ";
@@ -116,11 +175,11 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
       borderColor: "#E5E6F2",
     },
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#E5E6F2", // or any other color you want
+      borderColor: "#E5E6F2", 
     },
 
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#E5E6F2", // or any other color you want
+      borderColor: "#E5E6F2", 
     },
 
     ".MuiSelect-select": {
@@ -167,10 +226,6 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
     fontSize: "16px",
   };
 
-  // TODO: add it to the head
-  const description =
-    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
-
   return (
     <section
       id="poets"
@@ -201,6 +256,7 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
                     <div className={styles.form_container}>
                       <input
                         type="text"
+                        dir="auto"
                         placeholder={translations.searchbypoet}
                         value={searchString}
                         onChange={(e) => setSearchString(e.target.value)}

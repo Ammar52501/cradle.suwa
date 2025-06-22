@@ -31,7 +31,7 @@ const Places = ({
   const [isPointsActive, seIsPointsActive] = useState(false);
   const [cityNames, setCityNames] = useState([]);
   const router = useRouter();
-  
+
   useEffect(() => {
     if (activeIndex !== null) {
       setPlaces(dataAllCitiesMap[activeIndex]?.places);
@@ -189,9 +189,9 @@ const Places = ({
     }
   }, []);
 
-
   // TODO: add it to the head
-  const description = "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
+  const description =
+    "شُعراء العصور الأَدبيّة في مَناطِق المملكة العربيّة السُّعوديّة";
 
   return (
     <>
@@ -288,7 +288,8 @@ const Places = ({
             </div>
 
             <div className={styles.map_container}>
-              <div className={styles.map} dir="ltr"> {/* TODO: remove dir="ltr" */}
+              <div className={styles.map} dir="ltr">
+                {/* TODO: remove dir="ltr" */}
                 <TransformWrapper
                   ref={transformComponentRef}
                   wheel={{ wheelDisabled: true }}
@@ -400,37 +401,26 @@ const Places = ({
                                         : ""
                                     }`}
                                   >
-                                    <div
-                                      className="city-container"
-                                      xmlns="http://www.w3.org/1999/xhtml"
-                                    >
-                                      <div
-                                        className={`city-name ${
-                                          activeCity === place.id
-                                            ? "active"
-                                            : ""
-                                        }`}
-                                        id="p1"
-                                      >
-                                        <div className={styles.wrapper}>
-                                          {activeCity === place.id && (
-                                            <div
-                                              className={styles.icon_container}
-                                            >
-                                              <LocationPin />
-                                            </div>
-                                          )}
+                                    <div className="city-container">
+                                      <div className={`city-name`}>
+                                        {activeCity === place.id && (
                                           <div
-                                            onClick={() =>
-                                              handlePlaceActive(place.id)
-                                            }
-                                            className={`${styles.city_point} ${
-                                              activeCity === place.id
-                                                ? `${styles.active} 'active' `
-                                                : ""
-                                            }`}
-                                          ></div>
-                                        </div>
+                                            className={`${styles.icon_container} pin`}
+                                          >
+                                            <LocationPin />
+                                          </div>
+                                        )}
+
+                                        <div
+                                          onClick={() =>
+                                            handlePlaceActive(place.id)
+                                          }
+                                          className={`${styles.city_point} ${
+                                            activeCity === place.id
+                                              ? `${styles.active} `
+                                              : ""
+                                          } point`}
+                                        ></div>
                                       </div>
                                     </div>
                                   </foreignObject>
@@ -441,7 +431,6 @@ const Places = ({
                     );
                   }}
                 </TransformWrapper>
-
                 <AnimatePresence>
                   {cityData && isDesckTop && (
                     <motion.div
@@ -479,7 +468,10 @@ const Places = ({
                         </div>
 
                         {router.locale === "ar" && (
-                          <PoetsSlider poetriesData={poetriesData} key={activeCity}/>
+                          <PoetsSlider
+                            poetriesData={poetriesData}
+                            key={activeCity}
+                          />
                         )}
 
                         <div

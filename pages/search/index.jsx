@@ -35,7 +35,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
     () => prepareDataForSearch(initialPoetsData, ["name", "nickname"]),
     [initialPoetsData]
   );
-
+  
   const preparedPlacesData = useMemo(
     () => prepareDataForSearch(initialPlacesData, ["name", "otherNames"]),
     [initialPlacesData]
@@ -241,12 +241,13 @@ export async function getStaticProps({ locale }) {
     `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
   );
   const translations = await resTranslations.json();
-
+  
   return {
     props: {
       initialPlacesData: placesData,
       initialPoetsData: poetsData,
       translations,
+      title: translations?.search,
     },
     revalidate: REVALIDATE,
   };
