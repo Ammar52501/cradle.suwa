@@ -46,9 +46,16 @@ const Era = ({
 export default Era;
 
 export async function getStaticProps({ params, locale }) {
+  const { index } = params;
+
+  if (!index || !Number.isInteger(Number(index))) {
+    return {
+      notFound: true,
+    };
+  }
+
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 
-  const { index } = params;
   const langIdEnvKey = `LANG_ID_${locale?.toUpperCase()}`;
   const langId = process.env[langIdEnvKey];
 
@@ -104,6 +111,15 @@ export async function getStaticProps({ params, locale }) {
   try {
     if (Array.isArray(dataPoetsByEra)) {
       for (const poet of dataPoetsByEra) {
+        if (
+          !poet.id ||
+          !Number.isInteger(Number(poet.id)) ||
+          Number(poet.id) <= 0
+        ) {
+          console.warn(`Invalid poet ID: ${poet.id}, skipping...`);
+          continue;
+        }
+
         const resPoetPlaces = await fetch(
           `${apiDomain}/api/Makan/GetAllPlaces?poet=${poet.id}&lang=${langId}&pagenum=1&pagesize=50`
         );

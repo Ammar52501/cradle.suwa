@@ -14,9 +14,15 @@ const setLanguageCookie = (response: NextResponse, lang: string) => {
 };
 
 function returnValidLocale(value: string | undefined) {
-  if (!value) return null;
+  const MAX_INPUT_LENGTH = 3;
+  if (!value || value.length > MAX_INPUT_LENGTH) {
+    return null;
+  }
+
   let result = "";
-  for (let i = 0; i < Math.min(value.length, 3); i++) {
+  const maxIterations = Math.min(value.length, MAX_INPUT_LENGTH);
+
+  for (let i = 0; i < maxIterations; i++) {
     const char = value[i];
     const charCode = char.charCodeAt(0);
     if (charCode >= 65 && charCode <= 90)
@@ -42,13 +48,25 @@ export async function middleware(req: NextRequest) {
   let userLang = localeCookie;
 
   if (!userLang) {
-    const acceptLanguages =
-      req.headers.get("accept-language")?.split(",") || [];
+    const acceptLanguageHeader = req.headers.get("accept-language");
+    const MAX_HEADER_LENGTH = 100;
+    const MAX_LANGUAGES = 3;
 
-    for (const lang of acceptLanguages) {
-      const cleanLang = lang.split(";")[0].split("-")[0].toLowerCase();
-      userLang = returnValidLocale(cleanLang);
-      if (userLang) break;
+    if (
+      acceptLanguageHeader &&
+      acceptLanguageHeader.length <= MAX_HEADER_LENGTH
+    ) {
+      const acceptLanguages = acceptLanguageHeader
+        .split(",")
+        .slice(0, MAX_LANGUAGES);
+
+      for (const lang of acceptLanguages) {
+        if (lang.length > 15) continue;
+
+        const cleanLang = lang.split(";")[0].split("-")[0].toLowerCase();
+        userLang = returnValidLocale(cleanLang);
+        if (userLang) break;
+      }
     }
   }
 
