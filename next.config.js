@@ -1,3 +1,5 @@
+const { PUBLIC_URL } = require("./constants");
+
 const isDev = process.env.NODE_ENV !== "production";
 const CSP = `
   base-uri 'self';
@@ -53,7 +55,7 @@ const headers = isDev
           },
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.NEXT_PUBLIC_APP_DOMAIN,
+            value: PUBLIC_URL,
           },
           {
             key: "Permissions-Policy",

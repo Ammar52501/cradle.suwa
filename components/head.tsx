@@ -1,6 +1,8 @@
 import { FALLBACK_LANG, LANGUAGES, primaryColor } from "@/lib/constant";
 import Head from "next/head";
 import { Fragment, memo, useMemo } from "react";
+import { PUBLIC_URL } from "@/constants";
+
 const metadata = {
   appCapable: "no",
   themeColor: primaryColor,
@@ -11,7 +13,7 @@ const metadata = {
     height: "630",
     width: "1200",
     imageType: "image/png",
-    url: `${process.env.NEXT_PUBLIC_APP_DOMAIN}/og.png`,
+    url: `${PUBLIC_URL}/og.png`,
     type: "website",
   },
   twitter: {
@@ -42,7 +44,7 @@ const HeadComponent = memo(
         ? (title?.template ? `${title.template} - ` : "") + title.default
         : "";
     pathname = pathname === "/" ? "" : pathname;
-    const fullUrl = `${process.env.NEXT_PUBLIC_APP_DOMAIN}${
+    const fullUrl = `${PUBLIC_URL}${
       currentLocale === defaultLocale ? "" : "/" + currentLocale
     }${pathname}`;
     const DLJson = useMemo(
@@ -51,7 +53,7 @@ const HeadComponent = memo(
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: title.default,
-          url: process.env.NEXT_PUBLIC_APP_DOMAIN + "/",
+          url: PUBLIC_URL + "/",
         }),
       }),
       [title.default]
@@ -70,7 +72,7 @@ const HeadComponent = memo(
         <link
           rel="alternate"
           hrefLang="x-default"
-          href={`${process.env.NEXT_PUBLIC_APP_DOMAIN}${pathname}`}
+          href={`${PUBLIC_URL}${pathname}`}
         />
         <meta property="og:url" content={fullUrl} />
         <meta property="og:locale" content={currentLocale} />
@@ -82,7 +84,7 @@ const HeadComponent = memo(
             <link
               rel="alternate"
               hrefLang={locale}
-              href={`${process.env.NEXT_PUBLIC_APP_DOMAIN}/${locale}${pathname}`}
+              href={`${PUBLIC_URL}/${locale}${pathname}`}
             />
           </Fragment>
         ))}
