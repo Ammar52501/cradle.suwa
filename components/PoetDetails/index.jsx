@@ -118,7 +118,7 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                       <div className={styles.boxes_container}>
                         <div className={styles.box}>
                           <div className={styles.title}>
-                            <Typography>{translations.name} </Typography>
+                            <Typography>{translations.name}</Typography>
                           </div>
                           <div className={styles.name}>
                             <Typography>{dataPoet.fullName}</Typography>

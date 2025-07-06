@@ -554,6 +554,7 @@ export async function getStaticProps({ locale }) {
     const resAllCitiesMap = await fetch(
       `${apiDomain}/api/Makan/GetAllCities?type=6&lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`
     );
+
     if (!resAllCitiesMap.ok) {
       throw new Error(`Failed to fetch cities map: ${resAllCitiesMap.status}`);
     }

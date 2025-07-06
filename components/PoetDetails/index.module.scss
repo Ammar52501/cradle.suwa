@@ -252,7 +252,6 @@
           .boxes_container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-column-gap: 10px;
             grid-row-gap: 20px;
             position: relative;
             @media screen and (max-width: 992px) {
@@ -263,42 +262,41 @@
               overflow: hidden;
             }
 
-            @media screen and (min-width: 992px) {
-              &:after {
-                content: "";
-                position: absolute;
-                top: 50%;
-                right: -20px;
-                background: #e5e6f2;
-                transform: translateY(-50%);
-                width: 102%;
-                height: 2px;
+            // @media screen and (min-width: 992px) {
+            //   &:after {
+            //     content: "";
+            //     position: absolute;
+            //     top: 50%;
+            //     right: -20px;
+            //     background: #e5e6f2;
+            //     transform: translateY(-50%);
+            //     width: 102%;
+            //     height: 2px;
 
-                @media screen and (max-width: 450px) {
-                  display: none;
-                }
-              }
-            }
+            //     @media screen and (max-width: 450px) {
+            //       display: none;
+            //     }
+            //   }
+            // }
             .box {
               position: relative;
-              padding-right: 12px;
               &:last-child {
                 grid-column: span 2;
               }
-              &:not(:last-child) {
-                @media screen and (max-width: 992px) {
-                  padding-bottom: 16px !important;
-                  &:after {
-                    content: "";
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    background: #e5e6f2;
-                    width: 116%;
-                    height: 2px;
-                  }
-                }
-              }
+              // &:not(:last-child) {
+              //   @media screen and (max-width: 992px) {
+              //     padding-bottom: 16px !important;
+              //     &:after {
+              //       content: "";
+              //       position: absolute;
+              //       bottom: 0;
+              //       left: 0;
+              //       background: #e5e6f2;
+              //       width: 116%;
+              //       height: 2px;
+              //     }
+              //   }
+              // }
               &::before {
                 content: "";
                 position: absolute;
@@ -312,6 +310,10 @@
 
               .title {
                 margin-bottom: 10px;
+                padding-bottom: 10px;
+                padding-left: 12px;
+                padding-right: 12px;
+                position: relative;
                 p {
                   font-family: var(--effra-font);
                   font-size: 14px;
@@ -320,8 +322,19 @@
                   text-align: right;
                   color: #707f82;
                 }
+                &::before {
+                  content: "";
+                  position: absolute;
+                  bottom: 0;
+                  left: 0;
+                  background-color: #e5e6f2;
+                  width: 100%;
+                  height: 1.4px;
+                }
               }
               .name {
+                padding-left: 12px;
+                padding-right: 12px;
                 p {
                   font-family: var(--effra-font);
                   font-size: 14px;
@@ -642,14 +655,11 @@
           }
           .boxes_container {
             .box {
-              padding-right: 0px;
-              padding-left: 12px;
               &::before {
                 right: unset;
                 left: 0;
               }
               .title {
-                margin-bottom: 10px;
                 p {
                   text-align: left;
                 }

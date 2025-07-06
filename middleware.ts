@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
-import { LOCALE_COOKIE, LANGUAGES } from "./lib/constant";
+import { LOCALE_COOKIE, LANGUAGES, MAX_LOCALE_LENGTH } from "./lib/constant";
 
 const setLanguageCookie = (response: NextResponse, lang: string) => {
   response.cookies.set({
@@ -14,13 +14,11 @@ const setLanguageCookie = (response: NextResponse, lang: string) => {
 };
 
 function returnValidLocale(value: string | undefined) {
-  const MAX_INPUT_LENGTH = 3;
-  if (!value || value.length > MAX_INPUT_LENGTH) {
+  if (typeof value !== "string" || value.length > MAX_LOCALE_LENGTH)
     return null;
-  }
 
   let result = "";
-  const maxIterations = Math.min(value.length, MAX_INPUT_LENGTH);
+  const maxIterations = Math.min(value.length, MAX_LOCALE_LENGTH);
 
   for (let i = 0; i < maxIterations; i++) {
     const char = value[i];
@@ -50,7 +48,7 @@ export async function middleware(req: NextRequest) {
   if (!userLang) {
     const acceptLanguageHeader = req.headers.get("accept-language");
     const MAX_HEADER_LENGTH = 100;
-    const MAX_LANGUAGES = 3;
+    const MAX_LANGUAGES = 5;
 
     if (
       acceptLanguageHeader &&
