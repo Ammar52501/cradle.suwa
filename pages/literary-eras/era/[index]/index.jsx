@@ -53,62 +53,92 @@ export default Era;
 export async function getStaticProps({ params, locale }) {
   const { index } = params;
 
-  if (!index || !Number.isInteger(Number(index))) {
+  if (
+    !index ||
+    !/^[0-9]+$/.test(index) ||
+    !Number.isInteger(Number(index)) ||
+    Number(index) <= 0
+  ) {
     return {
       notFound: true,
     };
   }
 
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
+  if (!apiDomain || !/^https?:\/\//.test(apiDomain)) {
+    throw new Error("Invalid or missing API domain");
+  }
 
-  const langIdEnvKey = `LANG_ID_${locale?.toUpperCase()}`;
+  const safeLocale =
+    typeof locale === "string" && /^[a-zA-Z-]+$/.test(locale) ? locale : "en";
+  const langIdEnvKey = `LANG_ID_${safeLocale.toUpperCase()}`;
   const langId = process.env[langIdEnvKey];
+  if (!langId) {
+    throw new Error("Missing language ID for locale: " + safeLocale);
+  }
 
   let eraDetails = null;
 
   try {
     const res = await fetch(
-      `${apiDomain}/api/Zaman/GetEra?id=${index}&lang=${langId}`
+      `${apiDomain}/api/Zaman/GetEra?id=${encodeURIComponent(
+        index
+      )}&lang=${encodeURIComponent(langId)}`
     );
     if (res.ok) {
       eraDetails = await res.json();
     }
   } catch (error) {
-    console.error("Failed to fetch era details:", error);
+    console.error(
+      "Failed to fetch era details:",
+      sanitizeForLog(error?.message || String(error))
+    );
   }
 
   const resAllEras = await fetch(
-    `${apiDomain}/api/Zaman/GetAllEras?lang=${langId}&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Zaman/GetAllEras?lang=${encodeURIComponent(
+      langId
+    )}&pagenum=1&pagesize=50`
   );
   const dataAllEras = await resAllEras.json();
 
   const resPoetsByEra = await fetch(
-    `${apiDomain}/api/Poets/GetAllPoets?era=${index}&lang=${langId}&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Poets/GetAllPoets?era=${encodeURIComponent(
+      index
+    )}&lang=${encodeURIComponent(langId)}&pagenum=1&pagesize=50`
   );
   const dataPoetsByEra = await resPoetsByEra.json();
 
   const resAllCitiesMap = await fetch(
-    `${apiDomain}/api/Makan/GetAllCities?type=6&lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Makan/GetAllCities?type=6&lang=${encodeURIComponent(
+      langId
+    )}&withPlaces=true&pagenum=1&pagesize=50`
   );
   const dataAllCitiesMap = await resAllCitiesMap.json();
 
   const resAllPlaces = await fetch(
-    `${apiDomain}/api/Makan/GetMakanFullData?lang=${langId}`
+    `${apiDomain}/api/Makan/GetMakanFullData?lang=${encodeURIComponent(langId)}`
   );
   const dataAllPlaces = await resAllPlaces.json();
 
   const resAllPoetries = await fetch(
-    `${apiDomain}/api/Poetries/GetAllPoetries?lang=${langId}&pagenum=1&pagesize=200`
+    `${apiDomain}/api/Poetries/GetAllPoetries?lang=${encodeURIComponent(
+      langId
+    )}&pagenum=1&pagesize=200`
   );
   const dataAllPoetries = await resAllPoetries.json();
 
   const resStaticWords = await fetch(
-    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
+    `${apiDomain}/api/Settings/GetStaticWords?lang=${encodeURIComponent(
+      langId
+    )}`
   );
   const allStaticWords = await resStaticWords.json();
 
   const resTranslations = await fetch(
-    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
+    `${apiDomain}/api/Settings/GetStaticWords?lang=${encodeURIComponent(
+      langId
+    )}`
   );
   const translations = await resTranslations.json();
   let poetsData = {};
@@ -116,29 +146,36 @@ export async function getStaticProps({ params, locale }) {
   try {
     if (Array.isArray(dataPoetsByEra)) {
       for (const poet of dataPoetsByEra) {
+        const poetId = poet?.id;
         if (
-          !poet.id ||
-          !Number.isInteger(Number(poet.id)) ||
-          Number(poet.id) <= 0
+          !poetId ||
+          !/^[0-9]+$/.test(String(poetId)) ||
+          !Number.isInteger(Number(poetId)) ||
+          Number(poetId) <= 0
         ) {
           console.warn(
-            `Invalid poet ID: ${sanitizeForLog(poet.id)}, skipping...`
+            `Invalid poet ID: ${sanitizeForLog(poetId)}, skipping...`
           );
           continue;
         }
 
         const resPoetPlaces = await fetch(
-          `${apiDomain}/api/Makan/GetAllPlaces?poet=${poet.id}&lang=${langId}&pagenum=1&pagesize=50`
+          `${apiDomain}/api/Makan/GetAllPlaces?poet=${encodeURIComponent(
+            poetId
+          )}&lang=${encodeURIComponent(langId)}&pagenum=1&pagesize=50`
         );
         if (resPoetPlaces.ok) {
-          poetsData[poet.id] = await resPoetPlaces.json();
+          poetsData[poetId] = await resPoetPlaces.json();
         }
       }
     } else {
       console.error("dataPoetsByEra is not an array");
     }
   } catch (error) {
-    console.error("Error fetching poets data:", error);
+    console.error(
+      "Error fetching poets data:",
+      sanitizeForLog(error?.message || String(error))
+    );
   }
 
   return {
