@@ -40,6 +40,7 @@ const Navbar = () => {
               <Link
                 href="https://engage.moc.gov.sa/poetry_grants"
                 target="_blank"
+                rel="noreferrer noopener"
               >
                 منحة الأبحاث
               </Link>

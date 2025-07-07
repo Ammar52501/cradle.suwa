@@ -300,6 +300,7 @@ const MinisterSpeech = () => {
                   "https://axc1qs8rzqmq.compat.objectstorage.me-jeddah-1.oraclecloud.com/moc-applications/engage/custom_uploads/The%20Year%20of%20Arabic%20Poetry%20Guidelines%203.pdf"
                 }
                 target="__blank"
+                rel="noreferrer noopener"
               >
                 دليل الهوية
               </Link>

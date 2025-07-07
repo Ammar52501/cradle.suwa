@@ -14,19 +14,26 @@ const setLanguageCookie = (response: NextResponse, lang: string) => {
 };
 
 function returnValidLocale(value: string | undefined) {
-  if (typeof value !== "string" || value.length > MAX_LOCALE_LENGTH)
+  if (
+    typeof value !== "string" ||
+    !value.length ||
+    value.length > MAX_LOCALE_LENGTH
+  )
     return null;
 
   let result = "";
-  const maxIterations = Math.min(value.length, MAX_LOCALE_LENGTH);
 
-  for (let i = 0; i < maxIterations; i++) {
+  for (let i = 0; i < value.length; i++) {
     const char = value[i];
     const charCode = char.charCodeAt(0);
+
     if (charCode >= 65 && charCode <= 90)
       result += String.fromCharCode(charCode + 32);
     else if (charCode >= 97 && charCode <= 122) result += char;
+    else if (char === "_" || char === "-") result += char;
+    else return null;
   }
+
   if (LANGUAGES.includes(result)) return result;
   return null;
 }
@@ -41,9 +48,8 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
 
   const pathLocale = req.nextUrl.locale;
-  const localeCookie = returnValidLocale(req.cookies.get(LOCALE_COOKIE)?.value);
+  let userLang = returnValidLocale(req.cookies.get(LOCALE_COOKIE)?.value);
   const defaultLocale = req.nextUrl.defaultLocale as string;
-  let userLang = localeCookie;
 
   if (!userLang) {
     const acceptLanguageHeader = req.headers.get("accept-language");

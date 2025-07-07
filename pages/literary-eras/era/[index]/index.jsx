@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 import styles from "../../index.module.scss";
 import { REVALIDATE } from "@/lib/constant";
 
+function sanitizeForLog(input) {
+  if (typeof input !== "string") input = String(input);
+  return input.replace(/[\r\n\u2028\u2029]+/g, " ");
+}
+
 const Era = ({
   dataAllEras,
   eraDetails,
@@ -116,7 +121,9 @@ export async function getStaticProps({ params, locale }) {
           !Number.isInteger(Number(poet.id)) ||
           Number(poet.id) <= 0
         ) {
-          console.warn(`Invalid poet ID: ${poet.id}, skipping...`);
+          console.warn(
+            `Invalid poet ID: ${sanitizeForLog(poet.id)}, skipping...`
+          );
           continue;
         }
 
@@ -128,7 +135,7 @@ export async function getStaticProps({ params, locale }) {
         }
       }
     } else {
-      console.error("dataPoetsByEra is not an array:", dataPoetsByEra);
+      console.error("dataPoetsByEra is not an array");
     }
   } catch (error) {
     console.error("Error fetching poets data:", error);
