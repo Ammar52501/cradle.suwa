@@ -32,7 +32,6 @@ export async function getStaticPaths() {
 
   const ids = await response.json();
 
-  // Generate the paths
   const paths = ids.map((id) => ({
     params: { id: id.toString() },
   }));

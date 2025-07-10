@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse, userAgent } from "next/server";
 import { LOCALE_COOKIE, LANGUAGES, MAX_LOCALE_LENGTH } from "./lib/constant";
-
 const setLanguageCookie = (response: NextResponse, lang: string) => {
   response.cookies.set({
     name: LOCALE_COOKIE,
@@ -16,26 +15,13 @@ const setLanguageCookie = (response: NextResponse, lang: string) => {
 function returnValidLocale(value: string | undefined) {
   if (
     typeof value !== "string" ||
-    !value.length ||
+    value.length === 0 ||
     value.length > MAX_LOCALE_LENGTH
   )
     return null;
-
-  let result = "";
-
-  for (let i = 0; i < value.length; i++) {
-    const char = value[i];
-    const charCode = char.charCodeAt(0);
-
-    if (charCode >= 65 && charCode <= 90)
-      result += String.fromCharCode(charCode + 32);
-    else if (charCode >= 97 && charCode <= 122) result += char;
-    else if (char === "_" || char === "-") result += char;
-    else return null;
-  }
-
-  if (LANGUAGES.includes(result)) return result;
-  return null;
+  if (!/^[a-zA-Z_-]+$/.test(value)) return null;
+  value = value.toLowerCase();
+  return LANGUAGES.includes(value) ? value : null;
 }
 
 export async function middleware(req: NextRequest) {
@@ -55,7 +41,7 @@ export async function middleware(req: NextRequest) {
     const acceptLanguageHeader = req.headers.get("accept-language");
     const MAX_HEADER_LENGTH = 100;
     const MAX_LANGUAGES = 5;
-
+    const MAX_LANGUAGE_LENGTH = 15;
     if (
       acceptLanguageHeader &&
       acceptLanguageHeader.length <= MAX_HEADER_LENGTH
@@ -65,7 +51,7 @@ export async function middleware(req: NextRequest) {
         .slice(0, MAX_LANGUAGES);
 
       for (const lang of acceptLanguages) {
-        if (lang.length > 15) continue;
+        if (lang.length > MAX_LANGUAGE_LENGTH) continue;
 
         const cleanLang = lang.split(";")[0].split("-")[0].toLowerCase();
         userLang = returnValidLocale(cleanLang);
