@@ -15,4 +15,4 @@ function getPublicUrl() {
 
 const PUBLIC_URL = getPublicUrl();
 
-export { PUBLIC_URL };
+module.exports = { PUBLIC_URL };
