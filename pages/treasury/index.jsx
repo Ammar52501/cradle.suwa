@@ -22,7 +22,7 @@ const PublicTreasury = ({ AllMainTopics, translations }) => {
               />
             </div>
 
-            <Typography variant="h1">{translations?.poetryarchive}</Typography>
+            <h1 className="rtl:font-req3a">{translations?.poetryarchive}</h1>
 
             <div className={styles.img_container}>
               <Image
