@@ -2,7 +2,7 @@
   "lockfileVersion": 1,
   "workspaces": {
     "": {
-      "name": "zamakan",
+      "name": "cradle",
       "dependencies": {
         "@bprogress/next": "^3.2.12",
         "@emotion/react": "11.14.0",
