@@ -6,9 +6,9 @@ import styles from "./index.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const PoetsSlider = ({ poetriesData }) => {
+const PoetsSlider = ({ poetriesData, cityId, activePoetId = null }) => {
   const router = useRouter();
-  
+
   return (
     <>
       <div
@@ -50,35 +50,41 @@ const PoetsSlider = ({ poetriesData }) => {
                 return (
                   <SwiperSlide key={poetry.id}>
                     <div className={styles.box}>
-                      <div className={styles.tag}>
-                        <Typography>{poetry.placeName}</Typography>
-                      </div>
+                      <Link
+                        href={`/city/${cityId}${
+                          activePoetId ? `?poetId=${activePoetId}` : ""
+                        }`}
+                      >
+                        <div className={styles.tag}>
+                          <Typography>{poetry.placeName}</Typography>
+                        </div>
 
-                      <div className={styles.desc}>
-                        <Typography>{beforeDots}</Typography>
-                        <br />
-                        <Typography>{afterDots}</Typography>
-                      </div>
+                        <div className={styles.desc}>
+                          <Typography>{beforeDots}</Typography>
+                          <br />
+                          <Typography>{afterDots}</Typography>
+                        </div>
+                      </Link>
 
                       <hr />
 
-                      <div className={styles.poet_info}>
+                      <Link
+                        href={`/poet/${poetry.poetId}`}
+                        className={styles.poet_info}
+                      >
                         <div className={styles.img_container}>
                           <img src={poetry.poetIcon} alt={poetry.poetName} />
                         </div>
 
                         <div className={styles.text_container}>
-                          <Link
-                            href={`/poet/${poetry.poetId}`}
-                            className={styles.name}
-                          >
+                          <div className={styles.name}>
                             <Typography>{poetry.poetName}</Typography>
-                          </Link>
+                          </div>
                           <div className={styles.poet_tag}>
                             <Typography>{poetry.zamanName}</Typography>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     </div>
                   </SwiperSlide>
                 );

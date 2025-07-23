@@ -1,19 +1,25 @@
-import { Button, Container, Typography } from '@mui/material';
-import React, { useRef, useEffect, useState, useContext } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Thumbs, FreeMode, Pagination, Virtual } from 'swiper/modules';
-import styles from './index.module.scss';
-import Link from 'next/link';
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import 'swiper/css/pagination';
-import 'swiper/css/virtual';
-import { motion } from 'framer-motion';
+import { Button, Container, Typography } from "@mui/material";
+import React, { useRef, useEffect, useState, useContext } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Navigation,
+  Thumbs,
+  FreeMode,
+  Pagination,
+  Virtual,
+} from "swiper/modules";
+import styles from "./index.module.scss";
+import Link from "next/link";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+import "swiper/css/thumbs";
+import "swiper/css/pagination";
+import "swiper/css/virtual";
+import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
-import Image from 'next/image';
-import DataContext from '@/context/DataContext';
+import Image from "next/image";
+import DataContext from "@/context/DataContext";
 
 const PageSection = ({ title, AllMainTopics }) => {
   const translations = useContext(DataContext);
@@ -34,8 +40,8 @@ const PageSection = ({ title, AllMainTopics }) => {
     const selectedTopic = AllMainTopics[topicIndex];
     const selectedSlider = selectedTopic.sliders[sliderIndex];
 
-    setBackgroundFullScreen(selectedSlider.imagesVideos.split(',')[0]);
-    setImagesGallery(selectedSlider.imagesVideos.split(','));
+    setBackgroundFullScreen(selectedSlider.imagesVideos.split(",")[0]);
+    setImagesGallery(selectedSlider.imagesVideos.split(","));
   };
 
   useEffect(() => {
@@ -53,14 +59,14 @@ const PageSection = ({ title, AllMainTopics }) => {
   }, []);
 
   const parseMedia = (mediaString) => {
-    return mediaString?.split(',')?.map((mediaUrl) => {
-      const isVideo = mediaUrl.endsWith('.mp4');
+    return mediaString?.split(",")?.map((mediaUrl) => {
+      const isVideo = mediaUrl.endsWith(".mp4");
       return { url: mediaUrl, isVideo };
     });
   };
 
   const getFirstMediaUrl = (mediaString) => {
-    return mediaString?.split(',')[0];
+    return mediaString?.split(",")[0];
   };
 
   const breakpoints = {
@@ -79,7 +85,7 @@ const PageSection = ({ title, AllMainTopics }) => {
       {AllMainTopics.map((topic, topicIndex) => (
         <section id={title} className={styles.section} key={topicIndex}>
           <div className={styles.sec_title}>
-            <Typography variant="h3">{topic.name}</Typography>
+            <h3>{topic.name}</h3>
           </div>
 
           <motion.div
@@ -93,7 +99,7 @@ const PageSection = ({ title, AllMainTopics }) => {
               spaceBetween={16}
               slidesPerView={1}
               navigation
-              pagination={{ clickable: true }}
+              pagination={false}
               dir="rtl"
               breakpoints={breakpoints}
               virtual={{
@@ -115,20 +121,41 @@ const PageSection = ({ title, AllMainTopics }) => {
                         loading="lazy"
                       />
                     </div>
-                    <div className={styles.img_container} onClick={() => openGallery(topicIndex, sliderIndex)}>
-                      {parseMedia(item?.imagesVideos)?.map((media, mediaIndex) => (
-                        <div
-                          key={mediaIndex}
-                          className={media.isVideo ? styles.video_container : styles.img_container}
-                          onClick={() => openGallery(topicIndex, sliderIndex, mediaIndex)}
-                        >
-                          {media.isVideo ? (
-                            <video src={media.url} controls loading="lazy"></video>
-                          ) : (
-                            <Image width={100} height={100} src={media.url} alt={item.name} loading="lazy" />
-                          )}
-                        </div>
-                      ))}
+                    <div
+                      className={styles.img_container}
+                      onClick={() => openGallery(topicIndex, sliderIndex)}
+                    >
+                      {parseMedia(item?.imagesVideos)?.map(
+                        (media, mediaIndex) => (
+                          <div
+                            key={mediaIndex}
+                            className={
+                              media.isVideo
+                                ? styles.video_container
+                                : styles.img_container
+                            }
+                            onClick={() =>
+                              openGallery(topicIndex, sliderIndex, mediaIndex)
+                            }
+                          >
+                            {media.isVideo ? (
+                              <video
+                                src={media.url}
+                                controls
+                                loading="lazy"
+                              ></video>
+                            ) : (
+                              <Image
+                                width={100}
+                                height={100}
+                                src={media.url}
+                                alt={item.name}
+                                loading="lazy"
+                              />
+                            )}
+                          </div>
+                        )
+                      )}
                     </div>
                     <div className={styles.title}>
                       <Typography variant="h4">{item.name}</Typography>
@@ -146,10 +173,21 @@ const PageSection = ({ title, AllMainTopics }) => {
                 className={styles.fullscreengallery}
               >
                 <div className={styles.gallery_wrap}>
-                  <Image width={100} height={100} src={backgroundFullScreen} alt="" loading="lazy" />
+                  <Image
+                    width={100}
+                    height={100}
+                    src={backgroundFullScreen}
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
 
-                <Container ref={imgRef} className={styles.gallery_container} sx={{ maxWidth: "1400px" }} maxWidth={false}>
+                <Container
+                  ref={imgRef}
+                  className={styles.gallery_container}
+                  sx={{ maxWidth: "1400px" }}
+                  maxWidth={false}
+                >
                   <Button onClick={closeGallery} className={styles.close_btn}>
                     <IoClose />
                   </Button>
@@ -168,7 +206,7 @@ const PageSection = ({ title, AllMainTopics }) => {
                       <SwiperSlide key={index}>
                         <div className={styles.box}>
                           <div className={styles.img_container}>
-                            {item.endsWith('.mp4') ? (
+                            {item.endsWith(".mp4") ? (
                               <video controls loading="lazy">
                                 <source src={item} type="video/mp4" />
                               </video>
@@ -191,7 +229,9 @@ const PageSection = ({ title, AllMainTopics }) => {
             )}
 
             <div className={styles.more_btn}>
-              <Link href={`/treasury/${topic.id}`}>{translations.readMore}</Link>
+              <Link href={`/treasury/${topic.id}`}>
+                {translations.readMore}
+              </Link>
             </div>
           </motion.div>
         </section>

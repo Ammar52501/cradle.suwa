@@ -21,9 +21,10 @@ const ErasPlacesSlider = ({
   const router = useRouter();
   const swiperRef = useRef(null);
   const swiperVerticalRef = useRef(null);
-  const filteredPlaces = places
-    ?.filter((place) => place.svgX !== null && place.svgY !== null)
-    ?.sort((a, b) => a.name.localeCompare(b.name, router.locale)) || [];
+  const filteredPlaces =
+    places
+      ?.filter((place) => place.svgX !== null && place.svgY !== null)
+      ?.sort((a, b) => a.name.localeCompare(b.name, router.locale)) || [];
 
   const [imageLoadingStates, setImageLoadingStates] = useState(
     filteredPlaces?.reduce((acc, city) => {
@@ -68,7 +69,7 @@ const ErasPlacesSlider = ({
     if (imageUrl?.startsWith("https")) {
       return imageUrl;
     } else {
-      return `https://zamakan.suwa.io${imageUrl}`;
+      return `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}${imageUrl}`;
     }
   };
 

@@ -1,5 +1,13 @@
-const { PUBLIC_URL } = require("./constants");
-
+const {
+  PUBLIC_URL,
+  PUBLIC_API_URL,
+  PUBLIC_ASSETS_URL,
+} = require("./constants");
+const assetsUrl = () => {
+  if (!PUBLIC_ASSETS_URL || PUBLIC_API_URL === PUBLIC_ASSETS_URL)
+    return PUBLIC_API_URL;
+  return `${PUBLIC_API_URL} ${PUBLIC_ASSETS_URL}`;
+};
 const isDev = process.env.NODE_ENV !== "production";
 const CSP = `
   base-uri 'self';
@@ -7,19 +15,31 @@ const CSP = `
   script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""};  
   style-src 'self' 'unsafe-inline';
   font-src 'self';
-  connect-src 'self' https://zadmin.suwa.io https://api4z.suwa.io https://cradle.suwa.com.sa;
+  connect-src 'self' ${assetsUrl()};
   frame-src 'self';
-  img-src 'self' https://zadmin.suwa.io https://cradle.suwa.com.sa https://zamakan.suwa.io https://zamakanweb1.suwa.io https://dl.dropboxusercontent.com https://www.dropbox.com http://www.w3.org/2000/svg data:;
+  img-src 'self' ${assetsUrl()} http://www.w3.org/2000/svg data:;
   object-src 'none';
   form-action 'none';
   frame-ancestors 'none';
   upgrade-insecure-requests;
 `;
 const headers = isDev
-  ? []
+  ? [
+      {
+        source: "/((?!robots|sitemap|og|manifest|favicon).*)",
+        locale: false,
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: CSP.replace(/\s{2,}/g, " ").trim(),
+          },
+        ],
+      },
+    ]
   : [
       {
         source: "/((?!robots|sitemap|og|manifest|favicon).*)",
+        locale: false,
         headers: [
           {
             key: "Content-Security-Policy",
@@ -65,6 +85,24 @@ const headers = isDev
       },
       {
         source: "/(pwa|js|images|styles|fonts|assets)/(.*?)",
+        locale: false,
+        headers: [
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: `same-site`,
+          },
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: `credentialless`,
+          },
+          {
+            key: "Cache-Control",
+            value: "private, max-age=604800, immutable",
+          },
+        ],
+      },
+      {
+        source: "/(pwa|js|images|styles|fonts|assets)/(.*?)",
         headers: [
           {
             key: "Cross-Origin-Resource-Policy",
@@ -82,6 +120,7 @@ const headers = isDev
       },
       {
         source: "/(manifest.json|og.png|favicon.ico|logo.*\\.png)",
+        locale: false,
         headers: [
           {
             key: "Cache-Control",
@@ -91,6 +130,7 @@ const headers = isDev
       },
       {
         source: "/_next/static/(.*?)",
+        locale: false,
         headers: [
           {
             key: "Cache-Control",
@@ -106,10 +146,14 @@ const nextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
-      { protocol: "https", hostname: "www.dropbox.com" },
-      { protocol: "https", hostname: "dl.dropboxusercontent.com" },
-      { protocol: "https", hostname: "zamakan.suwa.io" },
-      { protocol: "https", hostname: "zamakanweb1.suwa.io" },
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+      {
+        protocol: "http",
+        hostname: "**",
+      },
     ],
   },
 

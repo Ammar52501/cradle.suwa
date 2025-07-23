@@ -5,7 +5,6 @@ import SwiperComponent from "./Swiper";
 
 const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
   const router = useRouter();
-
   return (
     <>
       <section
@@ -14,6 +13,25 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
         dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
       >
         <div className={styles.sec_container}>
+          {dataCityPoetry?.length > 0 && (
+            <Container maxWidth={false} className="disable_container_mobile">
+              <Container maxWidth={false}>
+                <div className={styles.sec_title}>
+                  <Typography variant="h3">
+                    {translations.versesSaidIn} {dataCityData.name}
+                  </Typography>
+                </div>
+              </Container>
+              <Container maxWidth={false} className={styles.slider_container}>
+                <div className={styles.slider_sec}>
+                  <SwiperComponent
+                    dataCityPoetry={dataCityPoetry}
+                    translations={translations}
+                  />
+                </div>
+              </Container>
+            </Container>
+          )}
           <Container maxWidth={false}>
             <div className={styles.info_sec}>
               <div className={styles.sec_title}>
@@ -116,24 +134,6 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                 </div>
               </div>
             </div>
-          </Container>
-
-          <Container maxWidth={false} className="disable_container_mobile">
-            <Container maxWidth={false}>
-              <div className={styles.sec_title}>
-                <Typography variant="h3">
-                  {translations.versesSaidIn} {dataCityData.name}
-                </Typography>
-              </div>
-            </Container>
-            <Container maxWidth={false} className={styles.slider_container}>
-              <div className={styles.slider_sec}>
-                <SwiperComponent
-                  dataCityPoetry={dataCityPoetry}
-                  translations={translations}
-                />
-              </div>
-            </Container>
           </Container>
         </div>
       </section>

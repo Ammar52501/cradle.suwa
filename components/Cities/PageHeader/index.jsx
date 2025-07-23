@@ -1,10 +1,10 @@
 import { Container, Typography } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import styles from "./index.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const PageHeader = ({ dataCityData }) => {
+const PageHeader = ({ dataCityData, activePoet }) => {
   const router = useRouter();
 
   return (
@@ -26,22 +26,46 @@ const PageHeader = ({ dataCityData }) => {
           </div>
 
           <div className={styles.text_container}>
-            <div className={styles.title}>
-              <Typography variant="h3">{dataCityData.name}</Typography>
+            <div>
+              <div className={styles.title}>
+                <Typography variant="h3">{dataCityData.name}</Typography>
 
-              <Typography>{dataCityData.placeType}</Typography>
+                <Typography>{dataCityData.placeType}</Typography>
+              </div>
+
+              <div className={styles.desc}>
+                <Typography className="whitespace-pre-line">
+                  {dataCityData.description}
+                </Typography>
+              </div>
             </div>
 
-            <div className={styles.desc}>
-              <Typography className="whitespace-pre-line">
-                {dataCityData.description}
-              </Typography>
-            </div>
+            {activePoet && <PoetInfo activePoet={activePoet} />}
           </div>
         </div>
       </Container>
     </header>
   );
 };
+
+const PoetInfo = memo(({ activePoet }) => {
+  const [beforeDots, afterDots] = activePoet?.poetryParts?.split("...");
+
+  return (
+    <div className={styles.poet_info}>
+      <div className={styles.head}>
+        <img src={activePoet.poetIcon} alt={activePoet.poetName} />
+        <p>{activePoet.poetName}</p>
+      </div>
+      <div className={styles.desc}>
+        <p className="whitespace-pre-line">{activePoet.entrance}</p>
+      </div>
+      <div className={styles.poetry_parts}>
+        <p>{beforeDots + beforeDots}</p>
+        <p>{afterDots + afterDots}</p>
+      </div>
+    </div>
+  );
+});
 
 export default PageHeader;

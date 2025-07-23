@@ -1,11 +1,41 @@
 import PageHeader from "@/components/Cities/PageHeader";
 import Verses from "@/components/Cities/Verses";
 import { REVALIDATE } from "@/lib/constant";
+import { useSearchParams } from "next/navigation";
+import { useRef } from "react";
+
+const getActivePoetId = () => {
+  if (typeof window !== "undefined") {
+    const searchParams = new URLSearchParams(window.location.search);
+    const poetId = searchParams.get("poetId");
+    return poetId;
+  }
+  return null;
+};
 
 const Cities = ({ dataCityData, dataCityPoetry, translations }) => {
+  const searchParams = useSearchParams();
+  const activePoet = useRef(null);
+  const poetId = searchParams.get("poetId");
+
+  if (poetId || getActivePoetId()) {
+    const poet = dataCityPoetry.find(
+      (poet) =>
+        poet.poetId === parseInt(poetId) ||
+        poet.poetId === parseInt(getActivePoetId())
+    );
+    activePoet.current = poet;
+    dataCityPoetry = dataCityPoetry.filter(
+      (poet) =>
+        poet.poetId !== parseInt(poetId) &&
+        poet.poetId !== parseInt(getActivePoetId())
+    );
+  }
+
   return (
     <>
       <PageHeader
+        activePoet={activePoet.current}
         dataCityPoetry={dataCityPoetry}
         dataCityData={dataCityData}
         translations={translations}

@@ -1,8 +1,7 @@
 import { Typography } from "@mui/material";
 import Link from "next/link";
 import styles from "./index.module.scss";
-import { memo, useLayoutEffect, useRef, useState } from "react";
-import More from "@/components/icons/more";
+import { memo } from "react";
 
 interface Poet {
   id: string;
@@ -25,36 +24,39 @@ interface CityPoetryProps {
 const CityPoetry = memo(
   ({
     poet,
+    // @ts-ignore
     lineHeight = 24,
+    // @ts-ignore
     clamp = 3,
+    // @ts-ignore
     unit = "px",
     isAR,
   }: CityPoetryProps) => {
-    const [expanded, setExpanded] = useState(false);
-    const textRef = useRef<HTMLDivElement>(null);
-    const [showButton, setShowButton] = useState(false);
-    const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
-    const [contentHeight, setContentHeight] = useState<number>(0);
+    // const [expanded, setExpanded] = useState(false);
+    // const textRef = useRef<HTMLDivElement>(null);
+    // const [showButton, setShowButton] = useState(false);
+    // const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
+    // const [contentHeight, setContentHeight] = useState<number>(0);
     const [beforeDots, afterDots] = poet.poetryParts.split("...");
-    useLayoutEffect(() => {
-      setExpanded(false);
-      setShowButton(false);
-      const calculateHeight = () => {
-        if (textRef.current) {
-          setContentHeight(textRef.current.scrollHeight);
-          const height = lineHeight * clamp;
-          setMaxHeight(height + unit);
-          setShowButton(textRef.current.scrollHeight > height);
-        }
-      };
-      calculateHeight();
-      window.addEventListener("resize", calculateHeight);
-      return () => window.removeEventListener("resize", calculateHeight);
-    }, [poet.entrance, lineHeight, clamp, unit]);
-    const toggleExpanded = () => {
-      if (!showButton) return;
-      setExpanded((prev) => !prev);
-    };
+    // useLayoutEffect(() => {
+    //   setExpanded(false);
+    //   setShowButton(false);
+    //   const calculateHeight = () => {
+    //     if (textRef.current) {
+    //       setContentHeight(textRef.current.scrollHeight);
+    //       const height = lineHeight * clamp;
+    //       setMaxHeight(height + unit);
+    //       setShowButton(textRef.current.scrollHeight > height);
+    //     }
+    //   };
+    //   calculateHeight();
+    //   window.addEventListener("resize", calculateHeight);
+    //   return () => window.removeEventListener("resize", calculateHeight);
+    // }, [poet.entrance, lineHeight, clamp, unit]);
+    // const toggleExpanded = () => {
+    //   if (!showButton) return;
+    //   setExpanded((prev) => !prev);
+    // };
     return (
       <div className={styles.box}>
         <div className={styles.box_container}>
@@ -72,7 +74,7 @@ const CityPoetry = memo(
               </div>
             </div>
           </Link>
-          <div
+          {/* <div
             onClick={toggleExpanded}
             ref={textRef}
             className={`relative tracking-[0] text-card-foreground font-main mt-4 text-[16px] font-normal transition-all duration-300 ease-in-out overflow-hidden ${
@@ -82,8 +84,8 @@ const CityPoetry = memo(
               maxHeight: expanded ? contentHeight : maxHeight,
               lineHeight: lineHeight + unit,
             }}
-          >
-            <p
+          > */}
+          {/* <p
               aria-hidden={true}
               className={`absolute top-0 left-0 w-full h-full line-clamp-${clamp} ${
                 expanded
@@ -92,18 +94,18 @@ const CityPoetry = memo(
               }`}
             >
               {poet.entrance}
-            </p>
-            <p
-              className={`${
-                expanded
-                  ? ""
-                  : "opacity-0 -z-10 pointer-events-none"
-              }`}
-            >
-              {poet.entrance}
-            </p>
-          </div>
-          {showButton && (
+            </p> */}
+          <p
+          // className={`${
+          //   expanded
+          //     ? ""
+          //     : "opacity-0 -z-10 pointer-events-none"
+          // }`}
+          >
+            {poet.entrance}
+          </p>
+          {/* </div> */}
+          {/* {showButton && (
             <button
               type="button"
               aria-hidden={true}
@@ -113,7 +115,7 @@ const CityPoetry = memo(
               <More open={!expanded} />
               <More open={expanded} />
             </button>
-          )}
+          )} */}
 
           {isAR && (
             <div className={`${styles.said} mt-5`}>

@@ -24,28 +24,53 @@ const Places = ({
   dataAllPoetries,
 }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
-  const [landElments, setLandElemnts] = useState([]);
   const [activeIndex, setActiveIndex] = useState(null);
   const [activeLand, setActiveLand] = useState(null);
   const [places, setPlaces] = useState(null);
   const [isPointsActive, seIsPointsActive] = useState(false);
-  const [cityNames, setCityNames] = useState([]);
+  const [cityData, setCityData] = useState(null);
+  const [poetriesData, setPoetriesData] = useState(null);
+  const [isSafari, setIsSafari] = useState(false);
+  const [activeCity, setActiveCity] = useState(null);
+  const [isDesckTop, setIsDesckTop] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    if (activeIndex !== null) {
-      setPlaces(dataAllCitiesMap[activeIndex]?.places);
-    }
+    console.log("isImageLoading test");
+  }, [isImageLoading]);
+  useEffect(() => {
+    console.log("activeIndex test", activeIndex);
   }, [activeIndex]);
+  useEffect(() => {
+    console.log("activeCity test", activeCity);
+  }, [activeCity]);
+  useEffect(() => {
+    console.log("places test", places);
+  }, [places]);
+  useEffect(() => {
+    console.log("cityData test", cityData);
+  }, [cityData]);
+  useEffect(() => {
+    console.log("poetriesData test", poetriesData);
+  }, [poetriesData]);
+  useEffect(() => {
+    console.log("activeIndex test", activeIndex);
+  }, [activeIndex]);
+  useEffect(() => {
+    console.log("activeLand test", activeLand);
+  }, [activeLand]);
+  useEffect(() => {
+    console.log("isPointsActive test", isPointsActive);
+  }, [isPointsActive]);
+  useEffect(() => {
+    console.log("isDesckTop test", isDesckTop);
+  }, [isDesckTop]);
+  useEffect(() => {
+    console.log("isSafari test", isSafari);
+  }, [isSafari]);
 
   useEffect(() => {
-    // Select all elements with the class name .land
     const elements = document.querySelectorAll(".land");
-    const city = document.querySelectorAll(".city-name");
-    setCityNames(city);
-    setLandElemnts(elements);
-
-    // Add dynamic IDs to the selected elements
     elements.forEach((element, index) => {
       element.setAttribute("id", `land-${index}`);
     });
@@ -55,50 +80,56 @@ const Places = ({
 
   const resetTransformRef = useRef(null);
 
-  useEffect(() => {
-    const dataIndex = document.querySelectorAll(`#land-${activeIndex}`)[0];
-    const elementsWithLandClassOnly = document.querySelectorAll(
-      ".land:not(.activeLand)"
-    );
+  const handleZoomToLand = useCallback(
+    (landIndex) => {
+      const elementId = `land-${landIndex}`;
+      if (transformComponentRef.current) {
+        const { zoomToElement } = transformComponentRef.current;
+        zoomToElement(elementId);
+      }
+      setActiveIndex(landIndex);
+      if (landIndex !== null) {
+        const placesData =
+          dataAllCitiesMap[landIndex]?.places
+            ?.filter((place) => place.svgX !== null && place.svgY !== null)
+            ?.sort((a, b) => a.name.localeCompare(b.name, router.locale)) || [];
+        setPlaces(dataAllCitiesMap[landIndex]?.places);
+        setActiveCity(placesData[0].id);
+        seIsPointsActive(true);
+      } else {
+        seIsPointsActive(false);
+        setActiveCity(null);
+        setPlaces(null);
+      }
 
-    if (activeLand) {
-      activeLand.classList.remove("activeLand");
-      seIsPointsActive(false);
-    }
+      const dataIndex = document.querySelectorAll(`#land-${landIndex}`)[0];
+      // const elementsWithLandClassOnly = document.querySelectorAll(
+      //   ".land:not(.activeLand)"
+      // );
 
-    if (dataIndex) {
-      setActiveLand(dataIndex);
-      dataIndex.classList.add("activeLand");
-      seIsPointsActive(true);
-    }
+      if (activeLand) {
+        activeLand.classList.remove("activeLand");
+        seIsPointsActive(false);
+      }
 
-    if (isPointsActive === true) {
-      elementsWithLandClassOnly.forEach((element) => {
-        element.classList.add("hiddenPoints");
-      });
-    } else {
-      elementsWithLandClassOnly.forEach((element) => {
-        element.classList.remove("hiddenPoints");
-      });
-    }
-  }, [activeIndex, activeLand]);
+      if (dataIndex) {
+        setActiveLand(dataIndex);
+        dataIndex.classList.add("activeLand");
+        seIsPointsActive(true);
+      }
 
-  const handleZoomToLand = (landIndex) => {
-    const elementId = `land-${landIndex}`;
-    if (transformComponentRef.current) {
-      const { zoomToElement } = transformComponentRef.current;
-      zoomToElement(elementId);
-    }
-    setActiveIndex(landIndex);
-    seIsPointsActive(false);
-    setActiveCity(null);
-  };
-
-  const [cityData, setCityData] = useState(null);
-  const [poetriesData, setPoetriesData] = useState(null);
-  const [isSafari, setIsSafari] = useState(false);
-  const [activeCity, setActiveCity] = useState(null);
-  const [isDesckTop, setIsDesckTop] = useState(true);
+      // if (isPointsActive) {
+      //   elementsWithLandClassOnly.forEach((element) => {
+      //     element.classList.add("hiddenPoints");
+      //   });
+      // } else {
+      //   elementsWithLandClassOnly.forEach((element) => {
+      //     element.classList.remove("hiddenPoints");
+      //   });
+      // }
+    },
+    [router.locale, dataAllCitiesMap, activeLand]
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -188,7 +219,6 @@ const Places = ({
       setLandCenters(centers);
     }
   }, []);
-
   return (
     <>
       <PageHeader
@@ -438,7 +468,11 @@ const Places = ({
                       ref={popUpRef}
                     >
                       <div className={styles.box_container}>
-                        <div className={styles.box_header}>
+                        <Link
+                          href={`/city/${cityData?.id}`}
+                          aria-label={`${translations?.moreAbout} ${cityData?.name}`}
+                          className={styles.box_header}
+                        >
                           <div className={styles.img_container}>
                             <img src={cityData.icon} alt={cityData.name} />
                           </div>
@@ -448,22 +482,20 @@ const Places = ({
                             <div className={styles.desc}>
                               <p>
                                 {cityData?.descriptionShort}
-                                <Link
-                                  href={`/city/${cityData?.id}`}
-                                  className={styles.more}
-                                >
+                                <div className={styles.more}>
                                   <span>
                                     {translations?.moreAbout} {cityData?.name}
                                   </span>
                                   <LeftArrow />
-                                </Link>
+                                </div>
                               </p>
                             </div>
                           </div>
-                        </div>
+                        </Link>
 
                         {router.locale === "ar" && (
                           <PoetsSlider
+                            cityId={cityData?.id}
                             poetriesData={poetriesData}
                             key={activeCity}
                           />

@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import React, {
+import {
   useCallback,
   useContext,
   useEffect,
@@ -19,13 +19,13 @@ import { RotatingLines } from "react-loader-spinner";
 import { FaCheck } from "react-icons/fa6";
 import { useRouter } from "next/router";
 import DataContext from "@/context/DataContext";
-import More from "../icons/more";
+// import More from "../icons/more";
 import DrawerPoets from "./drawer";
 import LocationPin from "../LocationPin";
 
-const lineHeight = 24,
-  clamp = 3,
-  unit = "px";
+// const lineHeight = 24,
+//   clamp = 3,
+//   unit = "px";
 const Poets = ({
   dataPoetsByEra,
   dataAllCitiesMap,
@@ -45,58 +45,51 @@ const Poets = ({
   const [isMapLoading, setIsMapLoading] = useState(false);
   const [filteredPoets, setFilteredPoets] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
+  const [activePoetId, setActivePoetId] = useState(null);
   const router = useRouter();
   const { locale } = useRouter();
   const [isDesckTop, setIsDesckTop] = useState(true);
 
-  const [expanded, setExpanded] = useState(true);
-  const textRef = useRef(null);
-  const [showButton, setShowButton] = useState(false);
-  const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
-  const [contentHeight, setContentHeight] = useState(0);
+  // const [expanded, setExpanded] = useState(true);
+  // const textRef = useRef(null);
+  // const [showButton, setShowButton] = useState(false);
+  // const [maxHeight, setMaxHeight] = useState(lineHeight * clamp + unit);
+  // const [contentHeight, setContentHeight] = useState(0);
 
-  const calculateHeight = useCallback(() => {
-    const windowWidth = window.innerWidth;
-    if (textRef.current && windowWidth < 450) {
-      setContentHeight(textRef.current.scrollHeight);
-      const height = lineHeight * clamp;
-      setMaxHeight(height + unit);
-      const isShowButton = textRef.current.scrollHeight > height;
-      setShowButton((pre) => {
-        if (isShowButton && !pre) {
-          setTimeout(() => {
-            calculateHeight();
-          }, 50);
-        }
-        return isShowButton;
-      });
-    } else if (windowWidth > 450 && textRef.current) {
-      setContentHeight("max-content");
-      setMaxHeight("max-content");
-      setShowButton(false);
-      setExpanded(false);
-    }
-  }, [activePoet, lineHeight, clamp, unit]);
+  // const calculateHeight = useCallback(() => {
+  //   const windowWidth = window.innerWidth;
+  //   if (textRef.current && windowWidth < 450) {
+  //     setContentHeight(textRef.current.scrollHeight);
+  //     const height = lineHeight * clamp;
+  //     setMaxHeight(height + unit);
+  //     const isShowButton = textRef.current.scrollHeight > height;
+  //     setShowButton((pre) => {
+  //       if (isShowButton && !pre) {
+  //         setTimeout(() => {
+  //           calculateHeight();
+  //         }, 50);
+  //       }
+  //       return isShowButton;
+  //     });
+  //   } else if (windowWidth > 450 && textRef.current) {
+  //     setContentHeight("max-content");
+  //     setMaxHeight("max-content");
+  //     setShowButton(false);
+  //     setExpanded(false);
+  //   }
+  // }, [activePoet, lineHeight, clamp, unit]);
 
-  useLayoutEffect(() => {
-    setExpanded(false);
-    setShowButton(false);
-    calculateHeight();
-    window.addEventListener("resize", calculateHeight);
-    return () => window.removeEventListener("resize", calculateHeight);
-  }, [calculateHeight]);
-  // useEffect(() => {
+  // useLayoutEffect(() => {
   //   setExpanded(false);
   //   setShowButton(false);
   //   calculateHeight();
   //   window.addEventListener("resize", calculateHeight);
   //   return () => window.removeEventListener("resize", calculateHeight);
   // }, [calculateHeight]);
-
-  const toggleExpanded = () => {
-    if (!showButton) return;
-    setExpanded((prev) => !prev);
-  };
+  // const toggleExpanded = () => {
+  //   if (!showButton) return;
+  //   setExpanded((prev) => !prev);
+  // };
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -185,6 +178,7 @@ const Poets = ({
 
   const handlePoetData = (poetID) => {
     const poetPlaces = poetsData[poetID];
+    setActivePoetId(poetID);
     setPlaces(poetPlaces);
     setIsMapLoading(false);
   };
@@ -306,7 +300,7 @@ const Poets = ({
             {activePoet !== null && (
               <>
                 <div className={styles.poetInfo}>
-                  <div
+                  {/* <div
                     onClick={toggleExpanded}
                     ref={textRef}
                     className={`${
@@ -318,8 +312,8 @@ const Poets = ({
                       maxHeight: expanded ? contentHeight : maxHeight,
                       lineHeight: lineHeight + unit,
                     }}
-                  >
-                    <p
+                  > */}
+                  {/* <p
                       aria-hidden={true}
                       className={`absolute top-0 left-0 w-full h-full ${
                         expanded
@@ -330,16 +324,16 @@ const Poets = ({
                       }`}
                     >
                       {dataPoetsByEra[activePoet]?.descShort}
-                    </p>
-                    <p
-                      className={`${
-                        expanded ? "" : "opacity-0 -z-10 pointer-events-none"
-                      }`}
-                    >
-                      {dataPoetsByEra[activePoet]?.descShort}
-                    </p>
-                  </div>
-                  {showButton && (
+                    </p> */}
+                  <p
+                  // className={`${
+                  //   expanded ? "" : "opacity-0 -z-10 pointer-events-none"
+                  // }`}
+                  >
+                    {dataPoetsByEra[activePoet]?.descShort}
+                  </p>
+                </div>
+                {/* {showButton && (
                     <button
                       aria-hidden={true}
                       onClick={toggleExpanded}
@@ -348,8 +342,8 @@ const Poets = ({
                       <More open={!expanded} />
                       <More open={expanded} />
                     </button>
-                  )}
-                </div>
+                  )} */}
+                {/* </div> */}
                 <Link
                   href={`/poet/${dataPoetsByEra[activePoet]?.id}`}
                   className={`${styles.more} ps-4 phone:ps-12`}
@@ -379,7 +373,11 @@ const Poets = ({
                     ref={popUpRef}
                   >
                     <div className={styles.box_container}>
-                      <div className={styles.box_header}>
+                      <Link
+                        href={`/city/${cityData?.id}?poetId=${activePoetId}`}
+                        aria-label={`${allStaticWords?.moreAbout} ${cityData?.name}`}
+                        className={styles.box_header}
+                      >
                         <div className={styles.img_container}>
                           <img src={cityData.icon} alt={cityData?.name} />
                         </div>
@@ -388,21 +386,22 @@ const Poets = ({
 
                           <div className={styles.desc}>
                             <p>{cityData?.descriptionShort}</p>
-                            <Link
-                              href={`/city/${cityData?.id}`}
-                              className={styles.more}
-                            >
+                            <div className={styles.more}>
                               <span>
                                 {allStaticWords?.moreAbout} {cityData?.name}
                               </span>
                               <LeftArrow className="mt-0.5" />
-                            </Link>
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
 
                       {router.locale === "ar" && (
-                        <PoetsSlider poetriesData={poetriesData} />
+                        <PoetsSlider
+                          poetriesData={poetriesData}
+                          cityId={cityData?.id}
+                          activePoetId={activePoetId}
+                        />
                       )}
                       <div className={styles.close_btn} onClick={onClose}>
                         <CloseIcon />
@@ -425,7 +424,6 @@ const Poets = ({
                     />
                   </div>
                 )}
-                <xml version="1.0" encoding="UTF-8" standalone="no" />
                 <svg
                   id="svg1"
                   width="858"
@@ -501,6 +499,7 @@ const Poets = ({
           moreAbout={allStaticWords?.moreAbout}
           isAR={router.locale === "ar"}
           poetriesData={poetriesData}
+          activePoetId={activePoetId}
         />
       </section>
     </>
