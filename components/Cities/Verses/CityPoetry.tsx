@@ -96,11 +96,12 @@ const CityPoetry = memo(
               {poet.entrance}
             </p> */}
           <p
-          // className={`${
-          //   expanded
-          //     ? ""
-          //     : "opacity-0 -z-10 pointer-events-none"
-          // }`}
+            className="font-main"
+            // className={`${
+            //   expanded
+            //     ? ""
+            //     : "opacity-0 -z-10 pointer-events-none"
+            // }`}
           >
             {poet.entrance}
           </p>

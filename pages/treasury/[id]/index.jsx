@@ -68,7 +68,7 @@ const Treasury = ({ sectionData }) => {
             <img src={"/assets/imgs/star.webp"} alt="star" />
           </div>
 
-          <Typography variant="h1">{sectionPageData.name}</Typography>
+          <h1 className="rtl:font-req3a rtl:-mt-3">{sectionPageData.name}</h1>
 
           <div className={stylesMain.img_container}>
             <img src={"/assets/imgs/star.webp"} alt="star" />

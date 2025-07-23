@@ -50,7 +50,7 @@ const PageHeader = ({ dataCityData, activePoet }) => {
 
 const PoetInfo = memo(({ activePoet }) => {
   const [beforeDots, afterDots] = activePoet?.poetryParts?.split("...");
-
+  const { locale } = useRouter();
   return (
     <div className={styles.poet_info}>
       <div className={styles.head}>
@@ -60,10 +60,12 @@ const PoetInfo = memo(({ activePoet }) => {
       <div className={styles.desc}>
         <p className="whitespace-pre-line">{activePoet.entrance}</p>
       </div>
-      <div className={styles.poetry_parts}>
-        <p>{beforeDots + beforeDots}</p>
-        <p>{afterDots + afterDots}</p>
-      </div>
+      {locale === "ar" && (
+        <div className={styles.poetry_parts}>
+          <p>{beforeDots}</p>
+          <p>{afterDots}</p>
+        </div>
+      )}
     </div>
   );
 });

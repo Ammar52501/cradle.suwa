@@ -31,6 +31,7 @@ const config = {
       },
       fontFamily: {
         main: ["var(--effra-font)"],
+        req3a: ["var(--req3a-font)"],
       },
       height: {
         "header-height": "var(--header-height)",
@@ -47,8 +48,8 @@ const config = {
         background: "hsl(var(--background))",
         "background-secondary": "hsl(var(--background-secondary))",
         foreground: "hsl(var(--foreground))",
-        "main": "var(--main_color)",
-        "hover": "hsl(var(--hover))",
+        main: "var(--main_color)",
+        hover: "hsl(var(--hover))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -81,11 +82,11 @@ const config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
+          1: "hsl(var(--chart-1))",
+          2: "hsl(var(--chart-2))",
+          3: "hsl(var(--chart-3))",
+          4: "hsl(var(--chart-4))",
+          5: "hsl(var(--chart-5))",
         },
       },
       borderRadius: {
@@ -94,7 +95,7 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       screens: {
-        "phone": "450px",
+        phone: "450px",
         xs: "550px",
         tab: "900px",
       },
@@ -119,11 +120,7 @@ const config = {
     container: false,
     space: false,
   },
-  safelist : [
-    "line-clamp-3",
-    "line-clamp-2",
-    "line-clamp-1",
-  ],
+  safelist: ["line-clamp-3", "line-clamp-2", "line-clamp-1"],
   plugins: [
     tailwindcssAnimate,
     plugin(function ({ matchUtilities, theme }) {

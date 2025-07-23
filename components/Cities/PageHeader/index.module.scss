@@ -84,6 +84,9 @@ header#cities {
       }
       .poet_info {
         font-family: var(--effra-font);
+        border: 2px dashed hsl(0 0% 78% / 1);
+        border-radius: 10px;
+        padding: 10px;
         .head {
           display: flex;
           align-items: center;
