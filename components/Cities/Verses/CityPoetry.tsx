@@ -96,7 +96,7 @@ const CityPoetry = memo(
               {poet.entrance}
             </p> */}
           <p
-            className="font-main"
+            className="font-main tracking-[0] text-card-foreground mt-4 text-[16px] font-normal"
             // className={`${
             //   expanded
             //     ? ""

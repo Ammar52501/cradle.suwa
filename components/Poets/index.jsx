@@ -326,9 +326,10 @@ const Poets = ({
                       {dataPoetsByEra[activePoet]?.descShort}
                     </p> */}
                   <p
-                  // className={`${
-                  //   expanded ? "" : "opacity-0 -z-10 pointer-events-none"
-                  // }`}
+                    className="tracking-[0] text-[#11292fcc] font-main font-medium"
+                    // className={`${
+                    //   expanded ? "" : "opacity-0 -z-10 pointer-events-none"
+                    // }`}
                   >
                     {dataPoetsByEra[activePoet]?.descShort}
                   </p>

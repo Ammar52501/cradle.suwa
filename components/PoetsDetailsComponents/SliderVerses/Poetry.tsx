@@ -94,7 +94,8 @@ const Poetry = memo(
               {poetry.entrance}
             </p> */}
           <p
-          // className={expanded ? "" : "opacity-0 -z-10 pointer-events-none"}
+            className="relative text-card-foreground font-main mt-4 text-base sm:text-lg font-normal"
+            // className={expanded ? "" : "opacity-0 -z-10 pointer-events-none"}
           >
             {poetry.entrance}
           </p>
