@@ -121,7 +121,9 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                             <Typography>{translations.name}</Typography>
                           </div>
                           <div className={styles.name}>
-                            <Typography>{dataPoet.fullName}</Typography>
+                            <Typography>
+                              {dataPoet.fullName || "----------"}
+                            </Typography>
                           </div>
                         </div>
                         <div className={styles.box}>
@@ -129,7 +131,9 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                             <Typography>{translations.title}</Typography>
                           </div>
                           <div className={styles.name}>
-                            <Typography>{dataPoet.nickname}</Typography>
+                            <Typography>
+                              {dataPoet.nickname || "----------"}
+                            </Typography>
                           </div>
                         </div>
                         <div className={styles.box}>
@@ -139,7 +143,9 @@ const PoetDetails = ({ dataPoet, dataPoetry }) => {
                             </Typography>
                           </div>
                           <div className={styles.name}>
-                            <Typography>{dataPoet.nicknameReason}</Typography>
+                            <Typography>
+                              {dataPoet.nicknameReason || "----------"}
+                            </Typography>
                           </div>
                         </div>
                       </div>

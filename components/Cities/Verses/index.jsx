@@ -45,11 +45,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                     <Typography>{translations?.currentName}</Typography>
                   </div>
                   <div className={styles.name}>
-                    <Typography>
-                      {dataCityData.name === null
-                        ? "------"
-                        : dataCityData.name}
-                    </Typography>
+                    <Typography>{dataCityData.name || "----------"}</Typography>
                   </div>
                 </div>
                 <div className={styles.box}>
@@ -58,10 +54,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                   </div>
                   <div className={styles.name}>
                     <Typography>
-                      {dataCityData.otherNames === null ||
-                      dataCityData.otherNames === ""
-                        ? "------"
-                        : dataCityData.otherNames}
+                      {dataCityData.otherNames || "----------"}
                     </Typography>
                   </div>
                 </div>
@@ -71,10 +64,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                   </div>
                   <div className={styles.name}>
                     <Typography>
-                      {dataCityData.parentName6 === null ||
-                      dataCityData.parentName6 === ""
-                        ? "------"
-                        : dataCityData.parentName6}
+                      {dataCityData.parentName6 || "----------"}
                     </Typography>
                   </div>
                 </div>
@@ -83,11 +73,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                     <Typography>{translations.placeValue}</Typography>
                   </div>
                   <div className={styles.name}>
-                    <Typography>
-                      {dataCityData.qema === null
-                        ? "------"
-                        : dataCityData.qema}
-                    </Typography>
+                    <Typography>{dataCityData.qema || "----------"}</Typography>
                   </div>
                 </div>
 
@@ -99,9 +85,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                   </div>
                   <div className={styles.name}>
                     <Typography>
-                      {dataCityData.wasfOld === null
-                        ? "------"
-                        : dataCityData.wasfOld}
+                      {dataCityData.wasfOld || "----------"}
                     </Typography>
                   </div>
                 </div>
@@ -114,9 +98,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                   </div>
                   <div className={styles.name}>
                     <Typography>
-                      {dataCityData.wasfNew === null
-                        ? "------"
-                        : dataCityData.wasfNew}
+                      {dataCityData.wasfNew || "----------"}
                     </Typography>
                   </div>
                 </div>
@@ -125,11 +107,7 @@ const Verses = ({ dataCityPoetry, dataCityData, translations }) => {
                     <Typography>{translations.location}</Typography>
                   </div>
                   <div className={styles.name}>
-                    <Typography>
-                      {dataCityData.site === null
-                        ? "------"
-                        : dataCityData.site}
-                    </Typography>
+                    <Typography>{dataCityData.site || "----------"}</Typography>
                   </div>
                 </div>
               </div>
