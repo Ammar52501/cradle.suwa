@@ -8,7 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const LiteraryEras = ({ erasAllEras, translations }) => {
   const router = useRouter();
@@ -168,7 +168,7 @@ export async function getStaticProps({ locale }) {
         translations,
         title: translations.historicalLiteraryEras,
       },
-      revalidate: +process.env.REVALIDATE || REVALIDATE,
+      revalidate: REVALIDATE_TIME,
     };
   } catch (error) {
     console.error("Failed to fetch API:", error);
@@ -179,7 +179,7 @@ export async function getStaticProps({ locale }) {
         translations: [],
         error: "API fetch failed",
       },
-      revalidate: 10,
+      revalidate: 0,
     };
   }
 }

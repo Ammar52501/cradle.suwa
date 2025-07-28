@@ -19,7 +19,7 @@ import { Search } from "@/assets/svgsComponents";
 import { MagnifyingGlass } from "react-loader-spinner";
 import SliderVersesSearch from "@/components/PoetDetails/SliderVersesSearch";
 import { useRouter } from "next/router";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
   const [age, setAge] = useState(0);
@@ -37,8 +37,8 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
     params.set("search", "");
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     window.history.replaceState(null, "", newUrl);
-    const selectedValue = event.target.value
-    setAge(selectedValue); 
+    const selectedValue = event.target.value;
+    setAge(selectedValue);
 
     let filteredData = [];
 
@@ -54,7 +54,6 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
       filteredData = dataDefault;
     }
 
-    
     setFiltredPoets(filteredData);
     setCurrentPage(0);
     setSearchString("");
@@ -74,7 +73,6 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
         )
       );
 
-      
       const params = new URLSearchParams(window.location.search);
       params.set("search", searchString);
       const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -89,7 +87,6 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
     }
   }, [searchString, dataDefault]);
 
-  
   useLayoutEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const eraParam = params.get("era");
@@ -104,17 +101,19 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
           dataDefault.filter((poet) => poet.bornInSaudi === true)
         );
       } else {
-        setFiltredPoets(
-          dataDefault.filter((poet) => poet.zamanId == eraParam)
-        );
+        setFiltredPoets(dataDefault.filter((poet) => poet.zamanId == eraParam));
       }
     }
 
     if (searchParam) {
       setSearchString(searchParam);
-      const normalizedSearchString = removeDiacritics(searchParam.toLowerCase());
+      const normalizedSearchString = removeDiacritics(
+        searchParam.toLowerCase()
+      );
       const filteredData = dataDefault.filter((poet) =>
-        removeDiacritics(poet.name.toLowerCase()).includes(normalizedSearchString)
+        removeDiacritics(poet.name.toLowerCase()).includes(
+          normalizedSearchString
+        )
       );
       setFiltredPoets(filteredData);
     }
@@ -169,11 +168,11 @@ const PoetsSearch = ({ erasAllEras, dataDefault, translations }) => {
       borderColor: "#E5E6F2",
     },
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#E5E6F2", 
+      borderColor: "#E5E6F2",
     },
 
     "&:hover .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#E5E6F2", 
+      borderColor: "#E5E6F2",
     },
 
     ".MuiSelect-select": {
@@ -374,7 +373,7 @@ export async function getStaticProps({ locale }) {
         translations,
         title: translations.explorePoets,
       },
-      revalidate: +process.env.REVALIDATE || REVALIDATE,
+      revalidate: REVALIDATE_TIME,
     };
   } catch (error) {
     console.error(error);

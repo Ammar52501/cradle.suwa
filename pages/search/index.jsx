@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { RotatingLines } from "react-loader-spinner";
 import Logo from "@/components/logo";
 import Fuse from "fuse.js";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 const removeDiacritics = (text) => {
   return (text || "").replace(/[\u064B-\u065F\u0610-\u061A\u06D6-\u06ED]/g, "");
 };
@@ -35,12 +35,12 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
     () => prepareDataForSearch(initialPoetsData, ["name", "nickname"]),
     [initialPoetsData]
   );
-  
+
   const preparedPlacesData = useMemo(
     () => prepareDataForSearch(initialPlacesData, ["name", "otherNames"]),
     [initialPlacesData]
   );
-  
+
   const poetFuse = useMemo(() => {
     return new Fuse(preparedPoetsData, {
       keys: ["searchableText"],
@@ -103,7 +103,7 @@ const SearchPage = ({ initialPlacesData, initialPoetsData, translations }) => {
                   <Search />
                 </div>
                 <input
-                autoFocus
+                  autoFocus
                   dir="auto"
                   type="text"
                   placeholder={translations.searchforPoetsPlaces}
@@ -241,7 +241,7 @@ export async function getStaticProps({ locale }) {
     `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
   );
   const translations = await resTranslations.json();
-  
+
   return {
     props: {
       initialPlacesData: placesData,
@@ -249,6 +249,6 @@ export async function getStaticProps({ locale }) {
       translations,
       title: translations?.search,
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

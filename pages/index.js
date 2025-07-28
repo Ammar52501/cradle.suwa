@@ -1,6 +1,6 @@
 import styles from "@/styles/Home.module.css";
 import LandingPage from "@/components/LandingPage";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 export async function getStaticProps({ locale }) {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
@@ -15,7 +15,7 @@ export async function getStaticProps({ locale }) {
     props: {
       translations,
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }
 

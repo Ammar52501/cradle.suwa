@@ -56,4 +56,12 @@ const PUBLIC_ASSETS_URL = cleanEnvUrlToDomain(
   true
 );
 
-export { PUBLIC_URL, PUBLIC_API_URL, PUBLIC_ASSETS_URL };
+function validateIntegerOrZero(value, fallback) {
+  const num = Number(value);
+  if (Number.isInteger(num) && num >= 0) return num;
+  return fallback;
+}
+
+const REVALIDATE_TIME = validateIntegerOrZero(process.env.REVALIDATE, 3600);
+
+export { PUBLIC_URL, PUBLIC_API_URL, PUBLIC_ASSETS_URL, REVALIDATE_TIME };

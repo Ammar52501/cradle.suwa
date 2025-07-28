@@ -1,6 +1,6 @@
 import PageHeader from "@/components/Cities/PageHeader";
 import Verses from "@/components/Cities/Verses";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 import { useSearchParams } from "next/navigation";
 import { useRef } from "react";
 
@@ -97,6 +97,6 @@ export async function getStaticProps({ params, locale }) {
       title: dataCityData?.name || "",
       description: dataCityData?.descriptionShort || "",
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

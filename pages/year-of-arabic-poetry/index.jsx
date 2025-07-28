@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import AboutSection from "@/components/YearOfArabicPoetry/AboutSection/index.jsx";
 import MinisterSpeech from "@/components/YearOfArabicPoetry/MinisterSpeech";
 import Navbar from "@/components/YearOfArabicPoetry/Navbar";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const YearOfArabicPoetry = () => {
   return (
@@ -75,6 +75,6 @@ export async function getStaticProps({ locale }) {
     props: {
       translations,
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

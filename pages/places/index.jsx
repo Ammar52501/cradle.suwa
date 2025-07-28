@@ -15,7 +15,7 @@ import { RotatingLines } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import DrawerPoets from "@/components/Poets/drawer";
 import LocationPin from "@/components/LocationPin";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const Places = ({
   dataAllCitiesMap,
@@ -613,6 +613,6 @@ export async function getStaticProps({ locale }) {
       translations,
       title: "مناطق المملكة العربية السعودية",
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

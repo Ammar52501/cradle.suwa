@@ -3,7 +3,7 @@ import { Container, Typography } from "@mui/material";
 import styles from "./index.module.scss";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const PublicTreasury = ({ AllMainTopics, translations }) => {
   return (
@@ -125,6 +125,6 @@ export async function getStaticProps({ locale }) {
       translations,
       title: translations?.poetryarchive,
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

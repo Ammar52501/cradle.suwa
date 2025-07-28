@@ -1,5 +1,5 @@
 import PoetDetails from "@/components/PoetDetails";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 export default function Poet({ dataPoet, dataPoetry }) {
   return <PoetDetails dataPoet={dataPoet} dataPoetry={dataPoetry} />;
@@ -33,7 +33,7 @@ export async function getStaticProps({ params, locale }) {
       title: dataPoet?.name || "",
       description: dataPoet?.description || "",
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }
 

@@ -13,7 +13,7 @@ import "swiper/css/thumbs";
 import "swiper/css/pagination";
 import { IoClose } from "react-icons/io5";
 import { useRouter } from "next/router";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 const Treasury = ({ sectionData }) => {
   const router = useRouter();
@@ -255,6 +255,6 @@ export async function getStaticProps({ params, locale }) {
       translations,
       title: sectionData[0].name || "",
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }

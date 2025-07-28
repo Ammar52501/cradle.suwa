@@ -3,7 +3,7 @@ import LiteraryBanner from "@/components/LiteraryBanner";
 import Poets from "@/components/Poets";
 import { motion } from "framer-motion";
 import styles from "../../index.module.scss";
-import { REVALIDATE } from "@/lib/constant";
+import { REVALIDATE_TIME } from "@/constants";
 
 function sanitizeForLog(input) {
   if (typeof input !== "string") input = String(input);
@@ -193,7 +193,7 @@ export async function getStaticProps({ params, locale }) {
       title: eraDetails?.name || "",
       description: eraDetails?.desc || "",
     },
-    revalidate: +process.env.REVALIDATE || REVALIDATE,
+    revalidate: REVALIDATE_TIME,
   };
 }
 
