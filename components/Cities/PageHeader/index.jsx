@@ -18,7 +18,7 @@ const PageHeader = ({ dataCityData, activePoet }) => {
             <Image
               priority
               className={styles.img_box}
-              src={dataCityData.icon}
+              src={dataCityData.imageForSecBackground}
               alt={dataCityData.name}
               width={599}
               height={421}
