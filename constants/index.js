@@ -58,7 +58,7 @@ const PUBLIC_ASSETS_URL = cleanEnvUrlToDomain(
 
 function validateIntegerOrZero(value, fallback) {
   const num = Number(value);
-  if (Number.isInteger(num) && num >= 0) return num;
+  if (Number.isInteger(num) && num > 0) return num;
   return fallback;
 }
 
