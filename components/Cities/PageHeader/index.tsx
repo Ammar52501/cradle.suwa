@@ -3,8 +3,15 @@ import React, { memo } from "react";
 import styles from "./index.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-const PageHeader = ({ dataCityData, activePoet }) => {
+const PageHeader = ({
+  dataCityData,
+  activePoet,
+}: {
+  dataCityData: any;
+  activePoet: any;
+}) => {
   const router = useRouter();
 
   return (
@@ -48,15 +55,15 @@ const PageHeader = ({ dataCityData, activePoet }) => {
   );
 };
 
-const PoetInfo = memo(({ activePoet }) => {
+const PoetInfo = memo(({ activePoet }: { activePoet: any }) => {
   const [beforeDots, afterDots] = activePoet?.poetryParts?.split("...");
   const { locale } = useRouter();
   return (
     <div className={styles.poet_info}>
-      <div className={styles.head}>
+      <Link href={`/poet/${activePoet.poetId}`} className={styles.head}>
         <img src={activePoet.poetIcon} alt={activePoet.poetName} />
         <p>{activePoet.poetName}</p>
-      </div>
+      </Link>
       <div className={styles.desc}>
         <p className="whitespace-pre-line">{activePoet.entrance}</p>
       </div>
