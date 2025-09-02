@@ -27,9 +27,7 @@ const headers = isDev
   ? []
   : [
       {
-        // source: "/((?!_next/|api/|.*.(?:css|js|mjs|map|json|txt|xml|ico|png|jpg|jpeg|webp|gif|svg|mp4|webm|woff2?|ttf|otf|woff|eot|pdf)$).*)",
         source: "/(.*?)",
-        // has: [{ type: "header", key: "accept", value: ".*text/html.*" }],
         locale: false,
         headers: [
           {
@@ -46,15 +44,15 @@ const headers = isDev
           },
           {
             key: "Referrer-Policy",
-            value: "strict-origin",
+            value: "no-referrer",
           },
           {
-            key: "Cross-Origin-Resource-Policy", // dont use it with PDF files
+            key: "Cross-Origin-Resource-Policy",
             value: `same-origin`,
           },
           {
             key: "Cross-Origin-Embedder-Policy",
-            value: "credentialless", // try to convert it to require-corp, and force the resource owner to set the CORP as cross-origin, or CORS to the the domin of the front-end
+            value: "credentialless",
           },
           {
             key: "X-Content-Type-Options",
@@ -75,17 +73,17 @@ const headers = isDev
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=604800, immutable", // 1 week, change it depend on how often you update the files
+            value: "public, max-age=604800, immutable",
           },
         ],
       },
       {
         source:
-          "/(manifest.json|og.png|favicon.ico|robots.txt|sitemap.xml|.well-known(?:/.*)?)", // the (?:/.*)? should use for folders
+          "/(manifest.json|og.png|favicon.ico|robots.txt|sitemap.xml|.well-known(?:/.*)?)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, max-age=604800, immutable", // 1 week, change it depend on how often you update the files
+            value: "public, max-age=604800, immutable",
           },
           {
             key: "Cross-Origin-Resource-Policy",
