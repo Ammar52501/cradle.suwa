@@ -179,7 +179,7 @@ export async function getStaticProps({ locale }) {
         translations: [],
         error: "API fetch failed",
       },
-      revalidate: 0,
+      revalidate: 1,
     };
   }
 }
