@@ -13,37 +13,37 @@
   "browserslist": [
     "Chrome >= 80",
     "Firefox >= 74",
-    "Safari >= 13.1",
+    "Safari >= 15",
     "defaults and fully supports es6-module and not dead"
   ],
   "dependencies": {
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.0",
     "@mui/material": "7.1.1",
-    "framer-motion": "^12.16.0",
+    "framer-motion": "^12",
     "fuse.js": "^7.1.0",
     "react-fast-marquee": "^1.6.5",
     "react-icons": "latest",
     "react-intersection-observer": "^9.16.0",
     "react-loader-spinner": "^6.1.6",
-    "react-zoom-pan-pinch": "^3.7.0",
-    "sass": "^1.89.1",
-    "swiper": "^11.2.8",
-    "vaul": "^1.1.2",
-    "@bprogress/next": "^3.2.12",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
+    "react-zoom-pan-pinch": "^3",
+    "sass": "^1",
+    "swiper": "^11",
+    "vaul": "^1",
+    "@bprogress/next": "^3",
+    "class-variance-authority": "^0.7",
+    "clsx": "^2",
     "lenis": "^1",
-    "lucide-react": "^0.525.0",
-    "next": "15.4.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "tailwind-merge": "^3.3.1"
+    "lucide-react": "latest",
+    "next": "^16",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "autoprefixer": "^10",
     "postcss": "^8",
     "postcss-dir-tailwind-fix": "^1",
@@ -51,12 +51,7 @@
     "postcss-focus-with-ignore": "^1",
     "postcss-inset-shorthand-optimized": "^1",
     "tailwindcss": "^3",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5",
-    "bun-types": "^1.2.18"
-  },
-  "packageManager": "bun@1.2.15",
-  "engines": {
-    "node": ">=22.0.0"
+    "tailwindcss-animate": "^1",
+    "typescript": "^5"
   }
 }

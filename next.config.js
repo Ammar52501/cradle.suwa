@@ -43,20 +43,20 @@ const headers = isDev
             value: "same-origin",
           },
           {
-            key: "Referrer-Policy",
-            value: "no-referrer",
+            key: "Cross-Origin-Embedder-Policy",
+            value: "credentialless",
           },
           {
             key: "Cross-Origin-Resource-Policy",
             value: `same-origin`,
           },
           {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "credentialless",
-          },
-          {
             key: "X-Content-Type-Options",
             value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "no-referrer",
           },
           {
             key: "Strict-Transport-Security",
