@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "node scripts/check-node-version.js",
     "dev": "next dev",
-    "build": "next build",
+    "build": "bun run --bun next build",
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export"

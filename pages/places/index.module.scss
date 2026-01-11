@@ -329,7 +329,8 @@
 // Slider
 .slider_container {
   padding-top: 20px;
-
+  position: relative;
+  transform: translateY(-50%);
   .slider {
     margin-top: 20px;
     display: flex;

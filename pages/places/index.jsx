@@ -36,40 +36,6 @@ const Places = ({
   const router = useRouter();
 
   useEffect(() => {
-    console.log("isImageLoading test");
-  }, [isImageLoading]);
-  useEffect(() => {
-    console.log("activeIndex test", activeIndex);
-  }, [activeIndex]);
-  useEffect(() => {
-    console.log("activeCity test", activeCity);
-  }, [activeCity]);
-  useEffect(() => {
-    console.log("places test", places);
-  }, [places]);
-  useEffect(() => {
-    console.log("cityData test", cityData);
-  }, [cityData]);
-  useEffect(() => {
-    console.log("poetriesData test", poetriesData);
-  }, [poetriesData]);
-  useEffect(() => {
-    console.log("activeIndex test", activeIndex);
-  }, [activeIndex]);
-  useEffect(() => {
-    console.log("activeLand test", activeLand);
-  }, [activeLand]);
-  useEffect(() => {
-    console.log("isPointsActive test", isPointsActive);
-  }, [isPointsActive]);
-  useEffect(() => {
-    console.log("isDesckTop test", isDesckTop);
-  }, [isDesckTop]);
-  useEffect(() => {
-    console.log("isSafari test", isSafari);
-  }, [isSafari]);
-
-  useEffect(() => {
     const elements = document.querySelectorAll(".land");
     elements.forEach((element, index) => {
       element.setAttribute("id", `land-${index}`);
@@ -273,7 +239,7 @@ const Places = ({
                 }}
                 dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
                 pagination={true}
-                className="mySwiper"
+                className="mySwiper [&>div]:justify-center"
               >
                 {dataAllCitiesMap?.map((city, index) => (
                   <SwiperSlide key={index}>
