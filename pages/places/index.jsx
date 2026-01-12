@@ -239,7 +239,7 @@ const Places = ({
                 }}
                 dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
                 pagination={true}
-                className="mySwiper [&>div]:justify-center"
+                className="mySwiper lg:[&>div]:justify-center"
               >
                 {dataAllCitiesMap?.map((city, index) => (
                   <SwiperSlide key={index}>
