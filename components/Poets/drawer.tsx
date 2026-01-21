@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/drawer";
 import { LeftArrow } from "@/assets/svgsComponents";
 import PoetsSlider from "../PoetsSlider";
-
 import Image from "next/image";
 import Link from "next/link";
 const DrawerPoets = ({
