@@ -218,6 +218,7 @@ const Poets = ({
     setCityData(null);
     setIsLayerActive(false);
   }, [setCityData, setIsLayerActive]);
+
   return (
     <>
       <section
@@ -397,7 +398,8 @@ const Poets = ({
                           <h3>{cityData?.name}</h3>
 
                           <div className={styles.desc}>
-                            <p>{cityData?.descriptionShort}</p>
+                            {/* <p>{cityData?.descriptionShort}</p> */}
+                            <p>{poetriesData[0]?.entrance}</p>
                             <div className={styles.more}>
                               <span>
                                 {allStaticWords?.moreAbout} {cityData?.name}
