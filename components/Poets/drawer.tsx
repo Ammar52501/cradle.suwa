@@ -49,7 +49,8 @@ const DrawerPoets = ({
             </DrawerTitle>
             <DrawerDescription>
               <p className="text-muted-foreground text-base">
-                {cityData?.descriptionShort}
+                {/* {cityData?.descriptionShort} */}
+                {poetriesData[0]?.entrance}
               </p>
               <Link
                 href={`/city/${cityData?.id}?poetId=${activePoetId}`}
