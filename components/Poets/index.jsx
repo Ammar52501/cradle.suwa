@@ -399,7 +399,7 @@ const Poets = ({
 
                           <div className={styles.desc}>
                             {/* <p>{cityData?.descriptionShort}</p> */}
-                            <p>{poetriesData[0]?.entrance}</p>
+                            <p>{poetriesData?.[0]?.entrance}</p>
                             <div className={styles.more}>
                               <span>
                                 {allStaticWords?.moreAbout} {cityData?.name}

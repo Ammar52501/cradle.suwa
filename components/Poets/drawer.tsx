@@ -50,7 +50,7 @@ const DrawerPoets = ({
             <DrawerDescription>
               <p className="text-muted-foreground text-base">
                 {/* {cityData?.descriptionShort} */}
-                {poetriesData[0]?.entrance}
+                {poetriesData?.[0]?.entrance}
               </p>
               <Link
                 href={`/city/${cityData?.id}?poetId=${activePoetId}`}
