@@ -165,7 +165,7 @@ const Poets = ({
     const filteredPoetries = dataAllPoetries?.filter(
       (poetry) =>
         poetry.placeId === placeId &&
-        poetry.poetId === dataPoetsByEra[activePoet]?.id
+        poetry.poetId === dataPoetsByEra[activePoet]?.id,
     );
     setCityData(filtredPlaces);
     setIsLayerActive(true);
@@ -181,6 +181,17 @@ const Poets = ({
     setActivePoetId(poetID);
     setPlaces(poetPlaces);
     setIsMapLoading(false);
+    const element = document.getElementById("map-boxes");
+    if (element) {
+      setTimeout(() => {
+        if (window.innerWidth > 992) {
+          element.scrollIntoView({ behavior: "smooth" });
+        } else {
+          const y = element.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 100);
+    }
   };
   const popUpRef = useRef(null);
   useEffect(() => {
@@ -201,7 +212,7 @@ const Poets = ({
       setCityData(null);
       setIsLayerActive(false);
     },
-    [setCityData, setIsLayerActive]
+    [setCityData, setIsLayerActive],
   );
   const onClose = useCallback(() => {
     setCityData(null);
@@ -221,7 +232,7 @@ const Poets = ({
             transition={{ duration: 1 }}
             className={styles.sec_container}
           >
-            <div className={styles.filter_btn} onClick={toggleFilter}>
+            {/* <div className={styles.filter_btn} onClick={toggleFilter}>
               <motion.div
                 animate={{ opacity: 1 }}
                 initial={{ opacity: 0 }}
@@ -233,7 +244,7 @@ const Poets = ({
               <p className={isFilterActive && styles.active}>
                 {translationsFromContext.poetswholivedintheKingdomofSaudiArabia}
               </p>
-            </div>
+            </div> */}
             <div className={styles.tags_slider} id="carosuel">
               <Swiper
                 breakpoints={{

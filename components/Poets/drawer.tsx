@@ -52,7 +52,7 @@ const DrawerPoets = ({
                 {cityData?.descriptionShort}
               </p>
               <Link
-                href={`/city/${cityData?.id}`}
+                href={`/city/${cityData?.id}?poetId=${activePoetId}`}
                 className="flex items-center space-x-2 mt-2 text-secondary"
               >
                 <span className="text-base font-bold">

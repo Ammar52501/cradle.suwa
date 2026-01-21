@@ -206,7 +206,8 @@
         overflow-y: scroll;
         top: 0px !important;
         padding: 11px;
-        box-shadow: 0px 5px 14px 0 rgba(0, 0, 0, 0.14),
+        box-shadow:
+          0px 5px 14px 0 rgba(0, 0, 0, 0.14),
           inset 0 3px 14px 0 rgba(0, 0, 0, 0.14);
       }
       .box_container {
@@ -329,8 +330,6 @@
 // Slider
 .slider_container {
   padding-top: 20px;
-  position: relative;
-  transform: translateY(-50%);
   .slider {
     margin-top: 20px;
     display: flex;
@@ -444,7 +443,8 @@
   z-index: 22;
   border: 0.88px solid rgba(229, 230, 242, 1);
 
-  background: linear-gradient(
+  background:
+    linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0.3),
       rgba(255, 255, 255, 0.3)

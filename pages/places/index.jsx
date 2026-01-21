@@ -94,7 +94,7 @@ const Places = ({
       //   });
       // }
     },
-    [router.locale, dataAllCitiesMap, activeLand]
+    [router.locale, dataAllCitiesMap, activeLand],
   );
 
   useEffect(() => {
@@ -130,7 +130,7 @@ const Places = ({
     // Proceed only if filtredPlaces is not null
     if (filtredPlaces) {
       const filteredPoetries = dataAllPoetries.filter(
-        (poetry) => poetry.placeId === placeId
+        (poetry) => poetry.placeId === placeId,
       );
 
       setCityData(filtredPlaces);
@@ -145,7 +145,7 @@ const Places = ({
       if (isOpen) return;
       setCityData(null);
     },
-    [setCityData]
+    [setCityData],
   );
   const popUpRef = useRef(null);
   useEffect(() => {
@@ -239,7 +239,7 @@ const Places = ({
                 }}
                 dir={`${router.locale === "ar" ? "rtl" : "ltr"}`}
                 pagination={true}
-                className="mySwiper lg:[&>div]:justify-center"
+                className="mySwiper"
               >
                 {dataAllCitiesMap?.map((city, index) => (
                   <SwiperSlide key={index}>
@@ -526,13 +526,13 @@ export async function getStaticProps({ locale }) {
   const langId = process.env[langIdEnvKey];
 
   const resTranslations = await fetch(
-    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
+    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`,
   );
   const translations = await resTranslations.json();
 
   try {
     const resAllPlaces = await fetch(
-      `${apiDomain}/api/Makan/GetMakanFullData?lang=${langId}`
+      `${apiDomain}/api/Makan/GetMakanFullData?lang=${langId}`,
     );
     if (!resAllPlaces.ok) {
       throw new Error(`Failed to fetch places: ${resAllPlaces.status}`);
@@ -541,7 +541,7 @@ export async function getStaticProps({ locale }) {
 
     // Fetch all poetries
     const resAllPoetries = await fetch(
-      `${apiDomain}/api/Poetries/GetAllPoetries?lang=${langId}&pagenum=1&pagesize=900`
+      `${apiDomain}/api/Poetries/GetAllPoetries?lang=${langId}&pagenum=1&pagesize=900`,
     );
     if (!resAllPoetries.ok) {
       throw new Error(`Failed to fetch poetries: ${resAllPoetries.status}`);
@@ -550,7 +550,7 @@ export async function getStaticProps({ locale }) {
 
     // Fetch all cities map
     const resAllCitiesMap = await fetch(
-      `${apiDomain}/api/Makan/GetAllCities?type=6&lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`
+      `${apiDomain}/api/Makan/GetAllCities?type=6&lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`,
     );
 
     if (!resAllCitiesMap.ok) {
