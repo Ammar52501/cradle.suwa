@@ -138,6 +138,18 @@ const nextConfig = {
       ],
     };
   },
+  async redirects() {
+    // تحويل من الصفحة الرئيسية إلى PREFIX إذا كان موجود
+    if (!PREFIX) return [];
+    return [
+      {
+        source: `/`,
+        destination: `${PREFIX}`,
+        basePath: false,
+        permanent: false,
+      },
+    ];
+  },
   i18n: {
     defaultLocale: "ar",
     locales: ["ar", "en"],
@@ -146,7 +158,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  basePath: "/cradle",
+  basePath: PREFIX,
 };
 
 module.exports = nextConfig;
