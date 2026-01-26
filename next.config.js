@@ -101,6 +101,8 @@ const headers = isDev
         ],
       },
     ];
+const PREFIX = process.env.NEXT_PUBLIC_APP_DOMAIN_PREFIX || "";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -122,15 +124,29 @@ const nextConfig = {
   async headers() {
     return headers;
   },
+  async rewrites() {
+    // rewrite لحل مشكلة الصور في CSS عند استخدام basePath
+    // basePath: false يتطلب destination خارجي (http/https)
+    if (!PREFIX) return [];
+    return {
+      beforeFiles: [
+        {
+          source: `/assets/:path*`,
+          destination: `${PUBLIC_URL}${PREFIX}/assets/:path*`,
+          basePath: false,
+        },
+      ],
+    };
+  },
   i18n: {
     defaultLocale: "ar",
     locales: ["ar", "en"],
-    localeDetection: false,
   },
   devIndicators: false,
   typescript: {
     ignoreBuildErrors: true,
   },
+  basePath: "/cradle",
 };
 
 module.exports = nextConfig;

@@ -164,7 +164,7 @@ const Navbar = () => {
                 >
                   <p>{translationsFromContext.poetryarchive}</p>
                   <div className={styles.icon_container}>
-                    <img src={"/assets/imgs/PoetsTreasury.webp"} alt="" />
+                    <Image width={1000} height={1000} src={"/assets/imgs/PoetsTreasury.webp"} alt="" />
                   </div>
                 </Link>
                 <Link
@@ -186,7 +186,7 @@ const Navbar = () => {
                 >
                   <p>{translationsFromContext.poets}</p>
                   <div className={styles.icon_container}>
-                    <img src={"/assets/imgs/potriesIcon.webp"} alt="" />
+                    <Image width={1000} height={1000} src={"/assets/imgs/potriesIcon.webp"} alt="" />
                   </div>
                 </Link>
               </div>

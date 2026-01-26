@@ -42,13 +42,13 @@ const LiteraryBanner = (props) => {
           </Container>
           <div className={styles.imags_container}>
             <div className={styles.right_branch}>
-              <img src={"/assets/imgs/right_branch.webp"} alt="" />
+              <Image src={"/assets/imgs/right_branch.webp"} alt="" width={1000} height={1000}/>
             </div>
             <div className={styles.left_branch}>
-              <img src={"/assets/imgs/left_branch.webp"} alt="" />
+              <Image src={"/assets/imgs/left_branch.webp"} alt="" width={1000} height={1000}/>
             </div>
             <div className={styles.horse}>
-              <img src={"/assets/imgs/horse.webp"} alt="" />
+              <Image src={"/assets/imgs/horse.webp"} alt="" width={1000} height={1000}/>
             </div>
             <div className={styles.mountains}>
               <Mountains />

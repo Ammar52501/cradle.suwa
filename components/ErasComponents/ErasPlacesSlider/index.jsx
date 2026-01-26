@@ -30,7 +30,7 @@ const ErasPlacesSlider = ({
     filteredPlaces?.reduce((acc, city) => {
       acc[city.id] = city.icon ? true : false;
       return acc;
-    }, {})
+    }, {}),
   );
 
   useEffect(() => {
@@ -66,11 +66,7 @@ const ErasPlacesSlider = ({
   };
 
   const adjustImageUrl = (imageUrl) => {
-    if (imageUrl?.startsWith("https")) {
-      return imageUrl;
-    } else {
-      return `${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}${imageUrl}`;
-    }
+    return imageUrl;
   };
 
   const handleImageLoad = (cityId) => {
@@ -135,7 +131,7 @@ const ErasPlacesSlider = ({
                       style={{
                         display: imageLoadingStates[city.id] ? "none" : "block",
                       }}
-                      src={adjustImageUrl(city?.icon)}
+                      src={city?.icon}
                       alt={city?.name}
                       onLoad={() => handleImageLoad(city.id)}
                     />
@@ -225,7 +221,7 @@ const ErasPlacesSlider = ({
                       style={{
                         display: imageLoadingStates[city.id] ? "none" : "block",
                       }}
-                      src={adjustImageUrl(city?.icon)}
+                      src={city?.icon}
                       alt={city?.name}
                       onLoad={() => handleImageLoad(city.id)}
                     />

@@ -61,13 +61,13 @@ const Treasury = ({ sectionData }) => {
       <header id={stylesMain.header}>
         <div className={stylesMain.sec_title}>
           <div className={stylesMain.img_container}>
-            <img src={"/assets/imgs/star.webp"} alt="star" />
+            <Image src={"/assets/imgs/star.webp"} alt="star" />
           </div>
 
           <h1 className="rtl:font-req3a rtl:-mt-3">{sectionPageData.name}</h1>
 
           <div className={stylesMain.img_container}>
-            <img src={"/assets/imgs/star.webp"} alt="star" />
+            <Image src={"/assets/imgs/star.webp"} alt="star" />
           </div>
         </div>
       </header>
@@ -194,13 +194,13 @@ const Treasury = ({ sectionData }) => {
               className={stylesPage.middle}
             >
               {router.query.id === "1" && (
-                <img src={"/assets/imgs/docs_1.webp"} alt="" />
+                <Image src={"/assets/imgs/docs_1.webp"} alt="" />
               )}
               {router.query.id === "2" && (
-                <img src={"/assets/imgs/docs_2.webp"} alt="" />
+                <Image src={"/assets/imgs/docs_2.webp"} alt="" />
               )}
               {router.query.id === "3" && (
-                <img src={"/assets/imgs/docs_3.webp"} alt="" />
+                <Image src={"/assets/imgs/docs_3.webp"} alt="" />
               )}
             </motion.div>
           </div>

@@ -40,21 +40,21 @@ const LiteraryEras = ({ erasAllEras, translations }) => {
 
             <div className={styles.imags_container}>
               <div className={styles.right_branch}>
-                <img
+                <Image
                   src={"/assets/imgs/right_branch.webp"}
                   objectFit="contain"
                   alt=""
                 />
               </div>
               <div className={styles.left_branch}>
-                <img
+                <Image
                   src={"/assets/imgs/left_branch.webp"}
                   objectFit="contain"
                   alt=""
                 />
               </div>
               <div className={styles.horse}>
-                <img
+                <Image
                   src={"/assets/imgs/horse.webp"}
                   objectFit="contain"
                   alt=""

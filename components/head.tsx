@@ -3,17 +3,19 @@ import Head from "next/head";
 import { Fragment, memo, useMemo } from "react";
 import { PUBLIC_URL } from "@/constants";
 
+const PREFIX = process.env.NEXT_PUBLIC_APP_DOMAIN_PREFIX || "";
+
 const metadata = {
   appCapable: "no",
   themeColor: primaryColor,
   colorScheme: "light",
-  appleTouchIcon: "/assets/imgs/logo180.png",
+  appleTouchIcon: `${PREFIX}/assets/imgs/logo180.png`,
   mobileWebAppCapable: "no",
   og: {
     height: "630",
     width: "1200",
     imageType: "image/png",
-    url: `${PUBLIC_URL}/og.png`,
+    url: `${PUBLIC_URL}${PREFIX}/og.png`,
     type: "website",
   },
   twitter: {
@@ -104,7 +106,7 @@ const StaticHead = memo(() => {
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover, user-scalable=yes"
       />
-      <link rel="icon" href="/favicon.ico" sizes="256x256" />
+      <link rel="icon" href={`${PREFIX}/favicon.ico`} sizes="256x256" />
       {!!metadata.appleTouchIcon && (
         <link rel="apple-touch-icon" href={metadata.appleTouchIcon} />
       )}

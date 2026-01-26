@@ -29,42 +29,7 @@
   }
 }
 
-/* Effra Font */
-@font-face {
-  font-family: "Effra";
-  src: url("/fonts/Effra_Rg.ttf") format("truetype");
-  font-weight: 400; /* Regular */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Effra";
-  src: url("/fonts/Effra_Md.ttf") format("truetype");
-  font-weight: 500; /* Medium */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Effra";
-  src: url("/fonts/Effra-Bold.ttf") format("truetype");
-  font-weight: 700; /* Bold */
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Effra";
-  src: url("/fonts/Effra_Heavy.ttf") format("truetype");
-  font-weight: 800; /* Heavy */
-  font-style: normal;
-}
-
-/* Custom Font */
-@font-face {
-  font-family: "Custom";
-  src: url("/fonts/custom.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
+/* Fonts are now loaded via FontsHead component in _app.js to support basePath/PREFIX */
 
 main {
   overflow: hidden;
@@ -243,7 +208,9 @@ header {
   transition: -webkit-transform 0.5s;
   -o-transition: transform 0.5s;
   transition: transform 0.5s;
-  transition: transform 0.5s, -webkit-transform 0.5s;
+  transition:
+    transform 0.5s,
+    -webkit-transform 0.5s;
 }
 
 .city-name {
@@ -309,175 +276,6 @@ header {
     }
   }
 }
-// .land.activeLand:nth-child(1) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-
-// .land.activeLand:nth-child(2) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-
-// .land.activeLand:nth-child(3) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(4) {
-//   -webkit-transform: scale(1.04) translate(-15px, -14px) !important;
-//   -ms-transform: scale(1.04) translate(-15px, -14px) !important;
-
-//   transform: scale(1.04) translate(-15px, -14px) !important;
-// }
-// .land.activeLand:nth-child(5) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(6) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(7) {
-//   -webkit-transform: scale(1) translate(-2px, -11px) !important ;
-
-//   -ms-transform: scale(1) translate(-2px, -11px) !important ;
-//   transform: scale(1) translate(-2px, -11px) !important ;
-// }
-// .land.activeLand:nth-child(8) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(9) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(10) {
-//   -webkit-transform: scale(1.02) translate(-7px, -14px) !important;
-//   -ms-transform: scale(1.02) translate(-7px, -14px) !important;
-
-//   transform: scale(1.02) translate(-7px, -14px) !important;
-// }
-// .land.activeLand:nth-child(11) {
-//   -webkit-transform: scale(1.02) translate(-1px, -1px) !important;
-//   -ms-transform: scale(1.02) translate(-1px, -1px) !important;
-
-//   transform: scale(1.02) translate(-1px, -1px) !important;
-// }
-// .land.activeLand:nth-child(12) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-// .land.activeLand:nth-child(13) {
-//   -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//   -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-
-//   transform: scale(1.02) translate(-1%, -2%) !important;
-// }
-
-// .land.activeLand:nth-child(1) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(2) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(3) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-6px, -11px) !important;
-//     -ms-transform: scale(1.02) translate(-6px, -11px) !important;
-//     transform: scale(1.02) translate(-6px, -11px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(4) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-5px, -11px) !important;
-//     -ms-transform: scale(1.02) translate(-5px, -11px) !important;
-//     transform: scale(1.02) translate(-5px, -11px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(5) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.05) translate(-21px, -27px) !important;
-//     -ms-transform: scale(1.05) translate(-21px, -27px) !important;
-//     transform: scale(1.05) translate(-21px, -27px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(6) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(7) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translateX(-8px) translateY(-20px) !important;
-//     -ms-transform: scale(1.02) translateX(-8px) translateY(-20px) !important;
-//     transform: scale(1.02) translateX(-8px) translateY(-20px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(8) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(9) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(10) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.2) translate(-66px, -119px) !important;
-//     -ms-transform: scale(1.2) translate(-66px, -119px) !important;
-//     transform: scale(1.2) translate(-66px, -119px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(11) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-7px, -14px) !important;
-//     -ms-transform: scale(1.02) translate(-7px, -14px) !important;
-//     transform: scale(1.02) translate(-7px, -14px) !important;
-//   }
-// }
-// .land.activeLand:nth-child(12) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
-// .land.activeLand:nth-child(13) {
-//   @media screen and (max-width: 500px) {
-//     -webkit-transform: scale(1.02) translate(-1%, -2%) !important;
-//     -ms-transform: scale(1.02) translate(-1%, -2%) !important;
-//     transform: scale(1.02) translate(-1%, -2%) !important;
-//   }
-// }
 
 .land:hover,
 .land:focus {
