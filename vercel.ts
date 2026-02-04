@@ -6,7 +6,7 @@ export const config: VercelConfig = {
   installCommand: "bun install",
   rewrites: [
     routes.rewrite(
-      "https://cradle7.suwa.com.sa/assets/imgs/Literature.webp",
+      "/assets/imgs/Literature.webp",
       "https://cradle7.suwa.com.sa/cradle/assets/imgs/Literature.webp",
     ),
   ],
