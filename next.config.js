@@ -132,7 +132,7 @@ const nextConfig = {
       beforeFiles: [
         {
           source: `/assets/:path*`,
-          destination: `${PUBLIC_URL}${PREFIX}/assets/:path*`,
+          destination: `${process.env.NEXT_PUBLIC_APP_DOMAIN}${PREFIX}/assets/:path*`,
           basePath: false,
         },
       ],
@@ -144,6 +144,12 @@ const nextConfig = {
     return [
       {
         source: `/`,
+        destination: `${PREFIX}`,
+        basePath: false,
+        permanent: false,
+      },
+      {
+        source: ``,
         destination: `${PREFIX}`,
         basePath: false,
         permanent: false,
