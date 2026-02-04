@@ -124,17 +124,18 @@ const nextConfig = {
   async headers() {
     return headers;
   },
-  // async rewrites() {
-  //   return {
-  //     beforeFiles: [
-  //       {
-  //         source: `/assets/:path*`,
-  //         destination: `${process.env.NEXT_PUBLIC_APP_DOMAIN}${PREFIX}/assets/:path*`,
-  //         basePath: false,
-  //       },
-  //     ],
-  //   };
-  // },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: `/assets/:path*`,
+          destination: `${process.env.NEXT_PUBLIC_APP_DOMAIN}${PREFIX}/assets/:path*`,
+          basePath: false,
+          locale: false,
+        },
+      ],
+    };
+  },
   // async redirects() {
   //   return [
   //     {
@@ -148,6 +149,7 @@ const nextConfig = {
   i18n: {
     defaultLocale: "ar",
     locales: ["ar", "en"],
+    // localeDetection: false,
   },
   devIndicators: false,
   typescript: {
