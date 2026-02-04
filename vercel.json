@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/assets/:path*",
+      "destination": "https://cradle7.suwa.com.sa/cradle/assets/:path*"
+    }
+  ]
+}
