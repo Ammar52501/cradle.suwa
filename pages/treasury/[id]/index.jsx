@@ -26,7 +26,7 @@ const Treasury = ({ sectionData }) => {
     setGalleryOpen(true);
 
     setBackgroundFullScreen(
-      sectionPageData?.sliders[index]?.imagesVideos?.split(",")[0]
+      sectionPageData?.sliders[index]?.imagesVideos?.split(",")[0],
     );
     setImagesGallery(sectionPageData?.sliders[index]?.imagesVideos?.split(","));
   };
@@ -61,13 +61,23 @@ const Treasury = ({ sectionData }) => {
       <header id={stylesMain.header}>
         <div className={stylesMain.sec_title}>
           <div className={stylesMain.img_container}>
-            <Image src={"/assets/imgs/star.webp"} alt="star" />
+            <Image
+              src={"/assets/imgs/star.webp"}
+              alt="star"
+              width={1000}
+              height={1000}
+            />
           </div>
 
           <h1 className="rtl:font-req3a rtl:-mt-3">{sectionPageData.name}</h1>
 
           <div className={stylesMain.img_container}>
-            <Image src={"/assets/imgs/star.webp"} alt="star" />
+            <Image
+              src={"/assets/imgs/star.webp"}
+              alt="star"
+              width={1000}
+              height={1000}
+            />
           </div>
         </div>
       </header>
@@ -194,13 +204,28 @@ const Treasury = ({ sectionData }) => {
               className={stylesPage.middle}
             >
               {router.query.id === "1" && (
-                <Image src={"/assets/imgs/docs_1.webp"} alt="" />
+                <Image
+                  src={"/assets/imgs/docs_1.webp"}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                />
               )}
               {router.query.id === "2" && (
-                <Image src={"/assets/imgs/docs_2.webp"} alt="" />
+                <Image
+                  src={"/assets/imgs/docs_2.webp"}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                />
               )}
               {router.query.id === "3" && (
-                <Image src={"/assets/imgs/docs_3.webp"} alt="" />
+                <Image
+                  src={"/assets/imgs/docs_3.webp"}
+                  alt=""
+                  width={1000}
+                  height={1000}
+                />
               )}
             </motion.div>
           </div>
@@ -216,7 +241,7 @@ export async function getStaticPaths() {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 
   const response = await fetch(
-    `${apiDomain}/api/Media/GetAllMainTopics?lang=2&withPlaces=true&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Media/GetAllMainTopics?lang=2&withPlaces=true&pagenum=1&pagesize=50`,
   );
 
   const data = await response.json();
@@ -237,7 +262,7 @@ export async function getStaticProps({ params, locale }) {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 
   const resPageData = await fetch(
-    `${apiDomain}/api/Media/GetAllMainTopics?lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`
+    `${apiDomain}/api/Media/GetAllMainTopics?lang=${langId}&withPlaces=true&pagenum=1&pagesize=50`,
   );
   const dataPageData = await resPageData.json();
 
@@ -245,7 +270,7 @@ export async function getStaticProps({ params, locale }) {
   const sectionData = dataPageData.filter((topic) => topic.id === numericId);
 
   const resTranslations = await fetch(
-    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
+    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`,
   );
   const translations = await resTranslations.json();
 

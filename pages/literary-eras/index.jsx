@@ -44,6 +44,8 @@ const LiteraryEras = ({ erasAllEras, translations }) => {
                   src={"/assets/imgs/right_branch.webp"}
                   objectFit="contain"
                   alt=""
+                  width={1000}
+                  height={1000}
                 />
               </div>
               <div className={styles.left_branch}>
@@ -51,6 +53,8 @@ const LiteraryEras = ({ erasAllEras, translations }) => {
                   src={"/assets/imgs/left_branch.webp"}
                   objectFit="contain"
                   alt=""
+                  width={1000}
+                  height={1000}
                 />
               </div>
               <div className={styles.horse}>
@@ -58,6 +62,8 @@ const LiteraryEras = ({ erasAllEras, translations }) => {
                   src={"/assets/imgs/horse.webp"}
                   objectFit="contain"
                   alt=""
+                  width={1000}
+                  height={1000}
                 />
               </div>
               <div className={styles.mountains}>
@@ -147,13 +153,13 @@ export async function getStaticProps({ locale }) {
   const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 
   const resTranslations = await fetch(
-    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`
+    `${apiDomain}/api/Settings/GetStaticWords?lang=${langId}`,
   );
   const translations = await resTranslations.json();
 
   try {
     const resAllEras = await fetch(
-      `${apiDomain}/api/Zaman/GetAllEras?lang=${langId}&pagenum=1&pagesize=50`
+      `${apiDomain}/api/Zaman/GetAllEras?lang=${langId}&pagenum=1&pagesize=50`,
     );
 
     if (!resAllEras.ok) {

@@ -101,7 +101,7 @@ const headers = isDev
         ],
       },
     ];
-const PREFIX = process.env.NEXT_PUBLIC_APP_DOMAIN_PREFIX || "";
+const PREFIX = "/cradle";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -125,9 +125,6 @@ const nextConfig = {
     return headers;
   },
   async rewrites() {
-    // rewrite لحل مشكلة الصور في CSS عند استخدام basePath
-    // basePath: false يتطلب destination خارجي (http/https)
-    if (!PREFIX) return [];
     return {
       beforeFiles: [
         {
@@ -138,18 +135,16 @@ const nextConfig = {
       ],
     };
   },
-  async redirects() {
-    // تحويل من الصفحة الرئيسية إلى PREFIX إذا كان موجود
-    if (!PREFIX) return [];
-    return [
-      {
-        source: `/`,
-        destination: `${PREFIX}`,
-        basePath: false,
-        permanent: false,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: `/`,
+  //       destination: `${PREFIX}`,
+  //       permanent: false,
+  //       locale: false,
+  //     },
+  //   ];
+  // },
   i18n: {
     defaultLocale: "ar",
     locales: ["ar", "en"],
