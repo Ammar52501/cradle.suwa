@@ -148,12 +148,6 @@ const nextConfig = {
         basePath: false,
         permanent: false,
       },
-      {
-        source: ``,
-        destination: `${PREFIX}`,
-        basePath: false,
-        permanent: false,
-      },
     ];
   },
   i18n: {
