@@ -124,17 +124,17 @@ const nextConfig = {
   async headers() {
     return headers;
   },
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: `/assets/:path*`,
-          destination: `${process.env.NEXT_PUBLIC_APP_DOMAIN}${PREFIX}/assets/:path*`,
-          basePath: false,
-        },
-      ],
-    };
-  },
+  // async rewrites() {
+  //   return {
+  //     beforeFiles: [
+  //       {
+  //         source: `/assets/:path*`,
+  //         destination: `${process.env.NEXT_PUBLIC_APP_DOMAIN}${PREFIX}/assets/:path*`,
+  //         basePath: false,
+  //       },
+  //     ],
+  //   };
+  // },
   // async redirects() {
   //   return [
   //     {
