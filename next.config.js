@@ -136,16 +136,6 @@ const nextConfig = {
       ],
     };
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: `/`,
-  //       destination: `${PREFIX}`,
-  //       permanent: false,
-  //       locale: false,
-  //     },
-  //   ];
-  // },
   i18n: {
     defaultLocale: "ar",
     locales: ["ar", "en"],
